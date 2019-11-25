@@ -1,0 +1,106 @@
+@import '../../../assets/helpers/styles/variables';
+@import '../../../assets/helpers/styles/mixins';
+@import '../../../assets/helpers/styles/medias';
+.categories-container {
+  .categories-container-header{
+    background-color: $main-dark-bg-color;
+    color: #fff;
+    padding: 10px 10px 10px 25px;
+    h4{
+      font-size: 20px;
+      margin-bottom: 0;
+      text-transform: uppercase;
+    }
+  }
+  .categories-container-body {
+    > ul {
+      padding: 0;
+      > li {
+        position: relative;
+        &:before{
+          content: '';
+          left: 0;
+          height: 100%;
+          background-color: $main-grey-slow-bg-color;
+          width: 1px;
+          position: absolute;
+          top: 0;
+        }
+        > a {
+          @include transition(.3);
+          &:hover {
+            background-color: $main-grey-bg-color;
+          }
+          .dropdown_arrow{
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            text-align: center;
+            &:hover{
+              font-weight: 600;
+            }
+            &:before{
+              font-size: 0.64rem;
+              content: "\e874";
+              font-family: Linearicons-Free;
+              height: 10px;
+              width: 10px;
+              display: inline-block;
+            }
+          }
+
+          text-decoration: none;
+          padding: 7px 10px 7px 20px;
+          text-transform: uppercase;
+          font-size: 0.825rem;
+          color: $font-color;
+          border-right: none !important;
+          background-color: $main-grey-slow-bg-color;
+          border-bottom: 1px solid $main-border-grey-color;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .submenu_dropdown{
+          list-style-type: none;
+          padding-left: 10px;
+          max-height: 0;
+          overflow: hidden;
+          @include transition(.3);
+          > li {
+            > a {
+              position: relative;
+              @include transition(.3);
+              &:hover {
+                background-color: $main-grey-slow-bg-color;
+              }
+              &:before{
+                content: '';
+                position: absolute;
+                left: -10px;
+                width: 10px;
+                height: 1px;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                background-color: $main-grey-slow-bg-color;
+              }
+              border-bottom: 1px solid $main-grey-slow-bg-color;
+              color: $font-color;
+              text-decoration: none;
+              font-size: 0.84rem;
+              background-color: $main-grey-very-slow-bg-color;
+              display: block;
+              padding: 5px 10px 5px 15px;
+            }
+            &:last-child {
+              > a{
+                border-bottom: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@mixin paddingResponsive ($x, $y){
+  padding: $x + vh $y + vh;
+  @media screen and (max-width: 991px){
+    padding: $x + vw $y + vw;
+  }
+}
+@mixin transition ($time) {
+  -webkit-transition: $time + s;
+  -moz-transition: $time + s;
+  -ms-transition: $time + s;
+  -o-transition: $time + s;
+  transition: $time + s;
+}

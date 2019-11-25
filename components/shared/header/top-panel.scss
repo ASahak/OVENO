@@ -1,0 +1,60 @@
+@import '../../../assets/helpers/styles/variables';
+.tp_panel_container{
+  font-size: 0.8125rem;
+  background-color: $main-grey-bg-color;
+  :global(.row){
+    padding: 7px 0;
+  }
+  .lang_bar{
+    position: relative;
+    .selected_lang_bar{
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      img{
+        max-width: 20px;
+        margin-right: 10px;
+      }
+      i{
+        margin-left: 5px;
+      }
+    }
+    .leftovers_language_bar{
+      position: absolute;
+      left: 0;
+      top: calc(100% + 7.5px);
+      padding: 0;
+      margin-bottom: 0;
+      box-shadow: $gloabal-shadow;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.87, -0.41, 0.19, 1.44);
+      -webkit-transform: scale(0.8);
+      transform: scale(0.8);
+      z-index: 222;
+      > li{
+        cursor: pointer;
+        padding: 6px 14px;
+        display: flex;
+        align-items: center;
+        img{
+          margin-right: 10px;
+          max-width: 20px;
+        }
+      }
+    }
+  }
+  .right_bar{
+    > ul{
+      > li{
+        margin: 0 5px;
+        a{
+          color: $font-color;
+        }
+      }
+      >li:last-child{
+        margin-right: 0;
+      }
+    }
+  }
+}
