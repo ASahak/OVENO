@@ -1,6 +1,3 @@
-@import '../../../assets/helpers/styles/variables';
-@import '../../../assets/helpers/styles/mixins';
-@import '../../../assets/helpers/styles/medias';
 .middle_content_header{
   background-color: $main-grey-slow-bg-color;
   @include paddingResponsive(3, 0);

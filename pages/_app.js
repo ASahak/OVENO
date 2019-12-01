@@ -1,7 +1,7 @@
 import React from 'react'
 import App from 'next/app';
 import DefaultLayout from '../components/shared/default';
-// import '../assets/helpers/styles/_main.scss'
+import '../assets/helpers/styles/_main.scss'
 
 // Style objects already defined
 

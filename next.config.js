@@ -8,7 +8,8 @@ const resourcesLoader = {
     options: {
         resources: [
             './assets/helpers/styles/_variables.scss',
-            './assets/helpers/styles/_mixins.scss'
+            './assets/helpers/styles/_mixins.scss',
+            './assets/helpers/styles/_medias.scss',
         ]
     }
 };

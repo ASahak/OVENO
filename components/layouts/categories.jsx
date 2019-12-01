@@ -1,6 +1,6 @@
 import React, {Fragment, useState} from 'react'
-import './categories.scss'
-import { NavLink } from 'react-router-dom'
+import classes from './categories.scss'
+import Link from 'next/link'
 export default class Categories extends React.Component {
     constructor(props) {
         super(props);
@@ -98,11 +98,11 @@ export default class Categories extends React.Component {
         }
     }
     render () {
-        return <div className="categories-container">
-            <div className="categories-container-header">
+        return <div className={classes["categories-container"]}>
+            <div className={classes["categories-container-header"]}>
                 <h4>Categories</h4>
             </div>
-            <div className="categories-container-body">
+            <div className={classes["categories-container-body"]}>
                 <ul type="none" ref={this.categoryRef}>
                     <Li data={this._categoriesList} parent={this.categoryRef}/>
                 </ul>
@@ -119,15 +119,15 @@ const Li = function ({data, parent}) {
         setOpen(open = parent.current.children[index] && parent.current.children[index].classList.contains('openItemDropdown'))
         parent.current.children[index].classList[!open ? 'add' : 'remove']('openItemDropdown')
         !open ?
-            parent.current.children[index].querySelectorAll('.submenu_dropdown > li').forEach(_ => setHeight(height+=_.getBoundingClientRect().height))
+            parent.current.children[index].querySelectorAll('.' + classes["submenu_dropdown"] + ' > li').forEach(_ => setHeight(height+=_.getBoundingClientRect().height))
             : setHeight(height = 0)
-        parent.current.children[index].querySelector('.submenu_dropdown').style.maxHeight = height + 'px'
+        parent.current.children[index].querySelector('.' + classes["submenu_dropdown"]).style.maxHeight = height + 'px'
     }
     if (data instanceof Object) {
         const _li = Object.keys(data).map((_el, index) => {
             const display = (data[_el].link.pathname
-                    ? <NavLink to={data[_el].link.pathname}>{data[_el].text} {(data[_el].hasOwnProperty('data') && Object.keys(data[_el].data).length > 0) ?
-                        <span className="dropdown_arrow" onClick={e => openSubMenu(e, index)}></span> : ''}</NavLink>
+                    ? <Link href={data[_el].link.pathname}><a>{data[_el].text} {(data[_el].hasOwnProperty('data') && Object.keys(data[_el].data).length > 0) ?
+                        <span className={classes["dropdown_arrow"]} onClick={e => openSubMenu(e, index)}></span> : ''}</a></Link>
                     : <span>{data[_el].text}</span>
             )
             let subMenu;
@@ -137,7 +137,7 @@ const Li = function ({data, parent}) {
             return (
                 <li key={ index }>
                     { display }
-                    {subMenu ? <ul className="submenu_dropdown">{subMenu}</ul> : ''}
+                    {subMenu ? <ul className={classes["submenu_dropdown"]}>{subMenu}</ul> : ''}
                 </li>
             )
         })
