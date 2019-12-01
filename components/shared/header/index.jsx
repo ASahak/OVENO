@@ -1,6 +1,6 @@
 import TopPanel from './top-panel'
 import MiddleWrap from './middleWrap'
-// import NavBar from './navBar'
+import NavBar from './navBar'
 import React from 'react'
 
 export default class IndexHeader extends React.Component {
@@ -13,7 +13,7 @@ export default class IndexHeader extends React.Component {
             <div className="header_ovo">
                 <TopPanel />
                 <MiddleWrap />
-                {/*<NavBar />*/}
+                <NavBar />
             </div>
         )
     }

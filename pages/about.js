@@ -1,8 +1,13 @@
 import React from 'react'
-import About from './about'
+import Head from "next/head";
 const aboutPage = (() => {
     return (
-        <About/>
+        <div>
+            <Head>
+                <title>Home</title>
+            </Head>
+            <div>About page</div>
+        </div>
     )
 })
 export default aboutPage
