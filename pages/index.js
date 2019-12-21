@@ -18,7 +18,7 @@ const IndexPage = () => (
                     <HomeSlider
                         autoplay={true}
                         dots={true}
-                        timer={3000}
+                        timer={5000}
                     />
                 </Col>
             </Row>
