@@ -44,6 +44,7 @@
         > img {
           width: 100%;
           height: 100%;
+          pointer-events: none;
           object-fit: cover;
         }
       }
@@ -63,7 +64,7 @@
         opacity: .5;
         height: 3px;
         width: 10px;
-        background-color: #fff;
+        background-color: $main-bg-color;
         display: inline-block;
         margin: 0 2px;
         cursor: pointer;
@@ -76,3 +77,23 @@
     }
   }
 }
+
+:global {
+  .spinner_wrapper {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 222;
+    .circle {
+      display: block;
+      width:30px;
+      height: 30px;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      background: conic-gradient($main-bg-color 0%, 0, #f4f4f4 66%);
+    }
+  }
+}
+
+// ___________
