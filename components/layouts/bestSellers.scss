@@ -1,0 +1,94 @@
+.best-sellers-wrapper {
+  &-head {
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    background-color: #191919;
+    color: #fff;
+    padding: 10px 10px 10px 25px;
+    h4 {
+      font-size: 20px;
+      margin-bottom: 0;
+      text-transform: uppercase;
+    }
+    p {
+      margin-bottom: 0;
+      display: flex;
+      align-items: center;
+      :global{
+        .lnr-play-pause{
+          display: inline-block;
+          border: 0;
+          background: transparent;
+          box-sizing: border-box;
+          width: 0;
+          margin:0 3px;
+          height: 15px;
+          border-color: transparent transparent transparent #fff;
+          transition: 100ms all ease;
+          cursor: pointer;
+          border-style: solid;
+          border-width: 7.5px 0 7.5px 10px;
+
+          &:hover {
+            border-color: transparent transparent transparent #c0c0c0;
+          }
+        }
+        span.lnr {
+          font-size: 14px;
+          font-weight: 600;
+          cursor: pointer;
+        }
+        .paused {
+          border-style: double;
+          border-width: 0px 0 0px 10px;
+        }
+      }
+    }
+  }
+  &-content{
+    overflow:hidden;
+    border: 1px solid #dfdfdfa3;
+    .parent-scrolling{
+      transition: .4s linear;
+    }
+    .seller-item {
+      padding: 10px;
+      color: #141823;
+      border-bottom: solid 1px #ddd;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      > img {
+        width: 90px;
+        height: 90px;
+        object-fit: cover;
+      }
+      .seller-item-info {
+        width: calc(100% - 50px);
+        padding-left: 10px;
+        a {
+          word-wrap: break-word;
+          display: block;
+          font-size: 13px;
+          font-weight: 600;
+          color: #333;
+          line-height: 14px;
+          margin-bottom: .75rem;
+        }
+        del {
+          display: block;
+          font-size: 14px;
+          color: #888;
+          line-height: 10px;
+          font-weight: 600;
+        }
+        .seller-item-info-sale-price {
+          font-weight: 600;
+          font-size: 20px;
+          color: $main-price-color;
+        }
+      }
+    }
+  }
+}
