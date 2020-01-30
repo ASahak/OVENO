@@ -7,7 +7,7 @@ export default class MiddleWrap extends React.Component {
     constructor (props) {
         super(props);
         this.cartRef = React.createRef();
-        this._modal = new ModalToggle()
+        this._modal = new ModalToggle();
         this.state = {
             dataCart: [
                 {name: 'Shose 1', price: 400, count: 1, imgPath: require('../../../assets/images/phones/phone1.1.png')},

@@ -4,6 +4,9 @@ import Head from 'next/head'
 import {Container, Row, Col} from 'reactstrap'
 import Categories from '../components/layouts/categories'
 import HomeSlider from '../components/home-slider'
+import BestSellers from "../components/layouts/bestSellers";
+import HotSellers from "../components/hot-seller-swiper";
+
 const IndexPage = () => (
     <div>
         <Head>
@@ -13,6 +16,7 @@ const IndexPage = () => (
             <Row>
                 <Col sm="12" md="3">
                     <Categories />
+                    <BestSellers />
                 </Col>
                 <Col sm="12" md="9">
                     <HomeSlider
@@ -20,6 +24,7 @@ const IndexPage = () => (
                         dots={true}
                         timer={5000}
                     />
+                    <HotSellers />
                 </Col>
             </Row>
         </Container>
