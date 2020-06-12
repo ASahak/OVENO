@@ -2,7 +2,7 @@ import React from 'react'
 import {Container, Row, Col} from 'reactstrap'
 import classesMiddleWrap from './middleWrap.scss';
 import Link from 'next/link';
-import {ModalToggle} from "../../../assets/helpers/js/common";
+import {ModalToggle} from "../../../../assets/helpers/js/common";
 export default class MiddleWrap extends React.Component {
     constructor (props) {
         super(props);
@@ -10,8 +10,8 @@ export default class MiddleWrap extends React.Component {
         this._modal = new ModalToggle();
         this.state = {
             dataCart: [
-                {name: 'Shose 1', price: 400, count: 1, imgPath: require('../../../assets/images/phones/phone1.1.png')},
-                {name: 'Shose 2', price: 167, count: 3, imgPath: require('../../../assets/images/phones/phone2.1.jpg')},
+                {name: 'Shose 1', price: 400, count: 1, imgPath: require('../../../../assets/images/phones/phone1.1.png')},
+                {name: 'Shose 2', price: 167, count: 3, imgPath: require('../../../../assets/images/phones/phone2.1.jpg')},
             ]
         }
     }
@@ -29,7 +29,7 @@ export default class MiddleWrap extends React.Component {
                         <Col sm="12" md="4" className={classesMiddleWrap.logo_content}>
                             <Link href="/about">
                                 <a className="d-inline-flex align-items-center justify-content-md-start justify-content-center">
-                                    <img className="mr-2" src={require('../../../assets/images/logo.png')} alt="" />
+                                    <img className="mr-2" src={require('../../../../assets/images/logo.png')} alt="" />
                                     VENO
                                 </a>
                             </Link>

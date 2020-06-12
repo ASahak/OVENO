@@ -1,18 +1,18 @@
 import React from 'react';
 import classesTopPanel from './top-panel.scss';
 import {Container, Row, Col} from 'reactstrap'
-import { ModalToggle } from "../../../assets/helpers/js/common.js";
+import { ModalToggle } from "../../../../assets/helpers/js/common.js";
 
 export default class TopPanel extends React.Component{
     constructor (props) {
         super(props)
         this.state = {
             currentLang: {
-                flag: require('../../../assets/images/flag1.png'),
+                flag: require('../../../../assets/images/flag1.png'),
                 text: 'English'
             },
             secondLang: {
-                flag: require('../../../assets/images/flag2.png'),
+                flag: require('../../../../assets/images/flag2.png'),
                 text: 'Armenian'
             }
         }

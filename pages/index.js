@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
 import {Container, Row, Col} from 'reactstrap'
-import Categories from '../components/layouts/categories'
-import HomeSlider from '../components/home-slider'
-import BestSellers from "../components/layouts/bestSellers";
-import HotSellers from "../components/hot-seller-swiper";
+import Categories from '../components/Home/Categories/categories'
+import HomeSlider from '../components/Home/Slider/home-slider'
+import BestSellers from "../components/Home/BestSellers/bestSellers";
+import HotSellers from "../components/Home/HotSellers/hot-seller-swiper";
 
 const IndexPage = () => (
     <div>

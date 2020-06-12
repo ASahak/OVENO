@@ -70,25 +70,25 @@ class BestSellers extends React.Component {
         this.bestSellerRef = React.createRef();
         this._sellers = [
             {
-                imgUrl: require('../../assets/images/bestseller/seller1.jpg'),
+                imgUrl: require('../../../assets/images/bestseller/seller1.jpg'),
                 name: 'Samsung GT 320',
                 price: 140,
                 sale: 5
             }, {
-                imgUrl: require('../../assets/images/bestseller/seller2.jpg'),
+                imgUrl: require('../../../assets/images/bestseller/seller2.jpg'),
                 name: 'Toshiba 4500',
                 price: 540,
                 sale: 12
             }, {
-                imgUrl: require('../../assets/images/bestseller/seller3.jpg'),
+                imgUrl: require('../../../assets/images/bestseller/seller3.jpg'),
                 name: 'iPhone XS max',
                 price: 780
             }, {
-                imgUrl: require('../../assets/images/bestseller/seller4.jpg'),
+                imgUrl: require('../../../assets/images/bestseller/seller4.jpg'),
                 name: 'Asus Vivobook',
                 price: 1280
             }, {
-                imgUrl: require('../../assets/images/bestseller/seller5.jpg'),
+                imgUrl: require('../../../assets/images/bestseller/seller5.jpg'),
                 name: 'Dell Max',
                 price: 700,
                 sale: 9

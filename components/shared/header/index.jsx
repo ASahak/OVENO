@@ -1,6 +1,6 @@
-import TopPanel from './top-panel'
-import MiddleWrap from './middleWrap'
-import NavBar from './navBar'
+import TopPanel from './elements/top-panel'
+import MiddleWrap from './elements/middleWrap'
+import NavBar from './elements/navBar'
 import React from 'react'
 
 export default class IndexHeader extends React.Component {

@@ -63,42 +63,42 @@ class  HotSellers extends React.Component {
         super(props);
         this._hotSeller = [
             {
-                urlIMG: require('../assets/images/hotseller/seller1.jpg'),
+                urlIMG: require('../../../assets/images/hotseller/seller1.jpg'),
                 name: 'Seller 1',
                 urlId: '1',
                 price: 1230,
                 sale: 10,
                 star: 3
             }, {
-                urlIMG: require('../assets/images/hotseller/seller2.jpg'),
+                urlIMG: require('../../../assets/images/hotseller/seller2.jpg'),
                 name: 'Seller 2',
                 urlId: '2',
                 price: 130,
                 sale: 40,
                 star: 5
             }, {
-                urlIMG: require('../assets/images/hotseller/seller3.jpg'),
+                urlIMG: require('../../../assets/images/hotseller/seller3.jpg'),
                 name: 'Seller 3',
                 urlId: '3',
                 price: 3230,
                 sale: 10,
                 star: 4
             }, {
-                urlIMG: require('../assets/images/hotseller/seller4.jpg'),
+                urlIMG: require('../../../assets/images/hotseller/seller4.jpg'),
                 name: 'Seller 4',
                 urlId: '4',
                 price: 330,
                 sale: 0,
                 star: 1
             }, {
-                urlIMG: require('../assets/images/hotseller/seller5.jpg'),
+                urlIMG: require('../../../assets/images/hotseller/seller5.jpg'),
                 name: 'Seller 5',
                 urlId: '5',
                 price: 2230,
                 sale: 4,
                 star: 3
             }, {
-                urlIMG: require('../assets/images/hotseller/seller6.jpg'),
+                urlIMG: require('../../../assets/images/hotseller/seller6.jpg'),
                 name: 'Seller 6',
                 urlId: '6',
                 price: 1390,

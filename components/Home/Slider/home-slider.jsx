@@ -113,7 +113,7 @@ export default class HomeSlider extends React.Component {
     Slide (name, index) {
         return (
             <div key={index} className={classes['main-slider__slide']}>
-                <img src={require('../assets/images/global/' + name + '.jpg')} alt=""/>
+                <img src={require('../../../assets/images/global/' + name + '.jpg')} alt=""/>
             </div>
         )
     }
