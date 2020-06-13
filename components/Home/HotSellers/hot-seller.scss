@@ -36,7 +36,7 @@
   }
   :global {
     .slick-slide {
-      padding: 0 10px;
+      padding: 0 3px;
     }
   }
   .slider_item {
@@ -146,15 +146,20 @@
     }
   }
 }
-:global {
-  .slick-arrow.slick-prev {
-    left: 0;
-    z-index: 22;
-    border-radius: 50%;
-  }
-  .slick-arrow.slick-next{
-    z-index: 22;
-    right: 0;
-    border-radius: 50%;
+.slick-slider-main {
+  padding-top: 20px;
+  :global {
+    span.lnr-chevron-left, span.lnr-chevron-right {
+      right: 30px;
+      position: absolute;
+      top: -5px;
+      cursor: pointer;
+    }
+    span.lnr-chevron-left {
+      right: 25px;
+    }
+    span.lnr-chevron-right {
+      right: 3px;
+    }
   }
 }

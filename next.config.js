@@ -7,9 +7,9 @@ const resourcesLoader = {
     loader: 'sass-resources-loader',
     options: {
         resources: [
-            './assets/helpers/styles/_variables.scss',
-            './assets/helpers/styles/_mixins.scss',
-            './assets/helpers/styles/_medias.scss',
+            './static/styles/_variables.scss',
+            './static/styles/_mixins.scss',
+            './static/styles/_medias.scss',
         ]
     }
 };

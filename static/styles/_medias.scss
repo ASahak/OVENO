@@ -1,16 +1,17 @@
-$media-xs-small-to-xs: '(min-width: 320px) and (max-width:480px)';
-$media-xs-second: '(max-width: 480px)';
-$media-xs-max: '(max-width: 576px)';
-$media-xs-min: '(min-width: 577px)';
-$media-xs-to-sm: '(min-width: 577px) and (max-width: 767px)';
-$media-sm-max: '(max-width: 767px)';
-$media-sm-min: '(min-width: 768px)';
-$media-sm-to-md: '(min-width: 768px) and (max-width: 991px)';
-$media-md-max: '(max-width: 991px)';
-$media-md-min: '(min-width: 992px)';
-$media-md-to-lg: '(min-width: 992px) and (max-width:1200px)';
-$media-lg-max: '(max-width: 1200px)';
-$media-lg-min: '(min-width: 1201px)';
-$media-lg-xl: '(min-width: 1201px) and (max-width:1400px)';
-$media-xl-max: '(max-width: 1400px)';
-$media-xl-min: '(min-width: 1401px)';
+//Only max screens
+$screen-max-xs-s: 480px;
+$screen-max-xs: 576px;
+$screen-max-sm: 767px;
+$screen-max-md: 991px;
+$screen-max-lg: 1200px;
+$screen-max-xl: 1400px;
+
+
+//Only min screens
+$screen-min-xs-s: 481px;
+$screen-min-xs: 577px;
+$screen-min-sm: 768px;
+$screen-min-md: 992px;
+$screen-min-lg: 1201px;
+$screen-min-xl: 1401px;
+$screen-max-xl-five: 1500px;

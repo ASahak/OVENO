@@ -15,8 +15,9 @@ class MyDocument extends Document {
                           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
                           crossOrigin="anonymous" />
                     <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css" />
-                    <link rel="stylesheet" href="../assets/helpers/styles/main.css" />
-                    <link rel="stylesheet" href="../assets/helpers/styles/vendor/reactstrap.css" />
+                    <link rel="stylesheet" href="../static/styles/main.css" />
+                    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css' rel='stylesheet' type='text/css' />
+                    <link rel="stylesheet" href="../static/styles/vendor/reactstrap.css" />
                     <link rel="stylesheet" type="text/css" charset="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
                     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
                     <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
