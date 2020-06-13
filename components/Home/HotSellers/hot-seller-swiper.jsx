@@ -8,11 +8,6 @@ const SampleNextArrow = (props) => {
     return (
         <span className="lnr lnr-chevron-right" onClick={onClick}></span>
     );
-        {/*<div*/}
-        {/*    className={className}*/}
-        {/*    style={{ ...style, display: "block", background: "#f01b48" }}*/}
-        {/*    onClick={onClick}*/}
-        {/*/>*/}
 }
 
 const SamplePrevArrow = (props) => {
@@ -20,11 +15,6 @@ const SamplePrevArrow = (props) => {
     return (
         <span className="lnr lnr-chevron-left" onClick={onClick}></span>
     );
-        {/*<div*/}
-        {/*    className={className}*/}
-        {/*    style={{ ...style, display: "block", background: "#f01b48" }}*/}
-        {/*    onClick={onClick}*/}
-        {/*/>*/}
 };
 const SimpleSlide = (props) => {
     return (
