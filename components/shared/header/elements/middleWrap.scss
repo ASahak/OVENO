@@ -2,7 +2,7 @@
   background-color: $main-grey-slow-bg-color;
   @include paddingResponsive(3, 0);
   .logo_content{
-    @media #{$media-sm-max}{
+    @include max-sm {
       margin-bottom: 1rem;
     }
     a{
@@ -148,7 +148,7 @@
       }
     }
   }
-  @media #{$media-xs-small-to-xs}{
+  @include max-xs-s{
     .search_block{
       padding-right: 0;
       button{

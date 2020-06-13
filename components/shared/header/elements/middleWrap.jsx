@@ -2,7 +2,7 @@ import React from 'react'
 import {Container, Row, Col} from 'reactstrap'
 import classesMiddleWrap from './middleWrap.scss';
 import Link from 'next/link';
-import {ModalToggle} from "../../../../assets/helpers/js/common";
+import {ModalToggle} from "../../../../utils/common";
 export default class MiddleWrap extends React.Component {
     constructor (props) {
         super(props);

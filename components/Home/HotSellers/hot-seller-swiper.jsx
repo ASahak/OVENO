@@ -6,22 +6,14 @@ import classes from './hot-seller.scss';
 const SampleNextArrow = (props) => {
     const { className, style, onClick } = props;
     return (
-        <div
-            className={className}
-            style={{ ...style, display: "block", background: "#f01b48" }}
-            onClick={onClick}
-        />
+        <span className="lnr lnr-chevron-right" onClick={onClick}></span>
     );
 }
 
 const SamplePrevArrow = (props) => {
     const { className, style, onClick } = props;
     return (
-        <div
-            className={className}
-            style={{ ...style, display: "block", background: "#f01b48" }}
-            onClick={onClick}
-        />
+        <span className="lnr lnr-chevron-left" onClick={onClick}></span>
     );
 };
 const SimpleSlide = (props) => {
@@ -55,9 +47,11 @@ const SimpleSlide = (props) => {
         </div>
     )
 };
+
 SimpleSlide.propTypes = {
     mainData: PropTypes.object
-}
+};
+
 class  HotSellers extends React.Component {
     constructor (props) {
         super(props);
@@ -153,7 +147,7 @@ class  HotSellers extends React.Component {
                 <div className={classes['slider-container_title']}>
                     <h2>Hot Sale</h2>
                 </div>
-                <Slider {...this.params}>
+                <Slider {...this.params} className={classes['slick-slider-main']}>
                     {this._hotSeller.map(slide => <SimpleSlide mainData={slide} key={slide.urlId} />)}
                 </Slider>
             </div>

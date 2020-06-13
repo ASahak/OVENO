@@ -1,7 +1,7 @@
 import React from 'react';
 import classesTopPanel from './top-panel.scss';
 import {Container, Row, Col} from 'reactstrap'
-import { ModalToggle } from "../../../../assets/helpers/js/common.js";
+import { ModalToggle } from "../../../../utils/common.js";
 
 export default class TopPanel extends React.Component{
     constructor (props) {
