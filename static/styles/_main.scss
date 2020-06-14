@@ -4,6 +4,10 @@
 @import 'base';
 @import 'medias';
 
+//Pages
+@import 'login';
+@import 'register';
+
 main {
   > div {
     margin-top: 10px;

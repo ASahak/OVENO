@@ -1,0 +1,41 @@
+<!-- views/pages/edit.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include ('../partials/head') -%>
+</head>
+<body class="container">
+
+<%- include ('../partials/header') -%>
+
+<main>
+    <div class="jumbo tron">
+        <form action="/api/items/update/<%-data._id-%>?_method=PUT" method="post" id="add-list">
+            <h1>Edit ToDo </h1>
+            <label for="name">
+                Name *
+                <input type="text" id="name" name="name" value="<%-data.name-%>">
+            </label>
+            <label for="date">
+                Date *
+                <input type="date" id="date" name="date" value="<%-data.date-%>">
+            </label>
+            <label for="description">
+                Description *
+                <textarea id="description" name="description"><%-data.description-%></textarea>
+            </label>
+            <button type="submit">Save</button>
+            <% if (error) { %>
+                <p class="error-message"><%- error -%></p>
+            <% }%>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <%- include ('../partials/footer') -%>
+</footer>
+
+</body>
+</html>

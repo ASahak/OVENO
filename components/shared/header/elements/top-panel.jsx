@@ -1,6 +1,7 @@
 import React from 'react';
 import classesTopPanel from './top-panel.scss';
 import {Container, Row, Col} from 'reactstrap'
+import Link from 'next/link';
 import { ModalToggle } from "../../../../utils/common.js";
 
 export default class TopPanel extends React.Component{
@@ -15,7 +16,7 @@ export default class TopPanel extends React.Component{
                 flag: require('../../../../assets/images/flag2.png'),
                 text: 'Armenian'
             }
-        }
+        };
         this.changeLang = this.changeLang.bind(this)
     }
     changeLang () {
@@ -57,7 +58,9 @@ export default class TopPanel extends React.Component{
                                         <a href="">My Account</a>
                                     </li>
                                     <li>
-                                        <a href="">Log out</a>
+                                        <Link href="login" prefetch={false}>
+                                            <a>Log in</a>
+                                        </Link>
                                     </li>
                                 </ul>
                             </div>
