@@ -1,0 +1,11 @@
+<header>
+    <a href="/list/1">
+        Logo
+    </a>
+    <% if (typeof page_name !== "undefined" && page_name === 'home') { %>
+        <form action="/list/1" id="search-bar">
+            <input type="search" value="<%-searchVal-%>" placeholder="Search item..." name="search">
+        </form>
+        <a href="/add">Add</a>
+    <% }%>
+</header>

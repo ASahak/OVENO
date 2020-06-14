@@ -13,7 +13,7 @@ class MainConstructor {
 
 export class ModalToggle extends MainConstructor{
     constructor(){
-        super()
+        super();
         this.modal = null
     }
     showModal (target, bool, hint) {
