@@ -1,6 +1,5 @@
 import React from 'react';
 import Document, {Html, Head, Main, NextScript} from 'next/document';
-
 class MyDocument extends Document {
     static async getInitialProps(ctx) {
         const initialProps = await Document.getInitialProps(ctx);
@@ -18,6 +17,7 @@ class MyDocument extends Document {
                     <link rel="stylesheet" href="../static/styles/css/main.css" />
                     <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css' rel='stylesheet' type='text/css' />
                     <link rel="stylesheet" href="../static/styles/vendor/reactstrap.css" />
+                    <link rel="stylesheet" href="../static/styles/vendor/toast.css" />
                     <link rel="stylesheet" type="text/css" charset="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
                     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
                     <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>

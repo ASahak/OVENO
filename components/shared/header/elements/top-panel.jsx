@@ -55,12 +55,12 @@ export default class TopPanel extends React.Component{
                             <div className={`text-right ${classesTopPanel.right_bar}`}>
                                 <ul type="none" className="d-inline-flex align-items-center p-0 m-0">
                                     <li>
-                                        <a href="">My Account</a>
+                                        <Link href="login" prefetch={false}>
+                                            <a href="">My Account</a>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <Link href="login" prefetch={false}>
-                                            <a>Log in</a>
-                                        </Link>
+                                        <a href="/login">Log in</a>
                                     </li>
                                 </ul>
                             </div>

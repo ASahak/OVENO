@@ -5,65 +5,79 @@ import Icon from 'components/Icons/icon';
 import UI_ELEMENTS from 'components/shared/UI';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import Alert from 'components/shared/UI/Alert';
-import Router from "next/router";
-// import { __bodyLoading } from 'components/shared/helpers/global-functions';
+import {
+    EMAIL_VALIDATOR,
+    PASSWORD_VALIDATOR
+} from 'utils';
+import axios from "axios";
+import {toast} from "react-toastify";
+
+const generateAlert = (reset, setLoadingRegister, typeAlert, message, _timeout)  => {
+    reset();
+    setLoadingRegister(false);
+    toast[typeAlert](message, {
+        position: "top-right",
+        autoClose: _timeout,
+        pauseOnHover: false,
+    });
+};
 
 function LoginForm () {
-    // const _timeout = 4000;
+    const _timeout = 3000;
     const [loadingLogin, setLoadingLogin] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-    const { register, handleSubmit, errors, reset } = useForm();
-    // const onSubmit = data => {
-    //     const timeStart = new Date().getTime();
-    //     setLoadingLogin(true);
-    //     fire.auth().signInWithEmailAndPassword(data.email, data.password).then(user => {
-    //         setLoadingLogin(false);
-    //         Router.replace('/');
-    //     }).catch(err => {
-    //         setLoadingLogin(false);
-    //         setErrorMessage(err.message);
-    //         reset();
-    //         const timeEnd = new Date().getTime();
-    //         if (timeEnd - timeStart > _timeout) {
-    //             setErrorMessage('');
-    //         } else {
-    //             setTimeout(() => {
-    //                 setErrorMessage('');
-    //             }, (_timeout - (timeEnd - timeStart)));
-    //         }
-    //     })
-    // };
+    const { register, handleSubmit, errors, reset } = useForm({
+        mode: 'onBlur',
+    });
+    const onSubmit = async dataLogin => {
+        setLoadingLogin(true);
+        const timeStart = new Date().getTime();
+        try {
+            const {data} = await axios.post('/api/login/user', dataLogin);
+            if (data.error) throw new Error(data.error);
+
+            const timeEnd = new Date().getTime();
+            if (timeEnd - timeStart > _timeout) {
+                generateAlert(reset, setLoadingLogin, 'dark', 'User is logged in!', _timeout);
+                setTimeout(() => {
+                    location.href = '/'
+                }, _timeout);
+            } else {
+                setTimeout(() => {
+                    generateAlert(reset, setLoadingLogin, 'dark', 'User is logged in!', _timeout);
+                    setTimeout(() => {
+                        location.href = '/'
+                    }, _timeout);
+                }, (_timeout - (timeEnd - timeStart)));
+            }
+        } catch (err) {
+            const timeEnd = new Date().getTime();
+            if (timeEnd - timeStart > _timeout) {
+                generateAlert(reset, setLoadingLogin, 'error', err.message, _timeout)
+            } else {
+                setTimeout(() => {
+                    generateAlert(reset, setLoadingLogin, 'error', err.message, _timeout)
+                }, (_timeout - (timeEnd - timeStart)));
+            }
+        }
+    };
+
     return (
-        <form className="login-form">
-            {errorMessage && <Alert
-                type="error"
-                timeout={_timeout}
-                message={errorMessage}
-            />}
+        <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
             <UI_ELEMENTS.Input
                 name="email"
                 type="email"
-                refBind={register({
-                    required: 'Email is required',
-                    pattern: {
-                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                        message: "Invalid email address"
-                    }
-                })}
+                refBind={register(EMAIL_VALIDATOR)}
                 fullWidth={true}
                 errors={errors.email && errors.email.message}
                 placeholder="Email ID"
                 size="md"/>
             <UI_ELEMENTS.Input
-                refBind={register({
-                    required: "You must specify a password",
-                    minLength: {
-                        value: 8,
-                        message: "Password must have at least 8 characters"
-                    }
-                })}
-                errors={errors.password && errors.password.message}
+                refBind={register(PASSWORD_VALIDATOR)}
+                errors={
+                    errors.password && errors.password.message ||
+                    errors.password && errors.password.type === 'containsDigit' && 'Use 1 ore more numbers' ||
+                    errors.password && errors.password.type === 'containsUppercase' && 'Use upper and lower case characters'
+                }
                 name="password"
                 type="password"
                 fullWidth={true}
@@ -88,26 +102,10 @@ function LoginForm () {
 class Login extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            isLoading: this.props.isLoading
-        };
-        // __bodyLoading(this.props.isLoading, false);
-        // authService.__isLogged().then(res => {
-        //     if (res) {
-        //         Router.push('/')
-        //     } else {
-        //         this.setState({
-        //             isLoading: false
-        //         }, () => __bodyLoading(this.state.isLoading, false));
-        //     }
-        // })
-    }
-    componentDidMount() {
-        // this.props.__CHANGE_STATUS_IS_LOADING(false);
+        this.state = {};
     }
 
     render() {
-        if (this.state.isLoading) return '';
         return (
             <div className="container">
                 <Head>

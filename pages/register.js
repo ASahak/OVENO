@@ -5,72 +5,67 @@ import DumpLayout from "components/shared/Layouts/dump";
 import UI_ELEMENTS from "components/shared/UI";
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import Alert from "components/shared/UI/Alert";
 import {
     FULL_NAME_VALIDATOR,
     EMAIL_VALIDATOR,
     PASSWORD_VALIDATOR
 } from 'utils';
 import axios from "axios";
-import Router from 'next/router';
-// import { __bodyLoading } from 'components/shared/helpers/global-functions';
+import {toast} from 'react-toastify';
 
+const generateAlert = (reset, setLoadingRegister, typeAlert, message, _timeout)  => {
+    reset();
+    setLoadingRegister(false);
+    toast[typeAlert](message, {
+        position: "top-right",
+        autoClose: _timeout,
+        pauseOnHover: false,
+    });
+};
 
 function RegisterForm () {
-    // const _timeout = 4000;
+    const _timeout = 3000;
     const [loadingRegister, setLoadingRegister] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-    const { register, handleSubmit, watch, errors, reset } = useForm();
+    const { register, handleSubmit, watch, errors, reset } = useForm({
+        mode: 'onBlur',
+    });
     const onSubmit = async dataForm => {
+        setLoadingRegister(true);
+        const timeStart = new Date().getTime();
         try {
             const { data } = await axios.post('/api/create/user', dataForm);
             if (data.error) throw new Error(data.error);
-            console.log(data, 'success');
-            reset();
+
+            const timeEnd = new Date().getTime();
+            if (timeEnd - timeStart > _timeout) {
+                generateAlert(reset, setLoadingRegister, 'dark', 'User is registered successfully', _timeout);
+                setTimeout(() => {
+                    location.href = '/'
+                }, _timeout);
+            } else {
+                setTimeout(() => {
+                    generateAlert(reset, setLoadingRegister, 'dark', 'User is registered successfully', _timeout);
+                    setTimeout(() => {
+                        location.href = '/'
+                    }, _timeout);
+                }, (_timeout - (timeEnd - timeStart)));
+            }
         } catch (err) {
-            console.log(err.message, 'Error');
-            reset();
+            const timeEnd = new Date().getTime();
+            if (timeEnd - timeStart > _timeout) {
+                generateAlert(reset, setLoadingRegister, 'error', err.message, _timeout)
+            } else {
+                setTimeout(() => {
+                    generateAlert(reset, setLoadingRegister, 'error', err.message, _timeout)
+                }, (_timeout - (timeEnd - timeStart)));
+            }
         }
-    //     const timeStart = new Date().getTime();
-    //     setLoadingRegister(true);
-    //     fire.auth().createUserWithEmailAndPassword(data.email, data.password).then(user => {
-    //         setLoadingRegister(false);
-    //         const db = fire.firestore();
-    //         db.collection('users').add({
-    //             id: '',
-    //             fullName: data.name,
-    //             email: data.email,
-    //             color: data.favorite_color,
-    //             messages: []
-    //         }).then(_ => {
-    //             const docUsers = db.doc(`users/${_.id}`);
-    //             docUsers.update({'id': _.id}).then(() => {
-    //                 Router.replace('/');
-    //             })
-    //         });
-    //     }).catch(err => {
-    //         setErrorMessage(err.message);
-    //         setLoadingRegister(false);
-    //         reset();
-    //         const timeEnd = new Date().getTime();
-    //         if (timeEnd - timeStart > _timeout) {
-    //             setErrorMessage('');
-    //         } else {
-    //             setTimeout(() => {
-    //                 setErrorMessage('');
-    //             }, (_timeout - (timeEnd - timeStart)));
-    //         }
-    //     });
     };
+
     const password = useRef({});
     password.current = watch("password", "");
     return (
         <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
-            {errorMessage && <Alert
-                type="error"
-                timeout={_timeout}
-                message={errorMessage}
-            />}
             <UI_ELEMENTS.Input
                 type="text"
                 name="name"
@@ -126,27 +121,10 @@ function RegisterForm () {
 class Register extends React.Component {
     constructor (props) {
         super(props);
-        this.state = {
-            isLoading: this.props.isLoading
-        };
-        // __bodyLoading(this.state.isLoading);
-        // authService.__isLogged().then(res => {
-        //     if (res) {
-        //         Router.push('/')
-        //     } else {
-        //         this.setState({
-        //             isLoading: false
-        //         }, () => __bodyLoading(this.state.isLoading, false));
-        //     }
-        // })
-    }
-
-    componentDidMount() {
-        // this.props.__CHANGE_STATUS_IS_LOADING(false);
+        this.state = {};
     }
 
     render () {
-        if (this.state.isLoading) return '';
         return (
             <div className="container">
                 <Head>
