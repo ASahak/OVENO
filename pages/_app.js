@@ -1,9 +1,7 @@
 import React from 'react'
 import App from 'next/app';
 import DefaultLayout from '../components/shared/default';
-import '../static/styles/_main.scss'
-
-// Style objects already defined
+import {ToastContainer} from "react-toastify";
 
 class Layout extends App {
     render() {
@@ -11,9 +9,12 @@ class Layout extends App {
         const Layout = Component.Layout || DefaultLayout;
 
         return (
-            <Layout>
-                <Component {...pageProps} />
-            </Layout>
+            <>
+                <Layout>
+                    <Component {...pageProps} />
+                </Layout>
+                <ToastContainer />
+            </>
         );
     }
 }

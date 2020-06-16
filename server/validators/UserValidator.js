@@ -16,6 +16,10 @@ const schema = Joi.object({
 
     email: Joi.string()
         .regex(new RegExp(EMAIL_PATTERN), 'Please write your email address in format: yourname@example.com')
+        .email({
+            minDomainSegments: 2
+            , /*tlds: { allow: ['com', 'net'] }*/
+        })
         .required(),
 
     password: Joi.string()

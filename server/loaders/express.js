@@ -30,6 +30,21 @@ module.exports = class ExpressLoader {
         //     } else next()
         // });
 
+        // validation middleware
+        // router.use(function(req,res,next){
+        //     var token=req.body.token || req.headers['token'];
+        //     if(token){
+        //         jwt.verify(token,process.env.SECRET_KEY,function(err,ress){
+        //             if(err){
+        //                 res.status(500).send('Token Invalid');
+        //             }else{
+        //                 next();
+        //             }
+        //         })
+        //     }else{
+        //         res.send('Please send a token')
+        //     }
+        // })
 
         return app;
     }
