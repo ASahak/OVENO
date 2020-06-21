@@ -12,6 +12,9 @@ import {
 } from 'utils';
 import axios from "axios";
 import {toast} from 'react-toastify';
+const {
+    setToken
+} = require('../utils/auth');
 
 const generateAlert = (reset, setLoadingRegister, typeAlert, message, _timeout)  => {
     reset();
@@ -36,6 +39,7 @@ function RegisterForm () {
             const { data } = await axios.post('/api/create/user', dataForm);
             if (data.error) throw new Error(data.error);
 
+            setToken(data.token);
             const timeEnd = new Date().getTime();
             if (timeEnd - timeStart > _timeout) {
                 generateAlert(reset, setLoadingRegister, 'dark', 'User is registered successfully', _timeout);

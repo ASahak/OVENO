@@ -2,10 +2,11 @@ import TopPanel from './elements/top-panel'
 import MiddleWrap from './elements/middleWrap'
 import NavBar from './elements/navBar'
 import React from 'react'
+import {connect} from "react-redux";
 
-export default class IndexHeader extends React.Component {
+class IndexHeader extends React.Component {
     constructor (props) {
-        super(props)
+        super(props);
         this.state = {}
     }
     render() {
@@ -18,3 +19,9 @@ export default class IndexHeader extends React.Component {
         )
     }
 }
+const mapStateToProps = state => ({
+    user: state.auth.user,
+});
+export default connect(
+    mapStateToProps,
+)(IndexHeader);
