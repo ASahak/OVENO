@@ -48,6 +48,7 @@ module.exports = withSass(withCss({
         config.resolve.alias['static'] = path.join(__dirname, 'static');
         config.resolve.alias['hooks'] = path.join(__dirname, 'hooks');
         config.resolve.alias['assets'] = path.join(__dirname, 'assets');
+        config.resolve.alias['store'] = path.join(__dirname, 'store');
         return config;
     }
 }));

@@ -75,4 +75,27 @@ module.exports = class UserController {
             });
         }
     }
+
+    /**
+     * Get User's data
+     *
+     * @param req
+     * @param req.body (id)
+     * @param res
+     * @return {Promise<{_id: *, user: *}|*>}
+     */
+    static async GetUser ({params}, res) {
+        try {
+            const user = await new BaseServices(User, 'Some User').getById(params.id);
+            if (user) {
+                res.status(200).send({
+                    user
+                })
+            }
+        } catch (err) {
+            res.status(200).send({
+                error: err.message
+            })
+        }
+    }
 };

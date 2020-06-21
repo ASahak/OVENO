@@ -8,6 +8,9 @@ const middleware = require('../middleware');
 
 // Users
 
+// Get User Data
+router.get('/user/:id', UserController.GetUser);
+
 /*Sign Up*/
 
 router.post('/create/user', middleware(UserValidator, (res, error) => {

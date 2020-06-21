@@ -11,6 +11,9 @@ import {
 } from 'utils';
 import axios from "axios";
 import {toast} from "react-toastify";
+const {
+    setToken
+} = require('../utils/auth');
 
 const generateAlert = (reset, setLoadingRegister, typeAlert, message, _timeout)  => {
     reset();
@@ -35,6 +38,7 @@ function LoginForm () {
             const {data} = await axios.post('/api/login/user', dataLogin);
             if (data.error) throw new Error(data.error);
 
+            setToken(data.token);
             const timeEnd = new Date().getTime();
             if (timeEnd - timeStart > _timeout) {
                 generateAlert(reset, setLoadingLogin, 'dark', 'User is logged in!', _timeout);

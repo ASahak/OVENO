@@ -3,8 +3,12 @@ import classesTopPanel from './top-panel.scss';
 import {Container, Row, Col} from 'reactstrap'
 import Link from 'next/link';
 import { ModalToggle } from "../../../../utils/common.js";
+import {connect} from "react-redux";
+const {
+    removeCookieByKey
+} = require('utils/auth');
 
-export default class TopPanel extends React.Component{
+class TopPanel extends React.Component{
     constructor (props) {
         super(props)
         this.state = {
@@ -17,7 +21,8 @@ export default class TopPanel extends React.Component{
                 text: 'Armenian'
             }
         };
-        this.changeLang = this.changeLang.bind(this)
+        this.changeLang = this.changeLang.bind(this);
+        this.logout     = this.logout.bind(this);
     }
     changeLang () {
         this.setState({
@@ -27,6 +32,9 @@ export default class TopPanel extends React.Component{
     }
     __showLangModal () {
         return this.refs.langBar && new ModalToggle().showModal(this.refs.langBar, false)
+    }
+    logout () {
+        removeCookieByKey('token');
     }
     componentDidMount() {
     }
@@ -54,13 +62,15 @@ export default class TopPanel extends React.Component{
                         <Col xs="9">
                             <div className={`text-right ${classesTopPanel.right_bar}`}>
                                 <ul type="none" className="d-inline-flex align-items-center p-0 m-0">
+                                    {this.props.user &&
+                                        <li>
+                                            <Link href="/" prefetch={false}>
+                                                <a href="">My Account</a>
+                                            </Link>
+                                        </li>
+                                    }
                                     <li>
-                                        <Link href="login" prefetch={false}>
-                                            <a href="">My Account</a>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <a href="/login">Log in</a>
+                                        {this.props.user ? <a href="/login" onClick={this.logout}>Log out</a>: <a href="/login">Log in</a>}
                                     </li>
                                 </ul>
                             </div>
@@ -71,3 +81,10 @@ export default class TopPanel extends React.Component{
         )
     }
 }
+const mapStateToProps = state => ({
+    user: state.auth.user,
+});
+
+export default connect(
+    mapStateToProps,
+)(TopPanel);
