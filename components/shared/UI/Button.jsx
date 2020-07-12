@@ -1,8 +1,17 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'components/Icons/icon';
 
 const Button = (props) => {
+    const input = useRef();
+    useEffect(() => {
+        if (props.attr && props.attr.length && input.current) {
+            props.attr.map(attr => {
+                input.current.setAttribute(Object.keys(attr)[0], attr[Object.keys(attr)[0]])
+            })
+        }
+    }, [props.attr]);
+
     const width = {
         background: props.background,
         border: props.border,
@@ -13,7 +22,11 @@ const Button = (props) => {
         ...(props.fullWidth && {width: '100%', display: 'flex'})
     };
     return (
-        <button className={`btn-global btn-${props.size} ${props.hover}`} style={width} onClick={props.onClick} disabled={props.disabled}>
+        <button
+            ref={input}
+            className={`btn-global btn-${props.size} ${props.hover}`}
+            style={width}
+            onClick={props.onClick} disabled={props.disabled}>
             {props.icon.dir && props.icon.dir === 'left' ? <Icon name={props.icon.element} /> : null}
             {props.text}
             {props.icon.dir && props.icon.dir === 'right' ? <Icon name={props.icon.element} /> : null}
@@ -69,6 +82,7 @@ Button.defaultProps = {
     disabled: false,
 };
 Button.propTypes = {
+    attr: PropTypes.array,
     disabled: PropTypes.bool,
     background: PropTypes.string,
     border: PropTypes.string,

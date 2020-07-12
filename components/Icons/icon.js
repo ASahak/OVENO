@@ -10,9 +10,14 @@ import {
     Modal,
     Unlocked,
     Locked,
+    Plus,
+    Pencil,
+    Close,
 } from 'components/Icons';
 
 const iconTypes = {
+    pencil: Pencil,
+    plus: Plus,
     exit: Exit,
     user: User,
     loading: Loading,
@@ -22,6 +27,7 @@ const iconTypes = {
     modal: Modal,
     unlocked: Unlocked,
     locked: Locked,
+    close: Close,
 };
 
 const IconComponent = ({ name, ...props }) => {

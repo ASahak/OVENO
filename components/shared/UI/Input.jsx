@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 
 const Input = (props) => {
+    const parentRef = React.createRef();
 
     const styleDiv = {
         ...(props.label && {
@@ -15,38 +16,38 @@ const Input = (props) => {
 
 
     useEffect(() => {
-        if (props.refBind.current) {
-            props.refBind.current.value = props.value
+        if (parentRef.current && !!props.value) {
+            parentRef.current.querySelector('input').value = props.value
         }
     }, [props.value]);
 
     useEffect(() => {
-        if (props.refBind.current) {
+        if (parentRef.current) {
             if (props.attr.length) {
                 props.attr.map(attr => {
-                    props.refBind.current.setAttribute(attr.name, attr.value)
+                    parentRef.current.querySelector('input').setAttribute(attr.name, attr.value)
                 })
             }
         }
     }, [props.attr]);
 
     useEffect(() => {
-        if (props.refBind.current) {
+        if (parentRef.current) {
             if (props.attr.length) {
                 props.attr.map(attr => {
-                    props.refBind.current.setAttribute(attr.name, attr.value)
+                    parentRef.current.querySelector('input').setAttribute(attr.name, attr.value)
                 })
             }
             for (let event = 0; event< props.events.length; event++) {
-                props.refBind.current.addEventListener(
+                parentRef.current.querySelector('input').addEventListener(
                     props.events[event],
                     props['on' + props.events[event].replace(props.events[event].charAt(0), props.events[event].charAt(0).toUpperCase())]);
             }
         }
         return () => {
-            if (props.refBind.current) {
+            if (parentRef.current) {
                 for (let event = 0; event< props.events.length; event++) {
-                    props.refBind.current.removeEventListener(
+                    parentRef.current.querySelector('input').removeEventListener(
                         props.events[event],
                         props['on' + props.events[event].replace(props.events[event].charAt(0), props.events[event].charAt(0).toUpperCase())]);
                 }
@@ -54,7 +55,7 @@ const Input = (props) => {
         }
     }, []);
     return (
-        <div style={styleDiv} className={`input-wrap ${props.errors ? 'error-field' : ''}`}>
+        <div style={styleDiv} className={`input-wrap ${props.errors ? 'error-field' : ''}`} ref={parentRef}>
             {props.label ? <label>{props.label}</label> : null}
             <input
                 name={props.name}
@@ -101,6 +102,10 @@ const Input = (props) => {
                 }
                 .input-wrap input.input-md{
                     padding: 15px;
+                    border: none;
+                }
+                .input-wrap input.input-sm{
+                    padding: 10px;
                     border: none;
                 }
                 .error-field input {

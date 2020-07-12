@@ -1,3 +1,92 @@
+:global(#category-form) {
+  .subCategoryContent {
+    padding-left: 20px;
+    position: relative;
+    :global(.error-field:last-child) {
+      > span {
+        margin-bottom: 0px;
+      }
+      > input {
+        margin-bottom: 20px;
+      }
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      left: -8px;
+      height: calc(100% + -1px);
+      border-left: 1px dashed #ababab;
+      top: -40px;
+    }
+    &:before {
+      content: "";
+      position: absolute;
+      left: -7px;
+      height: 5px;
+      border-bottom: 1px dashed #ababab;
+      top: -45px;
+      width: 14px;
+    }
+    > div {
+      position: relative;
+      &:after {
+        content: "";
+        position: absolute;
+        left: -25px;
+        height: 5px;
+        border-bottom: 1px dashed #ababab;
+        top: 18px;
+        width: 24px;
+      }
+    }
+  }
+  .parentUI-input {
+    position: relative;
+    .remove-icon {
+      position: absolute;
+      right: 10px;
+      width: 12px;
+      top: 10px;
+      z-index: 2222;
+      cursor: pointer;
+      opacity: 0;
+      transition: .4s;
+      visibility: hidden;
+    }
+    &:hover .remove-icon {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  .addCategory {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    > a {
+      font-size: 18px;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      vertical-align: middle;
+      padding: 0px;
+      position: relative;
+      cursor: pointer;
+      &:after {
+        content: "";
+        position: absolute;
+        left: -1px;
+        top: 0;
+        width: 22px;
+        height: 22px;
+        border: 1px solid;
+        margin: auto;
+        border-radius: 50%;
+      }
+    }
+  }
+}
 .categories-container {
   .categories-container-header{
     background-color: $main-dark-bg-color;

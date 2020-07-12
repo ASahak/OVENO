@@ -33,7 +33,7 @@ module.exports = class UserController {
                 });
                 res.status(200).send({
                     status: true,
-                    token,
+                    token: `Bearer ${token}`,
                     user
                 })
             } catch (error) {
@@ -66,7 +66,10 @@ module.exports = class UserController {
                 let token = jwt.sign({userId: user._id.toString()}, secretKey, {
                     expiresIn: 86400 // expires in 24 hours
                 });
-                res.status(200).send({token, _id: user._id, user});
+                res.status(200).send({
+                    token: `Bearer ${token}`,
+                    _id: user._id,
+                    user});
             }
         } catch (err) {
             res.status(200).send({

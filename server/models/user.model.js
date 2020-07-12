@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
-
+const roleTypes = require('../../utils').ROLE_TYPES;
 let UserSchema = new Schema({
     _id: {
         type: ObjectId,
@@ -17,6 +17,12 @@ let UserSchema = new Schema({
         type: String,
         minLength: 2,
         maxLength: 256,
+        required: true,
+    },
+    roleType: {
+        type: String,
+        enum: [roleTypes.ADMIN, roleTypes.USER],
+        defaultValue: roleTypes.USER,
         required: true,
     },
     password: {
