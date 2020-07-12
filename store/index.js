@@ -8,7 +8,10 @@ const composeEnhancers = compose;
 const state = {
     auth: {
         user: null
-    }
+    },
+    product: {
+        categoryList: null,
+    },
 };
 
 export function configureStore(initialState = {}) {

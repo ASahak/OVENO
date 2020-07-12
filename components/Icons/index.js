@@ -7,6 +7,9 @@ import Logout from './Logout';
 import Modal from './Modal';
 import Unlocked from './Unlocked';
 import Locked from './Locked';
+import Plus from './Plus';
+import Pencil from './Pencil';
+import Close from './Close';
 
 export {
     User,
@@ -18,4 +21,7 @@ export {
     Modal,
     Unlocked,
     Locked,
+    Plus,
+    Pencil,
+    Close,
 }

@@ -5,3 +5,31 @@
   background-color: #fff;
   z-index: 222;
 }
+.modal.fade .modal-dialog {
+  transform: scale(0.8) !important;
+}
+.modal.show .modal-dialog {
+   -webkit-transform: none;
+   transform: none !important;
+}
+
+//for admin icons
+.admin-icon-relative {
+  position: relative;
+  .admin-icon {
+    position: absolute;
+    right: -20px;
+    display: block;
+    width: 17px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 17px;
+    cursor: pointer;
+    > svg {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+    }
+  }
+}

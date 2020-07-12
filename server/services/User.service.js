@@ -1,5 +1,6 @@
 const User = require('../models/user.model');
 const bcrypt = require('bcrypt');
+const roleTypes = require('../../utils').ROLE_TYPES;
 
 module.exports = class UserService {
     static async create_user (body) {
@@ -8,6 +9,7 @@ module.exports = class UserService {
             name: body.name,
             email: body.email,
             password: newUserPass,
+            roleType: roleTypes.USER
         });
         try {
             const newUser = await user.save();

@@ -2,7 +2,9 @@ const {
     EMAIL_PATTERN,
     FULL_NAME_PATTERN,
     DIGIT_PATTERN,
-    UPPERCASE_LOWERCASE_PATTERN
+    UPPERCASE_LOWERCASE_PATTERN,
+    ONLY_ENGLISH_LETTERS,
+    ONLY_ENGLISH_LETTERS_WTH_DIGIT
 } = require('./constants');
 
 module.exports = {
@@ -13,7 +15,20 @@ module.exports = {
             message: 'Please write your email address in format: yourname@example.com',
         }
     },
-
+    ONLY_ENGLISH_LETTERS_PATTERN : {
+        required: 'Please complete this mandatory field',
+        pattern: {
+            value: ONLY_ENGLISH_LETTERS,
+            message: 'Please input only english letters',
+        }
+    },
+    ONLY_ENGLISH_LETTERS_WITH_DIGIT_PATTERN : {
+        required: 'Please complete this mandatory field',
+        pattern: {
+            value: ONLY_ENGLISH_LETTERS_WTH_DIGIT,
+            message: 'Please input only english letters',
+        }
+    },
     FULL_NAME_VALIDATOR : {
         required: 'Please complete this mandatory field',
         minLength: {

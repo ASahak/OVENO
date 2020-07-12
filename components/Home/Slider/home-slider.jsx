@@ -74,6 +74,10 @@ export default class HomeSlider extends React.Component {
             })
         }
     }
+    componentWillUnmount () {
+        this.autoPlayInterval && clearInterval(this.autoPlayInterval);
+        this.progressSpinner && clearInterval(this.progressSpinner);
+    }
     touchStart (event) {
         this.touchX = event.touches[0].pageX;
     }
