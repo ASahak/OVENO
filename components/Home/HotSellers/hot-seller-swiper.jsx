@@ -1,55 +1,19 @@
 import React from 'react';
 import Slider from "react-slick";
-import PropTypes from 'prop-types';
 import classes from './hot-seller.scss';
-
+import {Badge} from './elements/Badge';
 const SampleNextArrow = (props) => {
-    const { className, style, onClick } = props;
+    const { onClick } = props;
     return (
         <span className="lnr lnr-chevron-right" onClick={onClick}></span>
     );
 }
 
 const SamplePrevArrow = (props) => {
-    const { className, style, onClick } = props;
+    const { onClick } = props;
     return (
         <span className="lnr lnr-chevron-left" onClick={onClick}></span>
     );
-};
-const SimpleSlide = (props) => {
-    return (
-        <div className={classes['slider_item']}>
-            <div className={classes['slider_item-top']}>
-                <img src={props.mainData.urlIMG} />
-                {props.mainData.sale !== 0 && <span className={classes['slider_item-sale_badge']}>Sale</span>}
-                <div className={classes['slider_item-top_actions-links']}>
-                    <span className="lnr lnr-cart"></span>
-                    <span className="lnr lnr-eye"></span>
-                </div>
-                <h4>{props.mainData.name}</h4>
-            </div>
-            <div className={classes['slider_item-bottom']}>
-                <div className={classes['slider_item-bottom_price']}>
-                    <span className={classes['slider_item-bottom_price_real']}>{props.mainData.price}$</span>
-                    {props.mainData.sale !== 0 && <span className={classes['slider_item-bottom_price_del']}>${ props.mainData.price - (props.mainData.price * props.mainData.sale / 100 )}</span>}
-                </div>
-                <div className={classes['slider_item-bottom_stars']}>
-                    {Array(5).fill('').map((_, index) => {
-                        if (props.mainData.star >= index) {
-                            return (<span className="lnr lnr-star" key={index}></span>)
-                        } else {
-                            return (<span className="lnr lnr-star half" key={index}></span>)
-                        }
-
-                    })}
-                </div>
-            </div>
-        </div>
-    )
-};
-
-SimpleSlide.propTypes = {
-    mainData: PropTypes.object
 };
 
 class  HotSellers extends React.Component {
@@ -57,47 +21,47 @@ class  HotSellers extends React.Component {
         super(props);
         this._hotSeller = [
             {
-                urlIMG: require('../../../assets/images/hotseller/seller1.jpg'),
+                photo: require('../../../assets/images/hotseller/seller1.jpg'),
                 name: 'Seller 1',
-                urlId: '1',
+                _id: '1',
                 price: 1230,
                 sale: 10,
-                star: 3
+                rating: [3, 2, 3, 2]
             }, {
                 urlIMG: require('../../../assets/images/hotseller/seller2.jpg'),
                 name: 'Seller 2',
-                urlId: '2',
+                _id: '2',
                 price: 130,
                 sale: 40,
-                star: 5
+                rating: [5, 2, 3, 2]
             }, {
-                urlIMG: require('../../../assets/images/hotseller/seller3.jpg'),
+                photo: require('../../../assets/images/hotseller/seller3.jpg'),
                 name: 'Seller 3',
-                urlId: '3',
+                _id: '3',
                 price: 3230,
                 sale: 10,
-                star: 4
+                rating: [4, 2, 3, 2]
             }, {
-                urlIMG: require('../../../assets/images/hotseller/seller4.jpg'),
+                photo: require('../../../assets/images/hotseller/seller4.jpg'),
                 name: 'Seller 4',
-                urlId: '4',
+                _id: '4',
                 price: 330,
                 sale: 0,
-                star: 1
+                rating: [1, 2, 3, 2]
             }, {
-                urlIMG: require('../../../assets/images/hotseller/seller5.jpg'),
+                photo: require('../../../assets/images/hotseller/seller5.jpg'),
                 name: 'Seller 5',
-                urlId: '5',
+                _id: '5',
                 price: 2230,
                 sale: 4,
-                star: 3
+                rating: [3, 2, 3, 2]
             }, {
-                urlIMG: require('../../../assets/images/hotseller/seller6.jpg'),
+                photo: require('../../../assets/images/hotseller/seller6.jpg'),
                 name: 'Seller 6',
-                urlId: '6',
+                _id: '6',
                 price: 1390,
                 sale: 0,
-                star: 5
+                rating: [5, 2, 3, 2]
             }
         ];
         this.params = {
@@ -148,10 +112,11 @@ class  HotSellers extends React.Component {
                     <h2>Hot Sale</h2>
                 </div>
                 <Slider {...this.params} className={classes['slick-slider-main']}>
-                    {this._hotSeller.map(slide => <SimpleSlide mainData={slide} key={slide.urlId} />)}
+                    {this._hotSeller.map(slide => <Badge mainData={slide} key={slide._id} />)}
                 </Slider>
             </div>
         )
     }
 }
+
 export default HotSellers;

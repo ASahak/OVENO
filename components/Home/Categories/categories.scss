@@ -118,6 +118,7 @@
           top: 0;
         }
         > a {
+          cursor: pointer;
           @include transition(.3);
           span {
             @include transition(.3);
@@ -163,6 +164,7 @@
           @include transition(.3);
           > li {
             > a {
+              cursor: pointer;
               position: relative;
               @include transition(.3);
               &:hover {

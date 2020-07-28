@@ -17,7 +17,7 @@ class NavBar extends React.Component {
             activeRouteIndex: 1,
             items: [
                 {text: 'Home', link: {pathname: '/', state: {id: 1, title: 'Home'}}},
-                {text: 'Sale Products', link: {pathname: '/products', state: {id: 2, title: 'Products'}}},
+                {text: 'Sale Products', link: {pathname: '/shop', state: {id: 2, title: 'Products'}}},
                 {text: 'Contact Us', link: {pathname: '/contact', state: {id: 3, title: 'Contact Us'}}},
                 {text: 'About Us', link: {pathname: '/about', state: {id: 4, title: 'About Us'}}},
                 {text: 'Our Partners', link: {pathname: '/partners', state: {id: 5, title: 'Our Partners'}}},

@@ -27,7 +27,7 @@ export default class MiddleWrap extends React.Component {
                 <Container>
                     <Row className="align-items-center">
                         <Col sm="12" md="4" className={classesMiddleWrap.logo_content}>
-                            <Link href="/about">
+                            <Link href="/">
                                 <a className="d-inline-flex align-items-center justify-content-md-start justify-content-center">
                                     <img className="mr-2" src={require('../../../../assets/images/logo.png')} alt="" />
                                     VENO
