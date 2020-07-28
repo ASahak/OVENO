@@ -49,6 +49,7 @@ module.exports = withSass(withCss({
         config.resolve.alias['hooks'] = path.join(__dirname, 'hooks');
         config.resolve.alias['assets'] = path.join(__dirname, 'assets');
         config.resolve.alias['store'] = path.join(__dirname, 'store');
+        config.resolve.alias['lib'] = path.join(__dirname, 'lib');
         return config;
     }
 }));

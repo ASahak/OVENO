@@ -7,7 +7,7 @@ const composeEnhancers = compose;
 
 const state = {
     auth: {
-        user: null
+        user: null,
     },
     product: {
         categoryList: null,

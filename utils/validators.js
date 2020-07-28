@@ -4,10 +4,30 @@ const {
     DIGIT_PATTERN,
     UPPERCASE_LOWERCASE_PATTERN,
     ONLY_ENGLISH_LETTERS,
-    ONLY_ENGLISH_LETTERS_WTH_DIGIT
+    ONLY_ENGLISH_LETTERS_WITH_DIGIT,
+    SPACE_PATTER
 } = require('./constants');
 
 module.exports = {
+    ONLY_DIGITS: {
+        required: 'Please complete this mandatory field',
+        pattern: {
+            value: DIGIT_PATTERN,
+            message: 'Please input only digits',
+        }
+    },
+    SELECT_OPTION: {
+        required: 'Please complete this mandatory field',
+        validate: {
+            selectValue: (val) => val !== 'Select a category',
+        }
+    },
+    PRODUCT_NAME: {
+        required: 'Please complete this mandatory field',
+        validate: {
+            containChars: (val) => SPACE_PATTER(val),
+        }
+    },
     EMAIL_VALIDATOR : {
         required: 'Please complete this mandatory field',
         pattern: {
@@ -25,7 +45,7 @@ module.exports = {
     ONLY_ENGLISH_LETTERS_WITH_DIGIT_PATTERN : {
         required: 'Please complete this mandatory field',
         pattern: {
-            value: ONLY_ENGLISH_LETTERS_WTH_DIGIT,
+            value: ONLY_ENGLISH_LETTERS_WITH_DIGIT,
             message: 'Please input only english letters',
         }
     },

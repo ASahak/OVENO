@@ -34,5 +34,5 @@ HomeSlider.propTypes = {
     autoplay: PropTypes.bool,
     dots: PropTypes.bool,
     timer: PropTypes.number,
-}
+};
 export default IndexPage

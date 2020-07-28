@@ -1,6 +1,5 @@
 import React, {Fragment, useState, useEffect, useCallback} from 'react'
 import classes from './categories.scss'
-import Link from 'next/link'
 import {
     Modal,
     ModalHeader,
@@ -20,9 +19,11 @@ import {
     __SET_CATEGORY_LIST,
 } from 'store/actions';
 import {connect} from "react-redux";
+import Router from "next/router";
 const {
     getToken
 } = require('utils/auth');
+import { Bus } from 'lib/EventEmiiter';
 
 const CRUDCategoryForm = (props) => {
     const {
@@ -415,6 +416,7 @@ const Li = function (props) {
     let [height, setHeight] = useState(0);
     const openSubMenu = (evt, index) => {
         setHeight(height = 0);
+        evt.stopPropagation();
         evt.preventDefault();
         setOpen(open = parent.current.children[index] && parent.current.children[index].classList.contains('openItemDropdown'));
         parent.current.children[index].classList[!open ? 'add' : 'remove']('openItemDropdown');
@@ -422,6 +424,25 @@ const Li = function (props) {
             parent.current.children[index].querySelectorAll('.' + classes["submenu_dropdown"] + ' > li').forEach(_ => setHeight(height+=_.getBoundingClientRect().height))
             : setHeight(height = 0);
         parent.current.children[index].querySelector('.' + classes["submenu_dropdown"]).style.maxHeight = height + 'px'
+    };
+    const goToShop = (path) => {
+        Object.keys(Router.query).forEach(qu => { // Remove unnecessary query params
+            if (qu !== 'category' && qu !== 'subCategory' && qu !== 'page' && qu !== 'maxPrice' && qu !== 'minPrice') delete Router.query[qu]
+        });
+
+        const query = {...Router.query};
+        if (path.hasOwnProperty('querySubCategory')) {
+            query.category = path.queryCategory;
+            query.subCategory = path.querySubCategory
+        } else if (path.hasOwnProperty('queryCategory')) {
+            query.category = path.queryCategory;
+            delete query.subCategory;
+        }
+        query.page = 1;
+        Router.push({
+            pathname: '/shop',
+            query: { ...query}
+        }).then(() => Bus.dispatch('filterByCategory'))
     };
     const openModal = (el, index) => {
         setHeight(0);
@@ -436,8 +457,8 @@ const Li = function (props) {
     if (data instanceof Object) {
         const _li = Object.keys(data).map((_el, index) => {
             const display = (data[_el].link.pathname
-                    ? <Link href={data[_el].link.pathname}><a>{data[_el].text} {(data[_el].hasOwnProperty('dataSub') && Object.keys(data[_el].dataSub).length > 0) ?
-                        <span className={classes["dropdown_arrow"]} onClick={e => openSubMenu(e, index)}></span> : ''}</a></Link>
+                    ? <a onClick={() => goToShop(data[_el])}>{data[_el].text} {(data[_el].hasOwnProperty('dataSub') && Object.keys(data[_el].dataSub).length > 0) ?
+                        <span className={classes["dropdown_arrow"]} onClick={e => openSubMenu(e, index)}></span> : ''}</a>
                     : <span>{data[_el].text}</span>
             );
             let subMenu;
@@ -475,6 +496,7 @@ class Categories extends React.Component {
             editCategoryData: {},
         };
         this.openModal          = this.openModal.bind(this);
+        this.routerQueries      = this.routerQueries.bind(this);
         this.handlerChangesCRUD = this.handlerChangesCRUD.bind(this);
         this.categoryRef = React.createRef();
     }
@@ -489,13 +511,16 @@ class Categories extends React.Component {
                     for (let i = 0; i < data.category.length; i++) {
                         list[data.category[i].name] = {
                             text: data.category[i].name,
-                            link: {pathname: '/shop/' + data.category[i].slug},
+                            queryCategory: data.category[i].slug,
+                            link: {pathname: '/shop?category=' + data.category[i].slug + this.routerQueries(['category'])},
                             dataSub: data.subCategory.reduce((acc, sub) => {
                                 if (sub.category === data.category[i].name) {
                                     acc.push ({
+                                        queryCategory: data.category[i].slug,
+                                        querySubCategory: sub.slug,
                                         text: sub.name,
                                         id: sub._id,
-                                        link: {pathname: '/shop/' + data.category[i].slug + '/' + sub.slug}
+                                        link: {pathname: '/shop?category=' + data.category[i].slug + '&subCategory=' + sub.slug + this.routerQueries(['category', 'subCategory'])}
                                     })
                                 }
                                 return acc
@@ -514,6 +539,16 @@ class Categories extends React.Component {
                 pauseOnHover: false,
             });
         }
+    }
+
+    routerQueries (besides) {
+        let queries = '';
+        Object.keys(Router.query).forEach(query => {
+            if (besides.indexOf(query) === -1) {
+                queries += ('&' + query + '=' + Router.query[query]);
+            }
+        });
+        return queries
     }
 
     openModal (type = 'add', dataEdit = {}) {

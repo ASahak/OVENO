@@ -13,6 +13,9 @@ import {
     Plus,
     Pencil,
     Close,
+    Add,
+    Upload,
+    Delete,
 } from 'components/Icons';
 
 const iconTypes = {
@@ -28,6 +31,9 @@ const iconTypes = {
     unlocked: Unlocked,
     locked: Locked,
     close: Close,
+    add: Add,
+    upload: Upload,
+    delete: Delete,
 };
 
 const IconComponent = ({ name, ...props }) => {

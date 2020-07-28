@@ -1,0 +1,30 @@
+.main-shop_content {
+  :global {
+    div {
+      padding: 0 5px;
+      margin-bottom: 5px;
+    }
+  }
+}
+.pagination-wrap {
+  text-align: center;
+  margin-top: 20px;
+  > span {
+    cursor: pointer;
+    display: inline-flex;
+    width: 25px;
+    height: 25px;
+    border: 1px solid;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    border-radius: 4px;
+  }
+  :global {
+    .activeBtn {
+      border: 1px solid transparent;
+      color: #fff;
+      background-color: #F01B48;
+    }
+  }
+}

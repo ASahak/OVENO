@@ -9,7 +9,16 @@
 @import 'register';
 
 main {
+  flex: 1 0 auto;
   > div {
     margin-top: 10px;
+  }
+}
+
+#__next {
+  > div:first-child {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
   }
 }

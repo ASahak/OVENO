@@ -9,7 +9,7 @@ let ProductSchema = new Schema({
     name: {
         type: String,
         minLength: 2,
-        maxLength:256,
+        maxLength: 256,
         required: true,
     },
     sale: {
@@ -33,7 +33,7 @@ let ProductSchema = new Schema({
         type: String,
         required: false
     },
-    categories: {
+    category: {
         type: String,
         required: true
     }

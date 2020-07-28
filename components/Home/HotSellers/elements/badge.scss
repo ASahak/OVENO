@@ -1,0 +1,125 @@
+.slider_item {
+  border: 1px solid #6666;
+  border-radius: 6px;
+  position: relative;
+  padding: 10px;
+  .user-options {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    height: 25px;
+    > span {
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+      display: block;
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  &-top {
+    position: relative;
+    border-bottom: 1px solid #6666;
+    padding: 0 !important;
+    margin-top: 5px;
+    > img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+    .slider_item-sale_badge {
+      position: absolute;
+      right: 5px;
+      top: 10px;
+      background-color: $main-bg-color;
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      &:after {
+        content: "";
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid $main-bg-color;
+        position: absolute;
+        right: -6px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        transform: rotate(90deg);
+      }
+    }
+    .slider_item-top_actions-links {
+      position: absolute;
+      bottom: 40px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      transition: .4s;
+      transform: scale(0, 0);
+      opacity: 0;
+      > span {
+        display: inline-flex;
+        width: 25px;
+        height: 25px;
+        background: $main-dark-bg-color;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        color: #fff;
+        margin: 0 4px;
+        font-size: 12px;
+        cursor: pointer;
+        &:hover {
+          background-color: $main-bg-color;
+        }
+      }
+    }
+    &:hover .slider_item-top_actions-links{
+      transform: scale(1, 1);
+      opacity: 1;
+    }
+    > h4 {
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      height: 25px;
+      overflow: hidden;
+    }
+  }
+  &-bottom {
+    &_price {
+      margin: 10px 0;
+      text-align: center;
+      &_real {
+        color: $main-bg-color;
+        font-weight: 600;
+        font-size: 20px;
+      }
+      &_del {
+        font-size: 13px;
+        text-decoration-line: line-through;
+        color: #6c757d;
+        margin-left: 6px;
+      }
+    }
+    &_stars {
+      text-align: center;
+      > span {
+        color: #FF9600;
+      }
+      :global(.half) {
+        color: #DFE0E1;
+      }
+    }
+  }
+}

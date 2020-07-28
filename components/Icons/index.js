@@ -10,6 +10,9 @@ import Locked from './Locked';
 import Plus from './Plus';
 import Pencil from './Pencil';
 import Close from './Close';
+import Add from './Add';
+import Upload from './Upload';
+import Delete from './Delete';
 
 export {
     User,
@@ -24,4 +27,7 @@ export {
     Plus,
     Pencil,
     Close,
+    Add,
+    Upload,
+    Delete,
 }
