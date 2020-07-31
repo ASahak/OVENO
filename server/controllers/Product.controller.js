@@ -39,7 +39,6 @@ module.exports = class ProductController {
     static async AddProduct ({body}, res) {
         try {
             // Insert the new Product
-            console.log(body);
             const product = await ProductServices.create_product(body);
             res.status(200).send({
                 status: true,
@@ -124,6 +123,14 @@ module.exports = class ProductController {
             })
         }
     }
+    /**
+     * Get count of Products
+     *
+     * @param req
+     * @param res
+     * @return {Promise<{_id: *, data: *}|*>}
+     */
+    
     static async GetAllCount (req, res) {
         try {
             let categoryName;
