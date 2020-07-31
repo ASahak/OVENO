@@ -69,6 +69,9 @@ router.post('/product/add', [userAuth, middleware(ProductAddValidator, (res, err
 /*Get All List by page*/
 router.get('/products/get', ProductController.GetAll);
 
+/*Get Specific product*/
+router.get('/product/:id', ProductController.GetProduct);
+
 /*Get All Product count*/
 router.get('/products/getCount', ProductController.GetAllCount);
 
@@ -80,6 +83,8 @@ router.put('/product/update/:id', [userAuth, middleware(ProductAddValidator, (re
     res.status(200).send({error})
 })], ProductController.UpdateProduct);
 
+/*Update specific product*/
+router.post('/product/appreciate', [userAuth], ProductController.AppreciateProduct);
 
 // ____ Users
 

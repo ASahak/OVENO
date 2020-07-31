@@ -5,6 +5,13 @@ const schema = Joi.object({
         .min(2)
         .max(255)
         .required(),
+    owner: Joi.string()
+        .min(2)
+        .max(255)
+        .required(),
+    description: Joi.string()
+        .min(2)
+        .max(1024),
     sale: Joi.number()
         .min(0)
         .required(),

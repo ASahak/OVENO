@@ -53,6 +53,7 @@ const FormAdd = (props) => {
                     dataCategory.photo = uploadedImg || 'default-placeholder.png';
                 }
                 dataCategory.rating = props.isEdit.rating;
+                dataCategory.owner = props.isEdit.owner;
                 const dataProd = await axios.put('/api/product/update/' + props.isEdit._id, dataCategory, {
                     headers: { Authorization: getToken('token')},
                 });
@@ -67,6 +68,7 @@ const FormAdd = (props) => {
                 });
             } else {
                 dataCategory.rating = [];
+                dataCategory.owner = props.owner;
                 const dataProd = await axios.post('/api/product/add', dataCategory, {
                     headers: { Authorization: getToken('token')}
                 });
@@ -134,6 +136,7 @@ const FormAdd = (props) => {
         if (props.isEdit._id && props.isEdit.subCategory) {
             setValue('subCategory', props.isEdit.subCategory);
         }
+        setValue('category', props.isEdit.category);
     }, [subOptions]);
 
     useEffect(() => {
@@ -141,7 +144,7 @@ const FormAdd = (props) => {
             setValue('name', props.isEdit.name);
             setValue('price', props.isEdit.price);
             setValue('sale', props.isEdit.sale);
-            setValue('category', props.isEdit.category);
+            setValue('description', props.isEdit.description);
             if (props.isEdit.subCategory) {
                 setSubOptions(props.categories[props.isEdit.category].map(opt => (
                     <option key={opt} value={opt}>{opt}</option>
@@ -199,6 +202,7 @@ const FormAdd = (props) => {
                     {subOptions}
                 </select> : ''}
             </div>
+            <textarea name="description" placeholder="Add Description" ref={register}></textarea>
             <div className={styles['upload-image-wrap']}>
                 {!uploadedImg ? <label>
                     <Icon name="upload"/>
@@ -230,6 +234,7 @@ FormAdd.defaultProps = {
 };
 FormAdd.propTypes = {
     categories: PropTypes.object,
+    owner: PropTypes.string,
     isEdit: PropTypes.object,
     onClose: PropTypes.func,
     updatedProd: PropTypes.func,

@@ -12,6 +12,8 @@ module.exports = class ProductService {
             category: body.category,
             subCategory: body.subCategory,
             rating: body.rating,
+            owner: body.owner,
+            description: body.description,
         });
         try {
             const newProduct = await product.save();
@@ -32,6 +34,8 @@ module.exports = class ProductService {
                     category: body.category,
                     subCategory: body.subCategory,
                     rating: body.rating,
+                    owner: body.owner,
+                    description: body.description,
                     } },
                 {new: true, upsert: true }, () => {});
             return {
@@ -64,6 +68,18 @@ module.exports = class ProductService {
             }).limit(+limit).skip((+page === 1 ? 0 : +page - 1) * +limit);
         } catch (err) {
             throw Error(err)
+        }
+    }
+
+    static async appreciate_product ({id, user, value}) {
+        try {
+            const product = await Product.findOne({_id: id});
+            return await Product.updateOne(
+                {_id: id},
+                { rating: [...product.rating, {id: user, value}]},
+                {runValidators: true});
+        } catch (err) {
+            throw Error(err);
         }
     }
 };

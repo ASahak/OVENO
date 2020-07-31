@@ -78,6 +78,7 @@
     "react-dynamic-modal": "^1.1.1",
     "react-hook-form": "^5.0.1",
     "react-id-swiper": "^2.4.0",
+    "react-magnifier": "^3.0.4",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "react-slick": "^0.25.2",

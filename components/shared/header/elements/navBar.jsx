@@ -54,11 +54,16 @@ class NavBar extends React.Component {
         })
     }
     _getPositionOfWave(index) {
-        this.setState({
+        index ? this.setState({
             _bindWavePosition: {
                 top: 0,
+                opacity: 1,
                 width: this._navBarRef.current.querySelectorAll('a')[index - 1].getBoundingClientRect().width + 'px',
                 left: this._navBarRef.current.querySelectorAll('a')[index - 1].offsetLeft + 'px'
+            }
+        }) : this.setState({
+            _bindWavePosition: {
+                opacity: 0,
             }
         })
     }

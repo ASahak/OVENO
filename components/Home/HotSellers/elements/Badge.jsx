@@ -2,8 +2,11 @@ import styles from "./badge.scss";
 import React from "react";
 import PropTypes from "prop-types";
 import Icon from "components/Icons/icon";
+import Link from 'next/link';
+import ImageProd from "components/Shop/elements/imageProduct";
+import {connect} from "react-redux";
 
-export const Badge = (props) => {
+const Badge = (props) => {
     const star = Math.round(props.mainData.rating.reduce((acc, item) => {
         acc += item;
         return acc
@@ -12,11 +15,11 @@ export const Badge = (props) => {
     return (
         <div className={styles['slider_item']}>
             <div className={styles['slider_item-top']}>
-                <img src={props.mainData.photo} />
+                <ImageProd src={props.mainData.photo}/>
                 {props.mainData.sale !== 0 && <span className={styles['slider_item-sale_badge']}>Sale -{props.mainData.sale}%</span>}
                 <div className={styles['slider_item-top_actions-links']}>
                     <span className="lnr lnr-cart"></span>
-                    <span className="lnr lnr-eye"></span>
+                    <Link href={"/product/" + props.mainData._id}><a><span className="lnr lnr-eye"></span></a></Link>
                 </div>
                 <h4>{props.mainData.name}</h4>
             </div>
@@ -38,7 +41,7 @@ export const Badge = (props) => {
                     })}
                 </div>
             </div>
-            {props.isAdmin || props.isUser ?
+            {props.isAdmin || (props.loggedUser && props.loggedUser._id && props.mainData.owner) ?
                 <div className={styles['user-options']}>
                 <span onClick={() => props.editProduct(props.mainData)}>
                     <Icon name="pencil"/>
@@ -59,3 +62,12 @@ Badge.propTypes = {
     isAdmin: PropTypes.bool,
     isUser: PropTypes.bool,
 };
+const mapStateToProps = state => ({
+    loggedUser: state.auth.user
+});
+const mapDispatchToProps = {
+};
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Badge);
