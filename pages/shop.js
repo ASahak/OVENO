@@ -79,9 +79,9 @@ const ShopPage = (props) => {
                         <Icon name="add"/>
                     </span>
                     <Modal isOpen={modal} toggle={modalOpen}>
-                        <ModalHeader toggle={modalOpen} >Add Product</ModalHeader>
+                        <ModalHeader toggle={modalOpen} >{editData && editData._id ? 'Edit Product' : 'Add Product'}</ModalHeader>
                         <ModalBody>
-                            <FormAdd isEdit={editData} categories={categories} onClose={() => setModal(!modal)} updatedProd={(data, type) => setUpdatedData({...data, type})}/>
+                            <FormAdd owner={props.isUser._id} isEdit={editData} categories={categories} onClose={() => setModal(!modal)} updatedProd={(data, type) => setUpdatedData({...data, type})}/>
                         </ModalBody>
                     </Modal>
                 </> : ''}

@@ -44,7 +44,7 @@ module.exports = {
             const token = module.exports.getToken();
             try {
                 if (token) {
-                    const user = await axios.get('api/user/' + jwtDecode(token).userId);
+                    const user = await axios.get('/api/user/' + jwtDecode(token).userId);
                     if (user) {
                         if (user.data.error) return;
                         resolve(user);

@@ -56,10 +56,10 @@ module.exports = class ProductController {
     /**
      * Get Products
      *
-     * @param req.{body.filter.price} products's filters by price
-     * @param req.{body.filter.category} products's filters by category
-     * @param req.{body.page} products page
-     * @param req.{body} products data
+     * @param req.{body.filter.price} product's filters by price
+     * @param req.{body.filter.category} product's filters by category
+     * @param req.{body.page} product page
+     * @param req.{body} product data
      * @param req.{query} search params
      * @param res
      * @return {Promise<{_id: *, data: *}|*>}
@@ -82,7 +82,7 @@ module.exports = class ProductController {
     /**
      * Delete Product
      *
-     * @param req.{body._id} products's id
+     * @param req.{body._id} product's id
      * @param res
      * @return {Promise<{_id: *, data: *}|*>}
      */
@@ -104,7 +104,7 @@ module.exports = class ProductController {
     /**
      * Update Product
      *
-     * @param req.{params._id} products's id
+     * @param req.{params._id} product's id
      * @param res
      * @return {Promise<{_id: *, data: *}|*>}
      */
@@ -130,6 +130,7 @@ module.exports = class ProductController {
      * @param res
      * @return {Promise<{_id: *, data: *}|*>}
      */
+    
     static async GetAllCount (req, res) {
         try {
             let categoryName;
@@ -145,9 +146,57 @@ module.exports = class ProductController {
                 ...(req.query.subCategory && {subCategory: subCategoryName.name}),
                 price: {$gte: req.query.filterMin, $lte: req.query.filterMax }
             }).countDocuments();
+
             res.status(200).send({
                 status: true,
                 count,
+            })
+        } catch (error) {
+            res.status(200).send({
+                status: false,
+                error: error.message,
+            })
+        }
+    }
+
+    /**
+     * Get specific Product
+     *
+     * @param req, {req.query}
+     * @param res
+     * @return {Promise<{_id: *, data: *}|*>}
+     */
+    static async GetProduct ({params}, res) {
+        try {
+            const product = await new BaseServices(Product, 'Product').getById(params.id);
+            res.status(200).send({
+                status: true,
+                product,
+            })
+        } catch (error) {
+            res.status(200).send({
+                status: false,
+                error: error.message,
+            })
+        }
+    }
+
+    /**
+     * Appreciate Product
+     *
+     * @param req, {req.query}
+     * @param res
+     * @return {Promise<{_id: *, data: *}|*>}
+     */
+    static async AppreciateProduct ({body}, res) {
+        try {
+            await ProductServices.appreciate_product({id: body.id, user: body.userId, value: body.value});
+            res.status(200).send({
+                status: true,
+                appreciate: {
+                    id: body.userId,
+                    value: body.value,
+                },
             })
         } catch (error) {
             res.status(200).send({

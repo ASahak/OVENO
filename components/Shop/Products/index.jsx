@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './style.scss';
-import {Badge} from 'components/Home/HotSellers/elements/Badge';
+import Badge from 'components/Home/HotSellers/elements/Badge';
 import {Row, Col} from 'reactstrap'
 import axios from "axios";
 import {toast} from "react-toastify";

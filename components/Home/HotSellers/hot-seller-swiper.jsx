@@ -1,7 +1,7 @@
 import React from 'react';
 import Slider from "react-slick";
 import classes from './hot-seller.scss';
-import {Badge} from './elements/Badge';
+import Badge from './elements/Badge';
 const SampleNextArrow = (props) => {
     const { onClick } = props;
     return (

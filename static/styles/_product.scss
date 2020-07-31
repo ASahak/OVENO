@@ -1,0 +1,103 @@
+.product-image_wrap {
+  img {
+    max-width: 100%;
+  }
+  &_loading {
+    border: 1px solid #dddddd;
+    padding: 4px;
+    border-radius: 3px;
+    text-align: center; 
+  }
+}
+.product-details-wrap {
+  &__highway {
+    display: flex;
+    align-items: center;
+    > span {
+      border: 1px solid #dddddd;
+      font-size: 13px;
+      padding: 4px 9px;
+      position: relative;
+      &.highway_category{
+        border-right: 0;
+        &:after {
+          content: "";
+          position: absolute;
+          right: 0px;
+          width: 1px;
+          height: 21px;
+          background: #dddddd;
+          transform: rotate(-45deg);
+          top: -4px;
+        }
+        &:before {
+          content: "";
+          position: absolute;
+          right: 0px;
+          width: 1px;
+          height: 20px;
+          background: #dddddd;
+          transform: rotate(45deg);
+          bottom: -4px;
+        }
+      }
+      &.highway_no_subCategory{
+        &:before, &:after {
+          right: -7px;
+        }
+      }
+      &.highway_subCategory {
+        border-left: 0;
+        border-right: 0;
+        padding-left: 16px;
+        &:after {
+          content: "";
+          position: absolute;
+          right: -7px;
+          width: 1px;
+          height: 21px;
+          background: #dddddd;
+          transform: rotate(-45deg);
+          top: -4px;
+        }
+        &:before {
+          content: "";
+          position: absolute;
+          right: -7px;
+          width: 1px;
+          height: 20px;
+          background: #dddddd;
+          transform: rotate(45deg);
+          bottom: -4px;
+        }
+      }
+    }
+  }
+  > h4 {
+    margin-top: 16px;
+    margin-bottom: 13px;
+  }
+  &_stars {
+    margin-top: 16px;
+    > span {
+      font-size: 23px;
+      margin: 0 2px;
+      cursor: pointer;
+      color: #FF9600;
+    }
+    > span.half {
+      color: #a19f9f;
+    }
+  }
+}
+.product-description {
+  > h4 {
+    margin-top: 16px;
+  }
+  > p {
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    font-size: 13px;
+  }
+}

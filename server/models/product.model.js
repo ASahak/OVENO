@@ -6,11 +6,23 @@ let ProductSchema = new Schema({
         type: ObjectId,
         auto: true
     },
+    owner: {
+        type: String,
+        minLength: 2,
+        maxLength: 256,
+        required: true,
+    },
     name: {
         type: String,
         minLength: 2,
         maxLength: 256,
         required: true,
+    },
+    description: {
+        type: String,
+        minLength: 2,
+        maxLength: 1024,
+        required: false,
     },
     sale: {
         type: Number,
