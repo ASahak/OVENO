@@ -62,7 +62,7 @@ const EveryRow = (props) => {
     };
 
     return (
-        <div className="single-row_cart" >
+        <div className={`single-row_cart ${props.data.removed ? 'cart-removed-wrap' : ''}`} >
             {!props.data.removed ? <>
                 <div className="single-row_cart__photo">
                     <ImageProd src={props.data.photo}/>
@@ -83,7 +83,7 @@ const EveryRow = (props) => {
                     </div>
                     <span className="lnr lnr-trash" onClick={() => deleteProduct()}></span>
                 </div>
-            </> : <div className="single-row_cart__removed">This Product was removed</div>}
+            </> : <div className="single-row_cart__removed">This Product was removed <span className="lnr lnr-trash" onClick={() => deleteProduct()}></span></div>}
         </div>
     )
 };
@@ -108,13 +108,14 @@ const Cart = (props) => {
                 if (data.error) {
                     console.error(data.error);
                 } else {
-                    data.products = data.products.map(el => {
-                        const find = props.isUser.cart.find(e => e._id === el._id);
+                    const newProds = [];
+                    props.isUser.cart.map(el => {
+                        const find = data.products.find(e => e._id === el._id);
                         if (find) {
-                            return {...el, count: find.count}
-                        } else return {...el, removed: true}
+                            newProds.push({...find, count: el.count});
+                        } else newProds.push({_id: el._id, removed: true});
                     });
-                    setProducts(data.products);
+                    setProducts(newProds);
                 }
             }
         })()

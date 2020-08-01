@@ -310,6 +310,16 @@ textarea {
   cursor: pointer;
   margin-left: 10px;
 }
+.cart-main-wrap .cart-body .cart-removed-wrap {
+  height: 50px;
+  color: #666464;
+  justify-content: flex-start;
+}
+.cart-main-wrap .cart-body .cart-removed-wrap .single-row_cart__removed span {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
 main {
   flex: 1 0 auto;
 }
