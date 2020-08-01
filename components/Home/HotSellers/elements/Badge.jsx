@@ -5,6 +5,14 @@ import Icon from "components/Icons/icon";
 import Link from 'next/link';
 import ImageProd from "components/Shop/elements/imageProduct";
 import {connect} from "react-redux";
+import axios from "axios";
+import {toast} from "react-toastify";
+const {
+    getToken
+} = require('utils/auth');
+import {
+    __SET_LOGGED
+} from 'store/saga';
 
 const Badge = (props) => {
     const star = Math.round(props.mainData.rating.reduce((acc, item) => {
@@ -12,13 +20,50 @@ const Badge = (props) => {
         return acc
     }, 0) / props.mainData.rating.length);
 
+
+    const addToCartProd = async () => {
+        try {
+            if (!props.loggedUser) throw Error('Please login before add product!');
+            if ((props.loggedUser && props.mainData) && props.loggedUser.cart.some(el => el._id === props.mainData._id)) {
+                throw Error("You have this product in your cart already!");
+            }
+
+            const {data} = await axios.post('/api/cart/addToCart', {
+                userId: props.loggedUser._id,
+                id: props.mainData._id,
+                count: 1,
+            }, {
+                headers: { Authorization: getToken('token')},
+            });
+            if (data.error) throw Error(data.error);
+
+            props.loggedUser.cart.push({
+                _id: props.mainData._id,
+                count: 1,
+            });
+            __SET_LOGGED({user: props.loggedUser}).next();
+
+            toast.dark(data.message, {
+                position: "top-right",
+                autoClose: 3000,
+                pauseOnHover: false
+            });
+        } catch (err) {
+            toast.error(err.response ? err.response.data : err.message, {
+                position: "top-right",
+                autoClose: 3000,
+                pauseOnHover: false,
+            });
+        }
+    };
+
     return (
         <div className={styles['slider_item']}>
             <div className={styles['slider_item-top']}>
                 <ImageProd src={props.mainData.photo}/>
                 {props.mainData.sale !== 0 && <span className={styles['slider_item-sale_badge']}>Sale -{props.mainData.sale}%</span>}
                 <div className={styles['slider_item-top_actions-links']}>
-                    <span className="lnr lnr-cart"></span>
+                    <span className="lnr lnr-cart" onClick={() => addToCartProd()}></span>
                     <Link href={"/product/" + props.mainData._id}><a><span className="lnr lnr-eye"></span></a></Link>
                 </div>
                 <h4>{props.mainData.name}</h4>

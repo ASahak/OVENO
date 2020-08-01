@@ -9,6 +9,7 @@ module.exports = class UserService {
             name: body.name,
             email: body.email,
             password: newUserPass,
+            cart: [],
             roleType: roleTypes.USER
         });
         try {

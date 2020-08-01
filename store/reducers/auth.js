@@ -5,7 +5,7 @@ import {
 const auth = (state = {}, action) => {
     switch (action.type) {
         case SET_IS_LOGGED:
-            return {...state, user: action.payload.user};
+            return {...state, user: {...action.payload.user}};
         default:
             return state;
     }

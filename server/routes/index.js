@@ -3,6 +3,7 @@ const router = express.Router();
 const UserController = require('../controllers/User.controller');
 const CategoryController = require('../controllers/Category.controller');
 const ProductController = require('../controllers/Product.controller');
+const CartController = require('../controllers/Cart.controller');
 const {
     UserValidator,
     DynamicValidator,
@@ -83,8 +84,21 @@ router.put('/product/update/:id', [userAuth, middleware(ProductAddValidator, (re
     res.status(200).send({error})
 })], ProductController.UpdateProduct);
 
-/*Update specific product*/
+/*Appreciate specific product*/
 router.post('/product/appreciate', [userAuth], ProductController.AppreciateProduct);
+
+/*Add to Cart specific product*/
+router.post('/cart/addToCart', [userAuth], CartController.AddToCart);
+
+/*Get All Cart Data*/
+router.get('/cart/getCart', [userAuth], CartController.GetCartData);
+
+/*Update Cart product count*/
+router.put('/cart/updateCount', [userAuth], CartController.UpdateProductCount);
+
+/*Update Cart product count*/
+router.delete('/cart/deleteProduct', [userAuth], CartController.DeleteProductFromCart);
+
 
 // ____ Users
 

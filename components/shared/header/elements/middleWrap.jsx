@@ -3,18 +3,59 @@ import {Container, Row, Col} from 'reactstrap'
 import classesMiddleWrap from './middleWrap.scss';
 import Link from 'next/link';
 import {ModalToggle} from "../../../../utils/common";
-export default class MiddleWrap extends React.Component {
+import {connect} from "react-redux";
+import axios from "axios";
+const {
+    getToken
+} = require('utils/auth');
+
+class MiddleWrap extends React.Component {
     constructor (props) {
         super(props);
         this.cartRef = React.createRef();
         this._modal = new ModalToggle();
         this.state = {
-            dataCart: [
-                {name: 'Shose 1', price: 400, count: 1, imgPath: require('../../../../assets/images/phones/phone1.1.png')},
-                {name: 'Shose 2', price: 167, count: 3, imgPath: require('../../../../assets/images/phones/phone2.1.jpg')},
-            ]
+            dataCart: []
         }
     }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.isUser !== this.props.isUser) {
+            (async () => {
+                const {data} = await axios.get('/api/cart/getCart', {
+                    headers: { Authorization: getToken('token')},
+                    params: {
+                        ids: [...this.props.isUser.cart.map(id => id._id)],
+                    }
+                });
+                if (data.error) {
+                    console.error(data.error);
+                    return;
+                }
+                this.setState({
+                    dataCart: (() => {
+                        const cart = [];
+                        this.props.isUser.cart.forEach(item => {
+                            const findMatched = data.products.find(el => el._id === item._id);
+                            if (findMatched) {
+                                cart.push({
+                                    id: item._id,
+                                    name: findMatched.name,
+                                    count: item.count,
+                                    imgPath: findMatched.photo,
+                                })
+                            } else { // Detect Already Removed Products
+                                cart.push({
+                                    removed: true,
+                                })
+                            }
+                        });
+                        return cart.slice(0, 2);
+                    })()
+                });
+            })();
+        }
+    }
+
     __showLangModal (ref, hint) {
         return ref.current && this._modal.showModal(ref.current, false, hint)
     }
@@ -44,14 +85,14 @@ export default class MiddleWrap extends React.Component {
                                 </div>
                             </form>
                         </Col>
-                        <Col cols="5" sm="5" md="3" className={classesMiddleWrap.cart_item_parent}>
+                        {this.props.isUser ? <Col cols="5" sm="5" md="3" className={classesMiddleWrap.cart_item_parent}>
                             <a className={classesMiddleWrap.cart_wrap} onClick={this.__showLangModal.bind(this, this.cartRef, 'noClose')}>
                                 <span className={`${classesMiddleWrap.lnr} lnr lnr-cart`}></span>
-                                My cart: {this.state.dataCart.length} item
+                                My cart: {this.props.isUser.cart.length} item
                                 <i className={`${classesMiddleWrap.fas} fas fa-angle-down`}></i>
                             </a>
                             <ShopCart hideModal={this.__hideModal.bind(this)} ref={this.cartRef} data={this.state.dataCart} />
-                        </Col>
+                        </Col> : ''}
                     </Row>
                 </Container>
             </div>
@@ -59,23 +100,40 @@ export default class MiddleWrap extends React.Component {
     }
 }
 const ShopCart = React.forwardRef(({data, noHide, hideModal}, ref) => {
-    let _cart = data.map((item) => <li key={item.count} className={classesMiddleWrap['main-cart-modal-item']}>
-        <span>
-            <img src={item.imgPath} alt="no image"/>
-            <b>{item.name}</b>
-        </span>
-        <div>
-            <span>
-                x <br />
-                {item.count}
-            </span>
-            <span className="lnr lnr-trash"></span>
-        </div>
-    </li>)
+    let _cart = data.map((item, index) => <li key={item.removed ? index : item.id} className={classesMiddleWrap['main-cart-modal-item']}>
+        {item.removed ? <span>This Item removed</span> :
+            <>
+                <span>
+                    <img src={item.imgPath} alt="no image"/>
+                    <b>{item.name}</b>
+                </span>
+                <div>
+                    <span>
+                        x <br />
+                        {item.count}
+                    </span>
+                </div>
+            </>
+        }
+    </li>);
     return <div className={classesMiddleWrap['main-cart-modal']} ref={ref}>
-        <ul>
-            {_cart}
-        </ul>
-        <Link href="/cart"><a className={classesMiddleWrap['view-all-cart-btn']} onClick={hideModal}>View All</a></Link>
+        {data.length ?
+            <>
+                <ul>
+                    {_cart}
+                </ul>
+                <a href="/cart" className={classesMiddleWrap['view-all-cart-btn']} onClick={hideModal}>View All</a>
+            </>
+            : 'You dont have any added product in your cart yet'}
     </div>
-})
+});
+
+const mapStateToProps = state => ({
+    isUser: state.auth.user
+});
+const mapDispatchToProps = {
+};
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MiddleWrap);
