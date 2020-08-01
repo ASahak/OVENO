@@ -81,9 +81,16 @@
           margin-left: 10px;
         }
       }
-      &__removed {
-
+    }
+    .cart-removed-wrap{
+      height: 50px;
+      color: #666464;
+      justify-content: flex-start;
+      .single-row_cart__removed span {
+        margin-left: 10px;
+        cursor: pointer;
       }
     }
+
   }
 }
