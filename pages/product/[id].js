@@ -12,12 +12,14 @@ const {
     getToken
 } = require('utils/auth');
 import Magnifier from "react-magnifier";
+import {__SET_LOGGED} from "store/saga";
 
 const ProductPage = (props) => {
     const { query } = useRouter();
     const [dataProd, setDataProd] = useState({});
     const [star, setStar] = useState(0);
     const [loadingCategory, setLoadingCategory] = useState(false);
+    const [addToCart, setAddToCart] = useState(true);
 
     useEffect(() => {
         try {
@@ -42,6 +44,12 @@ const ProductPage = (props) => {
             });
         }
     }, [query]);
+
+    useEffect(() => { // Check if you have an product like active product
+        if ((props.isUser && dataProd) && props.isUser.cart.some(el => el._id === dataProd._id)) {
+            setAddToCart(false);
+        }
+    }, [props.isUser, dataProd]);
 
     const appreciate = async (val) => {
         try {
@@ -77,6 +85,47 @@ const ProductPage = (props) => {
             });
         }
     };
+
+    const addToCartProd = async () => {
+        try {
+            setLoadingCategory(true);
+            if (!props.isUser) throw Error('Please login before add product!');
+            if ((props.isUser && dataProd) && props.isUser.cart.some(el => el._id === dataProd._id)) {
+                throw Error("You have this product in your cart already!");
+            }
+
+            const {data} = await axios.post('/api/cart/addToCart', {
+                userId: props.isUser._id,
+                id: dataProd._id,
+                count: 1,
+            }, {
+                headers: { Authorization: getToken('token')},
+            });
+            if (data.error) throw Error(data.error);
+
+            props.isUser.cart.push({
+                _id: dataProd._id,
+                count: 1,
+            });
+            __SET_LOGGED({user: props.isUser}).next();
+
+            setAddToCart(false);
+            toast.dark(data.message, {
+                position: "top-right",
+                autoClose: 3000,
+                pauseOnHover: false
+            });
+        } catch (err) {
+            toast.error(err.response ? err.response.data : err.message, {
+                position: "top-right",
+                autoClose: 3000,
+                pauseOnHover: false,
+            });
+        } finally {
+            setLoadingCategory(false);
+        }
+    };
+
     return (
         <div>
             <Head>
@@ -121,8 +170,10 @@ const ProductPage = (props) => {
                                     <UI_ELEMENTS.Button
                                         icon={loadingCategory ? {dir: 'right', element: 'loading'} : {}}
                                         type="submit"
-                                        text="Add to cart"
-                                        width={120}
+                                        disabled={!addToCart}
+                                        text={addToCart ? "Add to cart" : 'Already in your cart'}
+                                        width={addToCart ? 170 : 200}
+                                        onClick={() => addToCartProd()}
                                         margin={['20px', '0', '0', '0']}
                                         attr={[
                                             {id: 'addBtn'}

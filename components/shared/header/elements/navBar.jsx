@@ -1,13 +1,12 @@
 import React from 'react'
 import {Container, Row, Col} from 'reactstrap'
 import classes from './navBar.scss'
-import Link from 'next/link'
 import Router, { useRouter } from 'next/router'
 
 const NavBarWithRouter = (props) => {
-    const router = useRouter()
+    const router = useRouter();
     return <NavBar {...props} router={router} />
-}
+};
 
 class NavBar extends React.Component {
     constructor(props) {
@@ -24,8 +23,8 @@ class NavBar extends React.Component {
                 {text: 'Our Branches', link: {pathname: '/branches', state: {id: 6, title: 'Our Branches'}}}
             ],
             _bindWavePosition: undefined
-        }
-        this.__goToRoute = this.__goToRoute.bind(this)
+        };
+        this.__goToRoute = this.__goToRoute.bind(this);
         Router.events.on('routeChangeComplete', (url) => {
             this.setState({
                 activeRouteIndex: this.props.router.query ? this.props.router.query.indexPage || this.__getDefaultIndexRouter(): 1
@@ -38,12 +37,12 @@ class NavBar extends React.Component {
         this._getPositionOfWave(leave === 'leave' ? this.state.activeRouteIndex : leave)
     }
     __getDefaultIndexRouter () {
-        let index = null
+        let index = null;
         this.state.items.map((_, _ind) => {
             if (_.link.pathname === this.props.router.route) {
                 index = _ind + 1
             }
-        })
+        });
         return index
     }
     componentDidMount() {
@@ -70,10 +69,10 @@ class NavBar extends React.Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
     }
     render() {
-        const item = this.state.items.map(_ => <Link
-            href={{ pathname: _.link.pathname, query: { indexPage: _.link.state.id } }}
-            as={_.link.pathname}
-            key={_.link.state.id} ><a onMouseEnter={() => this.__goToRoute(_.link.state.id)} data-index={_.link.state.id}>{_.text}</a></Link>)
+        const item = this.state.items.map(_ => <a
+            key={_.link.state.id}
+            href={_.link.pathname}
+            onMouseEnter={() => this.__goToRoute(_.link.state.id)} data-index={_.link.state.id}>{_.text}</a>)
         return <div className={classes['nav-bar-ln']}>
             <Container>
                 <Row>

@@ -19,6 +19,10 @@ let UserSchema = new Schema({
         maxLength: 256,
         required: true,
     },
+    cart: {
+        type: Array,
+        required: true,
+    },
     roleType: {
         type: String,
         enum: [roleTypes.ADMIN, roleTypes.USER],
