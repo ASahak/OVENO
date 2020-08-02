@@ -136,7 +136,6 @@ const FormAdd = (props) => {
         if (props.isEdit._id && props.isEdit.subCategory) {
             setValue('subCategory', props.isEdit.subCategory);
         }
-        setValue('category', props.isEdit.category);
     }, [subOptions]);
 
     useEffect(() => {
@@ -145,6 +144,9 @@ const FormAdd = (props) => {
             setValue('price', props.isEdit.price);
             setValue('sale', props.isEdit.sale);
             setValue('description', props.isEdit.description);
+            setTimeout(() => {
+                setValue('category', props.isEdit.category);
+            }, 0);
             if (props.isEdit.subCategory) {
                 setSubOptions(props.categories[props.isEdit.category].map(opt => (
                     <option key={opt} value={opt}>{opt}</option>

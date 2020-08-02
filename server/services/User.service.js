@@ -20,6 +20,25 @@ module.exports = class UserService {
         }
     }
 
+    static async update_user (body) {
+        const newUserPass = await bcrypt.hash(body.password, 10);
+        try {
+            const newUser = await User.findOneAndUpdate(
+                {_id: body._id},
+                {
+                    $set: {
+                        password: newUserPass,
+                        name: body.name,
+                        email: body.email,
+                    }
+                },
+                {new: true, upsert: true }, () => {});
+            return newUser
+        } catch (err) {
+            throw Error(err);
+        }
+    }
+
     static async verifyPassword (password, passHash) {
         return await bcrypt.compare(password, passHash);
     }

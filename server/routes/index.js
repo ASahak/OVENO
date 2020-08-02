@@ -117,6 +117,11 @@ router.post('/create/user', middleware(UserValidator, (res, error) => {
     res.status(200).send({error})
 }), UserController.CreateUser);
 
+// _____ Update User
+router.put('/update/user', middleware(UserValidator, (res, error) => {
+    res.status(200).send({error})
+}), UserController.UpdateUser);
+
 
 // ______ Sign In
 router.post('/login/user', middleware(DynamicValidator.setFields(

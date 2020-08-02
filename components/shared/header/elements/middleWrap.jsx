@@ -1,10 +1,11 @@
 import React from 'react'
 import {Container, Row, Col} from 'reactstrap'
 import classesMiddleWrap from './middleWrap.scss';
-import Link from 'next/link';
-import {ModalToggle} from "../../../../utils/common";
+import Router from 'next/router';
+import {ModalToggle} from "utils/common";
 import {connect} from "react-redux";
 import axios from "axios";
+import {Bus} from "lib/EventEmitter";
 const {
     getToken
 } = require('utils/auth');
@@ -16,8 +17,28 @@ class MiddleWrap extends React.Component {
         this._modal = new ModalToggle();
         this.state = {
             dataCart: []
+        };
+        this.searchRef = React.createRef();
+        Bus.subscribe('filterByCategory', (reset) => {
+            if (reset && reset.searchReset && this.searchRef.current) {
+                this.searchRef.current.value = ''
+            }
+        })
+    }
+
+    componentWillUnmount() {
+        Bus.unsubscribe('filterByCategory');
+    }
+
+    componentDidMount() {
+        if (Router.router.components.hasOwnProperty('/shop')) {
+            setTimeout(() => {
+                const query = {...Router.query};
+                this.searchRef.current.value = query.name || ''
+            }, 0)
         }
     }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.isUser !== this.props.isUser) {
             (async () => {
@@ -62,28 +83,37 @@ class MiddleWrap extends React.Component {
     __hideModal () {
         this._modal.customHideModal()
     }
+
+    searchByName () {
+        if (this.searchRef.current) {
+            const query = {...Router.query};
+            Router.push({
+                pathname: '/shop',
+                query: { ...query, name: this.searchRef.current.value}
+            }).then(() => Bus.dispatch('filterByCategory'))
+        }
+    }
+
     render() {
         return (
             <div className={classesMiddleWrap.middle_content_header}>
                 <Container>
                     <Row className="align-items-center">
                         <Col sm="12" md="4" className={classesMiddleWrap.logo_content}>
-                            <Link href="/">
-                                <a className="d-inline-flex align-items-center justify-content-md-start justify-content-center">
-                                    <img className="mr-2" src={require('../../../../assets/images/logo.png')} alt="" />
-                                    VENO
-                                </a>
-                            </Link>
+                            <a href="/" className="d-inline-flex align-items-center justify-content-md-start justify-content-center">
+                                <img className="mr-2" src={require('../../../../assets/images/logo.png')} alt="" />
+                                VENO
+                            </a>
                         </Col>
                         <Col cols="7" sm="7" md="5" className={classesMiddleWrap.search_block}>
-                            <form action="" id={classesMiddleWrap.main_search}>
+                            <div id={classesMiddleWrap.main_search}>
                                 <div className={classesMiddleWrap.search_wrap}>
-                                    <input type="search" placeholder="Search entire store here..." />
-                                    <button type="submit">
+                                    <input type="text" ref={this.searchRef} placeholder="Search entire store here..." />
+                                    <button type="button" onClick={() => this.searchByName()}>
                                         <span className="lnr lnr-magnifier"></span>
                                     </button>
                                 </div>
-                            </form>
+                            </div>
                         </Col>
                         {this.props.isUser ? <Col cols="5" sm="5" md="3" className={classesMiddleWrap.cart_item_parent}>
                             <a className={classesMiddleWrap.cart_wrap} onClick={this.__showLangModal.bind(this, this.cartRef, 'noClose')}>

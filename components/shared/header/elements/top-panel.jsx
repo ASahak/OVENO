@@ -11,7 +11,7 @@ const {
 
 class TopPanel extends React.Component{
     constructor (props) {
-        super(props)
+        super(props);
         this.state = {
             currentLang: {
                 flag: require('../../../../assets/images/flag1.png'),
@@ -70,9 +70,7 @@ class TopPanel extends React.Component{
                                 <ul type="none" className="d-inline-flex align-items-center p-0 m-0">
                                     {this.props.user &&
                                         <li>
-                                            <Link href="/" prefetch={false}>
-                                                <a href="">My Account</a>
-                                            </Link>
+                                            <a href="/account">My Account</a>
                                         </li>
                                     }
                                     <li>

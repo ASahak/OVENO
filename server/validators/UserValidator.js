@@ -8,6 +8,9 @@ const {
 } = require('../../utils');
 
 const schema = Joi.object({
+    _id: Joi.string()
+        .min(2)
+        .max(255),
     name: Joi.string()
         .regex(new RegExp(FULL_NAME_PATTERN), 'Please write your name in format: John Doe')
         .min(2)

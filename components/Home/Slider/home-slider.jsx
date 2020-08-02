@@ -75,8 +75,8 @@ export default class HomeSlider extends React.Component {
         }
     }
     componentWillUnmount () {
-        this.autoPlayInterval && clearInterval(this.autoPlayInterval);
-        this.progressSpinner && clearInterval(this.progressSpinner);
+        clearInterval(this.autoPlayInterval);
+        clearInterval(this.progressSpinner);
     }
     touchStart (event) {
         this.touchX = event.touches[0].pageX;
@@ -129,7 +129,7 @@ export default class HomeSlider extends React.Component {
             this.setState({
                 activeIndex: index
             }, () => {
-                this.getSliderPosition()
+                this.getSliderPosition();
                 this.IntervalProgress();
                 this.props.autoplay && this.AutoPlayWithTimer(this.state.timer);
             })
@@ -151,7 +151,7 @@ export default class HomeSlider extends React.Component {
                 this.setState({
                     activeIndex: ind
                 }, () => {
-                    this.getSliderPosition()
+                    this.getSliderPosition();
                     this.IntervalProgress();
                     this.AutoPlayWithTimer(this.state.timer);
                 });
@@ -162,7 +162,7 @@ export default class HomeSlider extends React.Component {
                 this.setState({
                     activeIndex: ind
                 }, () => {
-                    this.getSliderPosition()
+                    this.getSliderPosition();
                     this.IntervalProgress();
                     this.AutoPlayWithTimer(this.state.timer);
                 });
@@ -179,7 +179,7 @@ export default class HomeSlider extends React.Component {
                 return (
                     <span onClick={() => this._slide(index)} className={`${index === this.state.activeIndex ? 'active-bullet' : ''} bullet`} key={index}></span>
                 )
-            })
+            });
             return (
                 <div className="slider-dots">
                     {dots}

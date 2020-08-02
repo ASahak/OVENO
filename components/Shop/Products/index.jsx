@@ -12,13 +12,13 @@ const {
     getToken
 } = require('utils/auth');
 import Router from 'next/router'
-import {Bus} from "lib/EventEmiiter";
+import {Bus} from "lib/EventEmitter";
 
 export default class Products extends React.PureComponent {
     constructor (props) {
         super(props);
         this.state = {
-            productsData: [],
+            productsData: null,
             pageSize: 5,
             activePage: 1,
             productAllCount: null,
@@ -38,7 +38,6 @@ export default class Products extends React.PureComponent {
                 const dataCount = await axios.get('/api/products/getCount', {
                     params: this.returnParams(),
                 });
-
                 if (dataCount.data.error) throw Error(dataCount.data.error.message);
                 this.setState({
                     productAllCount: dataCount.data.count,
@@ -72,13 +71,14 @@ export default class Products extends React.PureComponent {
             })
 
         } catch (err) {
+            this.setState({
+                productsData: [],
+            });
             toast.error(err.response ? err.response.data : err.message, {
                 position: "top-right",
                 autoClose: 3000,
                 pauseOnHover: false
             });
-        } finally {
-
         }
     };
 
@@ -131,10 +131,12 @@ export default class Products extends React.PureComponent {
         const page = params.get('page') || 1;
         const limit = this.state.pageSize;
         const category = params.get('category');
+        const name = params.get('name');
         const subCategory = params.get('subCategory');
         const filterMin = params.get('minPrice') || RANGE_SLIDER[0];
         const filterMax = params.get('maxPrice') || RANGE_SLIDER[1];
         return {
+            name,
             limit,
             page,
             category,
@@ -214,12 +216,12 @@ export default class Products extends React.PureComponent {
         return (
             <>
                 <Row className={styles['main-shop_content']}>
-                    {this.state.productsData.map(slide => <Col md={4} sm={6} lg={3} key={slide._id}> <Badge
+                    {!this.state.productsData ? <img className={styles['main-shop_content_loading_gif']} src={require('../../../assets/images/loading.gif')} alt=""/> : this.state.productsData.length ? this.state.productsData.map(slide => <Col md={4} sm={6} lg={3} key={slide._id}> <Badge
                         isAdmin={this.props.isAdmin}
                         isUser={this.props.isUser}
                         removeProduct={this.removeProduct}
                         editProduct={this.props.openEditModal}
-                        mainData={slide} /></Col>)}
+                        mainData={slide} /></Col>) : <Col sm={12}><p className={styles['main-shop_content_no-result']}>No result!</p></Col>}
                 </Row>
                 <div className={styles['pagination-wrap']}>
                     {new Array(Math.ceil(this.state.productAllCount / this.state.pageSize)).fill('').map((_el, index) => (

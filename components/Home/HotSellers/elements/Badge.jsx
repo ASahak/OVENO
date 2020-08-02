@@ -86,7 +86,7 @@ const Badge = (props) => {
                     })}
                 </div>
             </div>
-            {!props.noAccessAdmin && props.isAdmin || (props.loggedUser && props.loggedUser._id && props.mainData.owner) ?
+            {!props.noAccessAdmin && (props.isAdmin || (props.loggedUser && props.loggedUser._id && props.mainData.owner)) ?
                 <div className={styles['user-options']}>
                 <span onClick={() => props.editProduct(props.mainData)}>
                     <Icon name="pencil"/>
