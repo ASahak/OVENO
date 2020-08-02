@@ -16,7 +16,7 @@ import {
 
 const Badge = (props) => {
     const star = Math.round(props.mainData.rating.reduce((acc, item) => {
-        acc += item;
+        acc += item.value;
         return acc
     }, 0) / props.mainData.rating.length);
 
@@ -77,7 +77,7 @@ const Badge = (props) => {
                 </div>
                 <div className={styles['slider_item-bottom_stars']}>
                     {Array(5).fill('').map((_, index) => {
-                        if (star >= index) {
+                        if (star > index) {
                             return (<span className="lnr lnr-star" key={index}></span>)
                         } else {
                             return (<span className="lnr lnr-star half" key={index}></span>)
@@ -86,7 +86,7 @@ const Badge = (props) => {
                     })}
                 </div>
             </div>
-            {props.isAdmin || (props.loggedUser && props.loggedUser._id && props.mainData.owner) ?
+            {!props.noAccessAdmin && props.isAdmin || (props.loggedUser && props.loggedUser._id && props.mainData.owner) ?
                 <div className={styles['user-options']}>
                 <span onClick={() => props.editProduct(props.mainData)}>
                     <Icon name="pencil"/>
@@ -106,6 +106,7 @@ Badge.propTypes = {
     removeProduct: PropTypes.func,
     isAdmin: PropTypes.bool,
     isUser: PropTypes.bool,
+    noAccessAdmin: PropTypes.bool,
 };
 const mapStateToProps = state => ({
     loggedUser: state.auth.user

@@ -4,6 +4,7 @@ import {Container, Row, Col} from 'reactstrap'
 import Link from 'next/link';
 import { ModalToggle } from "../../../../utils/common.js";
 import {connect} from "react-redux";
+import {toast} from "react-toastify";
 const {
     removeCookieByKey
 } = require('utils/auth');
@@ -28,7 +29,12 @@ class TopPanel extends React.Component{
         this.setState({
             currentLang: this.state.secondLang,
             secondLang: this.state.currentLang
-        })
+        });
+        toast.dark('Coming Soon!', {
+            position: "top-right",
+            autoClose: 3000,
+            pauseOnHover: false
+        });
     }
     __showLangModal () {
         return this.refs.langBar && new ModalToggle().showModal(this.refs.langBar, false)

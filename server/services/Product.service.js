@@ -82,4 +82,20 @@ module.exports = class ProductService {
             throw Error(err);
         }
     }
+    
+    static async get_random_products (count) {
+        try {
+            return await Product.aggregate([{ $sample: { size: +count } }])
+        } catch (err) {
+            throw Error(err);
+        }
+    }
+
+    static async get_best_sellers (count) {
+        try {
+            return await Product.find({}).sort({price : -1 }).limit(+count);
+        } catch (err) {
+            throw Error(err);
+        }
+    }
 };

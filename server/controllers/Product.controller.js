@@ -73,7 +73,7 @@ module.exports = class ProductController {
             })
         } catch (error) {
             res.status(200).send({
-                message: error.message,
+                error: error.message,
                 status: false,
             })
         }
@@ -197,6 +197,50 @@ module.exports = class ProductController {
                     id: body.userId,
                     value: body.value,
                 },
+            })
+        } catch (error) {
+            res.status(200).send({
+                status: false,
+                error: error.message,
+            })
+        }
+    }
+
+    /**
+     * Get Random Products
+     *
+     * @param req, {req.query}
+     * @param res
+     * @return {Promise<{_id: *, data: *}|*>}
+    */
+    static async GetRandomProducts ({query}, res) {
+        try {
+            const products = await ProductServices.get_random_products(query.count);
+            res.status(200).send({
+                status: true,
+                products,
+            })
+        } catch (error) {
+            res.status(200).send({
+                status: false,
+                error: error.message,
+            })
+        }
+    }
+
+    /**
+     * Get Best Sellers
+     *
+     * @param req, {req.query}
+     * @param res
+     * @return {Promise<{_id: *, data: *}|*>}
+     */
+    static async GetBestSellers ({query}, res) {
+        try {
+            const sellers = await ProductServices.get_best_sellers(query.count);
+            res.status(200).send({
+                status: true,
+                sellers,
             })
         } catch (error) {
             res.status(200).send({
