@@ -2,12 +2,15 @@ import React from 'react';
 import Slider from "react-slick";
 import classes from './hot-seller.scss';
 import Badge from './elements/Badge';
+import axios from "axios";
+import {connect} from "react-redux";
+
 const SampleNextArrow = (props) => {
     const { onClick } = props;
     return (
         <span className="lnr lnr-chevron-right" onClick={onClick}></span>
     );
-}
+};
 
 const SamplePrevArrow = (props) => {
     const { onClick } = props;
@@ -19,51 +22,9 @@ const SamplePrevArrow = (props) => {
 class  HotSellers extends React.Component {
     constructor (props) {
         super(props);
-        this._hotSeller = [
-            {
-                photo: require('../../../assets/images/hotseller/seller1.jpg'),
-                name: 'Seller 1',
-                _id: '1',
-                price: 1230,
-                sale: 10,
-                rating: [3, 2, 3, 2]
-            }, {
-                urlIMG: require('../../../assets/images/hotseller/seller2.jpg'),
-                name: 'Seller 2',
-                _id: '2',
-                price: 130,
-                sale: 40,
-                rating: [5, 2, 3, 2]
-            }, {
-                photo: require('../../../assets/images/hotseller/seller3.jpg'),
-                name: 'Seller 3',
-                _id: '3',
-                price: 3230,
-                sale: 10,
-                rating: [4, 2, 3, 2]
-            }, {
-                photo: require('../../../assets/images/hotseller/seller4.jpg'),
-                name: 'Seller 4',
-                _id: '4',
-                price: 330,
-                sale: 0,
-                rating: [1, 2, 3, 2]
-            }, {
-                photo: require('../../../assets/images/hotseller/seller5.jpg'),
-                name: 'Seller 5',
-                _id: '5',
-                price: 2230,
-                sale: 4,
-                rating: [3, 2, 3, 2]
-            }, {
-                photo: require('../../../assets/images/hotseller/seller6.jpg'),
-                name: 'Seller 6',
-                _id: '6',
-                price: 1390,
-                sale: 0,
-                rating: [5, 2, 3, 2]
-            }
-        ];
+        this.state ={
+            hotSeller: [],
+        };
         this.params = {
             speed: 500,
             autoplay: false,
@@ -104,7 +65,32 @@ class  HotSellers extends React.Component {
                 }
             ]
         }
+        this.isAdmin = this.isAdmin.bind(this);
+        this.isUser = this.isUser.bind(this);
     }
+
+    componentDidMount = async () => {
+        const {data} = await axios.get('/api/products/getRandom', {
+            params: {
+                count: 6
+            }
+        });
+        if (data.error) console.error(data.error);
+        else {
+            this.setState({
+                hotSeller: data.products
+            })
+        }
+    };
+
+    isAdmin () {
+        return this.props.isUser && this.props.isUser.roleType === 'admin'
+    };
+
+    isUser() {
+        return this.props.isUser && this.props.isUser.roleType === 'user'
+    };
+
     render () {
         return (
             <div className={classes['slider-container']}>
@@ -112,11 +98,24 @@ class  HotSellers extends React.Component {
                     <h2>Hot Sale</h2>
                 </div>
                 <Slider {...this.params} className={classes['slick-slider-main']}>
-                    {this._hotSeller.map(slide => <Badge mainData={slide} key={slide._id} />)}
+                    {this.state.hotSeller.map(slide => <Badge
+                        isAdmin={this.isAdmin()}
+                        isUser={this.isUser()}
+                        noAccessAdmin={true}
+                        mainData={slide}
+                        key={slide._id} />)}
                 </Slider>
             </div>
         )
     }
 }
 
-export default HotSellers;
+const mapStateToProps = state => ({
+    isUser: state.auth.user
+});
+const mapDispatchToProps = {
+};
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(HotSellers);

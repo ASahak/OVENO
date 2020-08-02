@@ -2,6 +2,8 @@ import React, {createRef, useState, useEffect} from 'react';
 import classes from './bestSellers.scss';
 import Link from 'next/link';
 import PropTypes from 'prop-types'
+import axios from "axios";
+import ImageProd from "components/Shop/elements/imageProduct";
 
 let _intervalIndex = 0;
 let _boolDir = false;
@@ -18,7 +20,7 @@ const Seller = (props) => {
                     }
                 } else {
                     setCount(count--);
-                    _intervalIndex = count
+                    _intervalIndex = count;
                     if (count <= 0) {
                         _boolDir = false
                     }
@@ -32,14 +34,12 @@ const Seller = (props) => {
     const _everySeller = props.products.map((item, index) => {
         return (
            <div className={classes['seller-item']} key={index} style={{'height': props.heightRef + 'px'}}>
-               <img src={item.imgUrl} alt="seller"/>
+               <ImageProd src={item.photo}/>
                <div className={classes['seller-item-info']}>
-                   <Link href="#">
-                        <a>{item.name}</a>
-                   </Link>
-                   {item.sale && <del>{item.price.toFixed(2)} $</del>}
-                   {item.sale && <span className={classes['seller-item-info-sale-price']}>{(item.price - (Math.round((item.price * item.sale) / 100))).toFixed(2)} $</span>}
-                   {!item.sale && <span className={classes['seller-item-info-sale-price']}>{item.price.toFixed(2)} $</span>}
+                    <a href={/product/ + item._id}>{item.name}</a>
+                   {item.sale ? <del>{item.price.toFixed(2)} $</del> : ''}
+                   {item.sale ? <span className={classes['seller-item-info-sale-price']}>{(item.price - (Math.round((item.price * item.sale) / 100))).toFixed(2)} $</span> : ''}
+                   {!item.sale ? <span className={classes['seller-item-info-sale-price']}>{item.price.toFixed(2)} $</span> : ''}
                </div>
            </div>
        )
@@ -56,6 +56,7 @@ Seller.propTypes = {
     playPause: PropTypes.bool,
     refParent: PropTypes.any,
 };
+
 class BestSellers extends React.Component {
     constructor () {
         super();
@@ -65,50 +66,38 @@ class BestSellers extends React.Component {
             height: 0,
             sellerLength: 0,
             badgeHeight: 111,
-            wrapCountSeller: 3
+            wrapCountSeller: 3,
+            sellers: [],
         };
         this.bestSellerRef = React.createRef();
-        this._sellers = [
-            {
-                imgUrl: require('../../../assets/images/bestseller/seller1.jpg'),
-                name: 'Samsung GT 320',
-                price: 140,
-                sale: 5
-            }, {
-                imgUrl: require('../../../assets/images/bestseller/seller2.jpg'),
-                name: 'Toshiba 4500',
-                price: 540,
-                sale: 12
-            }, {
-                imgUrl: require('../../../assets/images/bestseller/seller3.jpg'),
-                name: 'iPhone XS max',
-                price: 780
-            }, {
-                imgUrl: require('../../../assets/images/bestseller/seller4.jpg'),
-                name: 'Asus Vivobook',
-                price: 1280
-            }, {
-                imgUrl: require('../../../assets/images/bestseller/seller5.jpg'),
-                name: 'Dell Max',
-                price: 700,
-                sale: 9
-            }
-        ];
     }
-    componentDidMount() {
+    componentDidMount = async () => {
+        //Get Best Sellers
+        const {data} = await axios.get('/api/products/getBestSellers', {
+            params: {
+                count: 5
+            }
+        });
+        if (data.error) console.error(data.error);
+        else {
+            this.setState({
+                sellers: data.sellers
+            })
+        }
+
         if (this.bestSellerRef.current) {
             let _height = 0;
-            new Array(this._sellers.length).fill('').forEach((_, index) => {
-                if (index <= this._sellers.length - this.state.wrapCountSeller) {
+            new Array(this.state.sellers.length).fill('').forEach((_, index) => {
+                if (index <= this.state.sellers.length - this.state.wrapCountSeller) {
                     _height+=this.state.badgeHeight
                 }
             });
             this.setState({
                 height:_height,
-                sellerLength: this._sellers.length
+                sellerLength: this.state.sellers.length
             })
         }
-    }
+    };
 
     render () {
         return (
@@ -124,7 +113,7 @@ class BestSellers extends React.Component {
                         {this.state.height > 0 && <Seller
                             sellerCount={this.state.sellerLength}
                             wrapCount={this.state.wrapCountSeller}
-                            products={this._sellers}
+                            products={this.state.sellers}
                             refParent={this.bestSellerRef}
                             actIndex={this.state.activeIndex}
                             direction={this.state.direction}

@@ -70,6 +70,12 @@ router.post('/product/add', [userAuth, middleware(ProductAddValidator, (res, err
 /*Get All List by page*/
 router.get('/products/get', ProductController.GetAll);
 
+/*Get All Random List*/
+router.get('/products/getRandom', ProductController.GetRandomProducts);
+
+/*Get Best Sellers List*/
+router.get('/products/getBestSellers', ProductController.GetBestSellers);
+
 /*Get Specific product*/
 router.get('/product/:id', ProductController.GetProduct);
 

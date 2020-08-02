@@ -19,8 +19,6 @@ class NavBar extends React.Component {
                 {text: 'Sale Products', link: {pathname: '/shop', state: {id: 2, title: 'Products'}}},
                 {text: 'Contact Us', link: {pathname: '/contact', state: {id: 3, title: 'Contact Us'}}},
                 {text: 'About Us', link: {pathname: '/about', state: {id: 4, title: 'About Us'}}},
-                {text: 'Our Partners', link: {pathname: '/partners', state: {id: 5, title: 'Our Partners'}}},
-                {text: 'Our Branches', link: {pathname: '/branches', state: {id: 6, title: 'Our Branches'}}}
             ],
             _bindWavePosition: undefined
         };

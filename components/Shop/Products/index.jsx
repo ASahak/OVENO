@@ -19,7 +19,7 @@ export default class Products extends React.PureComponent {
         super(props);
         this.state = {
             productsData: [],
-            pageSize: 2,
+            pageSize: 5,
             activePage: 1,
             productAllCount: null,
             categorySlug: null,
@@ -33,6 +33,8 @@ export default class Products extends React.PureComponent {
         Bus.subscribe('filterByCategory', async () => { // Detect changes of category and Subcategory router params
             try {
                 const data = await this.getItems();
+                if (data.error) throw Error(data.error);
+
                 const dataCount = await axios.get('/api/products/getCount', {
                     params: this.returnParams(),
                 });
@@ -53,17 +55,17 @@ export default class Products extends React.PureComponent {
         })
     }
 
-    async componentDidMount() {
+    componentDidMount = async () => {
         // Get All products
         try {
             const data = await this.getItems();
 
-            if (!data.status || data.error) throw Error(data.message || data.error.message);
+            if (!data.status || data.error) throw Error(data.error);
 
             const dataCount = await axios.get('/api/products/getCount', {
                 params: this.returnParams(),
             });
-            if (dataCount.data.error) throw Error(dataCount.data.error.message);
+            if (dataCount.data.error) throw Error(dataCount.data.error);
             this.setState({
                 productAllCount: dataCount.data.count,
                 productsData: data.products
@@ -78,7 +80,7 @@ export default class Products extends React.PureComponent {
         } finally {
 
         }
-    }
+    };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.filterByRange !== this.props.filterByRange) { // Detecting changes of Range Slider
@@ -90,7 +92,7 @@ export default class Products extends React.PureComponent {
                 const dataCount = await axios.get('/api/products/getCount', {
                     params: this.returnParams(),
                 });
-                if (dataCount.data.error) throw Error(dataCount.data.error.message);
+                if (dataCount.data.error) throw Error(dataCount.data.error);
                 const data = await this.getItems();
 
                 this.setState({
@@ -179,11 +181,22 @@ export default class Products extends React.PureComponent {
                     id: dataId
                 }
             });
-            if (data.error) throw Error(data.error.message);
-            const prods = [...this.state.productsData];
-            this.setState({
-                productsData: prods.filter(d => d._id !== dataId)
+            if (data.error) throw Error(data.error);
+
+            const dataProds = await this.getItems();
+
+            if (!dataProds.status || dataProds.error) throw Error(dataProds.error);
+
+            const dataCount = await axios.get('/api/products/getCount', {
+                params: this.returnParams(),
             });
+            if (dataCount.data.error) throw Error(dataCount.data.error);
+            this.setState({
+                productAllCount: dataCount.data.count,
+                productsData: dataProds.products
+            });
+
+
             toast.dark(data.message, {
                 position: "top-right",
                 autoClose: 3000,
@@ -209,7 +222,7 @@ export default class Products extends React.PureComponent {
                         mainData={slide} /></Col>)}
                 </Row>
                 <div className={styles['pagination-wrap']}>
-                    {new Array(Math.round(this.state.productAllCount / this.state.pageSize)).fill('').map((_el, index) => (
+                    {new Array(Math.ceil(this.state.productAllCount / this.state.pageSize)).fill('').map((_el, index) => (
                         <span key={index} className={this.state.activePage === index + 1 ? 'activeBtn' : ''} onClick={() => this.filterByPage(index + 1)}>{index + 1}</span>
                     ))}
                 </div>
