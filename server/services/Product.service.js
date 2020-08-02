@@ -46,6 +46,7 @@ module.exports = class ProductService {
         }
     }
     static async get_paginate_collection ({
+        name,
         limit,
         page,
         category,
@@ -62,6 +63,7 @@ module.exports = class ProductService {
                 }
             }
             return await Product.find({
+                ...(name && {name: {'$regex': name, '$options': 'i' }}),
                 ...(category && {category: categoryName.name}),
                 ...(subCategory && {subCategory: subCategoryName.name}),
                 price: {$gte: filterMin, $lte: filterMax }

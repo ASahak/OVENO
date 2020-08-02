@@ -64,7 +64,7 @@ class  HotSellers extends React.Component {
                     }
                 }
             ]
-        }
+        };
         this.isAdmin = this.isAdmin.bind(this);
         this.isUser = this.isUser.bind(this);
     }

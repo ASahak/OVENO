@@ -101,4 +101,28 @@ module.exports = class UserController {
             })
         }
     }
+
+    /**
+     * User Update
+     *
+     * @param req.{body} inputSignUp user data (name, email, password)
+     * @param res
+     * @return {Promise<{_id: *, token: *}|*>}
+     */
+    static async UpdateUser (req, res) {
+        try {
+            // Insert the new user if they do not exist yet
+            let user = await UserServices.update_user(req.body);
+            res.status(200).send({
+                status: true,
+                user
+            })
+        } catch (error) {
+            res.status(200).send({
+                status: false,
+                error: error.message
+            })
+        }
+    }
+
 };

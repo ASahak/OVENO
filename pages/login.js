@@ -39,20 +39,7 @@ function LoginForm () {
             if (data.error) throw new Error(data.error);
 
             setToken(data.token);
-            const timeEnd = new Date().getTime();
-            if (timeEnd - timeStart > _timeout) {
-                generateAlert(reset, setLoadingLogin, 'dark', 'User is logged in!', _timeout);
-                setTimeout(() => {
-                    location.href = '/'
-                }, _timeout);
-            } else {
-                setTimeout(() => {
-                    generateAlert(reset, setLoadingLogin, 'dark', 'User is logged in!', _timeout);
-                    setTimeout(() => {
-                        location.href = '/'
-                    }, _timeout);
-                }, (_timeout - (timeEnd - timeStart)));
-            }
+            location.href = '/';
         } catch (err) {
             const timeEnd = new Date().getTime();
             if (timeEnd - timeStart > _timeout) {

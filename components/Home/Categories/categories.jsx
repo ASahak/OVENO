@@ -23,7 +23,7 @@ import Router from "next/router";
 const {
     getToken
 } = require('utils/auth');
-import { Bus } from 'lib/EventEmiiter';
+import { Bus } from 'lib/EventEmitter';
 
 const CRUDCategoryForm = (props) => {
     const {
@@ -427,7 +427,7 @@ const Li = function (props) {
     };
     const goToShop = (path) => {
         Object.keys(Router.query).forEach(qu => { // Remove unnecessary query params
-            if (qu !== 'category' && qu !== 'subCategory' && qu !== 'page' && qu !== 'maxPrice' && qu !== 'minPrice') delete Router.query[qu]
+            if (qu !== 'name' && qu !== 'category' && qu !== 'subCategory' && qu !== 'page' && qu !== 'maxPrice' && qu !== 'minPrice') delete Router.query[qu]
         });
 
         const query = {...Router.query};
@@ -500,7 +500,7 @@ class Categories extends React.Component {
         this.handlerChangesCRUD = this.handlerChangesCRUD.bind(this);
         this.categoryRef = React.createRef();
     }
-    async componentDidMount () {
+    componentDidMount = async () => {
         try {
             const {data} = await axios.get('/api/get/categories');
             if (data.error) throw Error(data.error);
@@ -539,7 +539,7 @@ class Categories extends React.Component {
                 pauseOnHover: false,
             });
         }
-    }
+    };
 
     routerQueries (besides) {
         let queries = '';

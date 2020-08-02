@@ -9,12 +9,13 @@ import FormAdd from 'components/Shop/AddProductForm';
 import axios from "axios";
 import Router from "next/router";
 import {connect} from "react-redux";
-import { Bus } from 'lib/EventEmiiter';
+import { Bus } from 'lib/EventEmitter';
 
 const ShopPage = (props) => {
     const [categories, setCategories] = useState({});
     const [editData, setEditData] = useState(null);
     const [modal, setModal] = useState(false);
+    const [resetRangeSlider, setResetRangeSlider] = useState(true);
     const [updatedData, setUpdatedData] = useState({});
     const [filterByRangeSlider, setFilterByRangeSlider] = useState([]);
     const modalOpen = async (dataEdit) => {
@@ -42,7 +43,12 @@ const ShopPage = (props) => {
         Router.push({
             pathname: '/shop',
             query: {}
-        }).then(() => Bus.dispatch('filterByCategory'))
+        }).then(() => Bus.dispatch('filterByCategory', {searchReset: true}))
+    };
+
+    const resetRange = () => {
+        setResetRangeSlider(false);
+        setResetRangeSlider(true);
     };
 
     return (
@@ -55,12 +61,15 @@ const ShopPage = (props) => {
                     <Col sm="12" md="3">
                         <div style={{position: 'sticky', top: '10px'}}>
                             <Categories />
-                            <RangeSlider
-                                min={0}
-                                step={10}
-                                max={10000}
-                                onChange={(data) => setFilterByRangeSlider(data)}
-                            />
+                            <div style={{height: "40px"}}>
+                                {resetRangeSlider ? <RangeSlider
+                                    min={0}
+                                    step={10}
+                                    max={10000}
+                                    resetRange={() => resetRange()}
+                                    onChange={(data) => setFilterByRangeSlider(data)}
+                                />: '' }
+                            </div>
                             <button className="reset-btn" onClick={() => resetFilters()}>Reset Filters</button>
                         </div>
                     </Col>

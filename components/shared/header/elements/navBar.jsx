@@ -11,7 +11,7 @@ const NavBarWithRouter = (props) => {
 class NavBar extends React.Component {
     constructor(props) {
         super(props);
-        this._navBarRef = React.createRef()
+        this._navBarRef = React.createRef();
         this.state = {
             activeRouteIndex: 1,
             items: [
@@ -23,13 +23,18 @@ class NavBar extends React.Component {
             _bindWavePosition: undefined
         };
         this.__goToRoute = this.__goToRoute.bind(this);
-        Router.events.on('routeChangeComplete', (url) => {
-            this.setState({
-                activeRouteIndex: this.props.router.query ? this.props.router.query.indexPage || this.__getDefaultIndexRouter(): 1
-            }, () => {
-                this._getPositionOfWave(this.state.activeRouteIndex)
-            })
-        });
+        this.RouterEvent = this.RouterEvent.bind(this);
+        Router.events.on('routeChangeComplete', this.RouterEvent);
+    }
+    componentWillUnmount () {
+        Router.events.off('routeChangeComplete', this.RouterEvent);
+    }
+    RouterEvent (url) {
+        this.setState({
+            activeRouteIndex: this.props.router.query ? this.props.router.query.indexPage || this.__getDefaultIndexRouter(): 1
+        }, () => {
+            this._getPositionOfWave(this.state.activeRouteIndex)
+        })
     }
     __goToRoute (leave) {
         this._getPositionOfWave(leave === 'leave' ? this.state.activeRouteIndex : leave)

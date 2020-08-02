@@ -1,9 +1,16 @@
 .main-shop_content {
+  &_loading_gif {
+    display: block;
+    margin: auto;
+  }
   :global {
     div {
       padding: 0 5px;
       margin-bottom: 5px;
     }
+  }
+  &_no-result {
+    text-align: center;
   }
 }
 .pagination-wrap {

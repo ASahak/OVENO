@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { Range } from 'rc-slider';
 import styles from './style.scss';
+import {Bus} from "lib/EventEmitter";
 
 const RangeSlider = (props) => {
     const {min, max, step} = props;
@@ -23,6 +24,11 @@ const RangeSlider = (props) => {
         let maxPrice = params.get('maxPrice');
         setDefaultValues([+minPrice, +maxPrice]);
         setGettingDefaultValue(true);
+        Bus.subscribe('filterByCategory', (reset) => {
+            if (reset && reset.searchReset) {
+                props.resetRange()
+            }
+        });
         return () => {
             setDefaultValues([0, 0]);
             setGettingDefaultValue(false);
@@ -58,6 +64,7 @@ RangeSlider.propTypes = {
     max: PropTypes.number,
     step: PropTypes.number,
     onChange: PropTypes.func,
+    resetRange: PropTypes.func,
 };
 
 export default React.memo(RangeSlider);

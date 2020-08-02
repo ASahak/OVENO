@@ -142,6 +142,7 @@ module.exports = class ProductController {
                 }
             }
             const count = await Product.find({
+                ...(req.query.name && {name: {'$regex': req.query.name, '$options': 'i' }}),
                 ...(req.query.category && {category: categoryName.name}),
                 ...(req.query.subCategory && {subCategory: subCategoryName.name}),
                 price: {$gte: req.query.filterMin, $lte: req.query.filterMax }
