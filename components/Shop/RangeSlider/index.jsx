@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { Range } from 'rc-slider';
 import styles from './style.scss';
-import {Bus} from "../../../lib/EventEmitter";
+import {Bus} from "lib/EventEmitter";
 
 const RangeSlider = (props) => {
     const {min, max, step} = props;
