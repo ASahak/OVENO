@@ -30,29 +30,6 @@ module.exports = class ExpressLoader {
         // Api Routes
         app.use('/api', routes);
 
-        // Redirect to main page
-        // app.use('*', (req, res, next) => {
-        //     if (req.url === '/') {
-        //         res.redirect('/list/1')
-        //     } else next()
-        // });
-
-        // validation middleware
-        // router.use(function(req,res,next){
-        //     var token=req.body.token || req.headers['token'];
-        //     if(token){
-        //         jwt.verify(token,process.env.SECRET_KEY,function(err,ress){
-        //             if(err){
-        //                 res.status(500).send('Token Invalid');
-        //             }else{
-        //                 next();
-        //             }
-        //         })
-        //     }else{
-        //         res.send('Please send a token')
-        //     }
-        // })
-
         return app;
     }
 };
