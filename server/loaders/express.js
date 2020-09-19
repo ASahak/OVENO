@@ -9,7 +9,6 @@ const methodOverride = require('method-override');
 module.exports = class ExpressLoader {
     static init ({ app }) {
         // View Engine
-        app.set('view engine', 'ejs');
         app.use(cookieParser());
         app.use(bodyParser.urlencoded({extended: false}));
         app.use(bodyParser.json());
@@ -20,8 +19,6 @@ module.exports = class ExpressLoader {
         require('../middleware/passport')(passport);
 
         app.use(methodOverride('_method'));
-
-        app.set("views", path.join(__dirname, "../views"));
 
         app.use(express.static(path.join(__dirname, "../../public")));
 

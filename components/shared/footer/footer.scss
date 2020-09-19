@@ -46,6 +46,9 @@
   h4 {
     text-transform: uppercase;
     margin-bottom: 30px;
+    @include min-sm-max-md {
+      font-size: 1.2em;
+    }
   }
   .footer_bottom {
     background-color: #383535;

@@ -105,6 +105,7 @@ const ShopPage = (props) => {
                     cursor: pointer;
                 }
                 .reset-btn {
+                    margin-bottom: 20px;
                     border: 1px solid transparent;
                     color: #fff;
                     background-color: #191919;

@@ -32,6 +32,9 @@
       height: 150px;
       object-fit: cover;
       margin-bottom: 10px;
+      @include max-xs {
+        height: auto;
+      }
     }
     .slider_item-sale_badge {
       position: absolute;
