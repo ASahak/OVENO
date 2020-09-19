@@ -28,6 +28,14 @@ const About = (() => {
                     </Col>
                 </Row>
             </Container>
+            <style jsx={true}>{`
+                @media screen and (max-width: 767px) {
+                    .about-left-wrap {
+                        height: 400px;
+                        margin-bottom: 20px;
+                    }
+                }
+            `}</style>
         </div>
     )
 });

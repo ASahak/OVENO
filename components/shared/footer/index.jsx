@@ -26,22 +26,22 @@ export default class IndexHeader extends React.Component {
                         </Col>
                         <Col sm="12" md="4" className={classesFooter.footer_right}>
                             <h4>CONNECT WITH US</h4>
-                            <a href="">
+                            <a href="https://www.facebook.com/artur.sahakyan.3762" target="_blank">
                                 <i className="fa fa-facebook"></i>
                             </a>
-                            <a href="">
+                            <a href="https://www.linkedin.com/in/arthur-sahakyan-276abb158/" target="_blank">
                                 <i className="fa fa-linkedin"></i>
                             </a>
-                            <a href="">
+                            <a href="https://github.com/ASahak" target="_blank">
                                 <i className="fa fa-github"></i>
                             </a>
                             <p>
                                 <span className="lnr lnr-phone"></span>
-                                + 123.456 789 999
+                                +374 94129604
                             </p>
                             <p>
                                 <span className="lnr lnr-envelope"></span>
-                                Support@vinawebsolutions.com
+                                arthur.sahakyan96@gmail.com
                             </p>
                         </Col>
                     </Row>
@@ -49,7 +49,7 @@ export default class IndexHeader extends React.Component {
                 <div className={classesFooter.footer_bottom}>
                     <Container>
                         <p>Copyright © 2020 Oveno. All Rights Reserved.</p>
-                        <p>Design and Development by <a href="">Arthur Sahakyan</a></p>
+                        <p>Design and Development by <a href="https://arthur-portfolio.web.app" target="_blank">Arthur Sahakyan</a></p>
                     </Container>
                 </div>
             </footer>

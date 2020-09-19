@@ -14,11 +14,11 @@ const IndexPage = () => (
         </Head>
         <Container>
             <Row>
-                <Col sm="12" md="3">
+                <Col sm="12" md="4" lg="3">
                     <Categories />
                     <BestSellers />
                 </Col>
-                <Col sm="12" md="9">
+                <Col sm="12" md="8" lg="9">
                     <HomeSlider
                         autoplay={true}
                         dots={true}

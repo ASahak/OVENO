@@ -190,6 +190,11 @@ const ProductPage = (props) => {
                         </>}
                 </Row>
             </Container>
+            <style jsx={true}>{`
+                .product-image_wrap {
+                    margin-bottom: 20px;
+                }
+            `}</style>
         </div>
     )
 };

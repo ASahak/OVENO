@@ -93,29 +93,34 @@ class MiddleWrap extends React.Component {
             }).then(() => Bus.dispatch('filterByCategory'))
         }
     }
+    triggerSearchName (evt) {
+        if (evt.key === 'Enter') {
+            this.searchByName();
+        }
+    }
 
     render() {
         return (
             <div className={classesMiddleWrap.middle_content_header}>
                 <Container>
                     <Row className="align-items-center">
-                        <Col sm="12" md="4" className={classesMiddleWrap.logo_content}>
+                        <Col xs="7" sm="7" md="4" className={classesMiddleWrap.logo_content}>
                             <a href="/" className="d-inline-flex align-items-center justify-content-md-start justify-content-center">
                                 <img className="mr-2" src={require('../../../../assets/images/logo.png')} alt="" />
                                 VENO
                             </a>
                         </Col>
-                        <Col cols="7" sm="7" md="5" className={classesMiddleWrap.search_block}>
+                        <Col xs="12" sm="12" md="5" className={classesMiddleWrap.search_block}>
                             <div id={classesMiddleWrap.main_search}>
                                 <div className={classesMiddleWrap.search_wrap}>
-                                    <input type="text" ref={this.searchRef} placeholder="Search entire store here..." />
+                                    <input type="text" ref={this.searchRef} onKeyPress={(e) => this.triggerSearchName(e)} placeholder="Search entire store here..." />
                                     <button type="button" onClick={() => this.searchByName()}>
                                         <span className="lnr lnr-magnifier"></span>
                                     </button>
                                 </div>
                             </div>
                         </Col>
-                        {this.props.isUser ? <Col cols="5" sm="5" md="3" className={classesMiddleWrap.cart_item_parent}>
+                        {this.props.isUser ? <Col xs="5" sm="5" md="3" className={classesMiddleWrap.cart_item_parent}>
                             <a className={classesMiddleWrap.cart_wrap} onClick={this.__showLangModal.bind(this, this.cartRef, 'noClose')}>
                                 <span className={`${classesMiddleWrap.lnr} lnr lnr-cart`}></span>
                                 My cart: {this.props.isUser.cart.length} item

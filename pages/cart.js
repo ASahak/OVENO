@@ -172,6 +172,14 @@ const Cart = (props) => {
                     </div>
                 </Col>
             </Row>
+            <style jsx={true}>{`
+                .cart-main-wrap {
+                    overflow-y: auto;
+                }
+                .cart-header, .cart-body {
+                    min-width: 700px;
+                }
+            `}</style>
         </Container>
     );
 };

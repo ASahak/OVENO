@@ -79,15 +79,15 @@ class NavBar extends React.Component {
         return <div className={classes['nav-bar-ln']}>
             <Container>
                 <Row>
-                    <Col xs="9">
+                    <Col xs="12" md="8" lg="9">
                         <nav ref={this._navBarRef} onMouseLeave={() => this.__goToRoute('leave')}>
                             <span className={classes['wave_active']} style={this.state._bindWavePosition}></span>
                             {item}
                         </nav>
                     </Col>
-                    <Col xs="3">
+                    <Col className={classes['phone-nav-bar']} xs="4" md="4" lg="3">
                         <div className={classes['call-us-wrap']}>
-                            <a href="#" onClick={e => e.preventDefault()}> Call Us +374 990 0909000</a>
+                            <a href="tel:+37494129604" onClick={e => e.preventDefault()}> Call Us +374 94 12 96 04</a>
                         </div>
                     </Col>
                 </Row>
