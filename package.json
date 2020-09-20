@@ -53,7 +53,7 @@
     "mongoose-slug-generator": "^1.0.4",
     "mongoose-slug-updater": "^3.2.3",
     "multer": "^1.4.2",
-    "next": "9.1.4",
+    "next": "9.3.2",
     "next-compose-plugins": "^2.2.0",
     "next-cookies": "^2.0.3",
     "next-redux-wrapper": "^6.0.2",
