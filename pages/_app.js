@@ -16,9 +16,9 @@ class Layout extends App {
     render() {
 
         // Save User's' data to the store
-        isLoggedUser().then(res => {
-            __SET_LOGGED(res.data).next();
-        }).catch(err => console.info(err));
+        // isLoggedUser().then(res => {
+        //     __SET_LOGGED(res.data).next();
+        // }).catch(err => console.info(err));
 
         const { Component, pageProps, initialProps } = this.props;
         const Layout = Component.Layout || DefaultLayout;
