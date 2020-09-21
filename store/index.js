@@ -13,13 +13,13 @@ const state = {
     },
 };
 
+const sagaMiddleware = createSagaMiddleware();
 export function configureStore(initialState = {}) {
-    const sagaMiddleware = createSagaMiddleware();
     const store = createStore(rootReducer, initialState, composeEnhancers(applyMiddleware(sagaMiddleware)));
-    store.runSaga = sagaMiddleware.run;
+    // store.runSaga = sagaMiddleware.run;
     return store;
 }
 const store = configureStore(state);
 
-store.runSaga(_rootSaga);
+sagaMiddleware.run(_rootSaga);
 export default store;
