@@ -15,7 +15,7 @@ const state = {
 
 const sagaMiddleware = createSagaMiddleware();
 export function configureStore(initialState = {}) {
-    const store = createStore(rootReducer, initialState, composeEnhancers(applyMiddleware(sagaMiddleware)));
+    const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
     // store.runSaga = sagaMiddleware.run;
     return store;
 }
