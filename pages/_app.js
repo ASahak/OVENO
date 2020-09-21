@@ -27,11 +27,11 @@ class Layout extends App {
 
         return (
             <>
-                {/*<Provider store={store}>*/}
+                <Provider store={store}>
                     <Layout>
                         <Component {...pageProps} {...initialProps}/>
                     </Layout>
-                {/*</Provider>*/}
+                </Provider>
                 <ToastContainer />
             </>
         );
