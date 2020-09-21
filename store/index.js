@@ -14,12 +14,11 @@ const state = {
 };
 
 const sagaMiddleware = createSagaMiddleware();
-export function configureStore(initialState = {}) {
-    const store = createStore(rootReducer, initialState, applyMiddleware(sagaMiddleware));
-    // store.runSaga = sagaMiddleware.run;
+export function configureStore() {
+    const store = createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMiddleware)));
     return store;
 }
-const store = configureStore(state);
+const store = configureStore();
 
 sagaMiddleware.run(_rootSaga);
 export default store;
