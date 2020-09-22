@@ -17,9 +17,9 @@ class Layout extends App {
 
         // Save User's' data to the store
         isLoggedUser().then(res => {
-            // __SET_LOGGED(res.data).next();
+            __SET_LOGGED(res.data).next();
         }).catch(err => {
-            // console.info(err)
+            console.info(err)
         });
 
         const { Component, pageProps, initialProps } = this.props;
