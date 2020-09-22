@@ -19,5 +19,5 @@ export function configureStore(initialState = {}) {
 }
 const store = configureStore(state);
 
-sagaMiddleware.run(_rootSaga);
+// sagaMiddleware.run(_rootSaga);
 export default store;
