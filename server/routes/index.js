@@ -108,6 +108,11 @@ router.delete('/cart/deleteProduct', [userAuth], CartController.DeleteProductFro
 
 // ____ Users
 
+
+/*Send Mail*/
+router.post('/sendMail', UserController.SendMail);
+
+
 /*Get User Data*/
 router.get('/user/:id', UserController.GetUser);
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Head from "next/head";
 import {Col, Container, Row} from "reactstrap";
 import {useForm} from "react-hook-form";
@@ -7,9 +7,11 @@ import {
     EMAIL_VALIDATOR,
     FULL_NAME_VALIDATOR
 } from "utils";
+import axios from "axios";
 import {toast} from "react-toastify";
 
 const Contact = (() => {
+    const [loading, setLoading] = useState(false);
     const {
         register,
         handleSubmit,
@@ -19,12 +21,25 @@ const Contact = (() => {
         mode: 'onBlur',
     });
 
-    const onSubmit = () => {
-        toast.dark('Your mail sent successfully!', {
-            position: "top-right",
-            autoClose: 3000,
-            pauseOnHover: false
-        });
+    const onSubmit = async (dataForm) => {
+        try {
+            setLoading(true);
+            const {data} = await axios.post('/api/sendMail', dataForm);
+            if (data.error) throw Error(data.error);
+            toast.dark(data.message, {
+                position: "top-right",
+                autoClose: 3000,
+                pauseOnHover: false
+            });
+        } catch (error) {
+            toast.error(error.message, {
+                position: "top-right",
+                autoClose: 3000,
+                pauseOnHover: false
+            });
+        } finally {
+            setLoading(false);
+        }
         reset();
     };
     return (
@@ -61,8 +76,9 @@ const Contact = (() => {
                                     {errors.description && <span className="error-line">This field is required</span>}
                                 </div>
                                 <UI_ELEMENTS.Button
+                                    icon={loading ? {dir: 'right', element: 'loading'} : {}}
                                     type="submit"
-                                    text="Save"
+                                    text="Send"
                                     width={100}
                                     margin={['0px', '0', '0', 'auto']}
                                     attr={[

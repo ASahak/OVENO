@@ -14,4 +14,7 @@ module.exports = {
     ONLY_ENGLISH_LETTERS_WITH_DIGIT : /^(?=.*[A-Za-z])[A-Za-z0-9 _]*$/i,
     SPACE_PATTER                    : (str) => !!str.replace(/\s/g, '').length,
     RANGE_SLIDER                    : [0, 10000],
+    EMAIL_AUTH_USER                 : 'arthur.sahakyan96@gmail.com',
+    EMAIL_AUTH_PASSWORD             : 'angular5developer',
+    EMAIL_SUBJECT                   : 'Message from OVENO!',
 };

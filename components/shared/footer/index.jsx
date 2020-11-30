@@ -48,7 +48,7 @@ export default class IndexHeader extends React.Component {
                 </Container>
                 <div className={classesFooter.footer_bottom}>
                     <Container>
-                        <p>Copyright © 2020 Oveno. All Rights Reserved.</p>
+                        <p>CopyRight © 2020 Oveno. All Rights Reserved.</p>
                         <p>Design and Development by <a href="https://arthur-portfolio.web.app" target="_blank">Arthur Sahakyan</a></p>
                     </Container>
                 </div>

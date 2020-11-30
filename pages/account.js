@@ -2,9 +2,6 @@ import React, {useState, useEffect, useRef} from 'react';
 import axios from "axios";
 import {connect} from "react-redux";
 import {Col, Container, Row} from "reactstrap";
-const {
-    getToken
-} = require('utils/auth');
 import {toast} from "react-toastify";
 import UI_ELEMENTS from "../components/shared/UI";
 import {

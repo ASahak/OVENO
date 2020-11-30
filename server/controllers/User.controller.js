@@ -5,15 +5,65 @@ const jwt = require('jsonwebtoken');
 const {
     secretKey
 } = require('../config');
+const {
+    EMAIL_AUTH_PASSWORD,
+    EMAIL_AUTH_USER,
+    EMAIL_SUBJECT,
+} = require('../../utils/constants');
+const nodemailer = require("nodemailer");
 
 
 module.exports = class UserController {
     /**
+     * Send Mail
+     *
+     * @param req
+     * @param res
+     * @return {Promise<{_id: *}|*>}
+     */
+    static async SendMail (req, res) {
+        try {
+            const transporter = nodemailer.createTransport({
+                port: 465,               // true for 465, false for other ports
+                host: "smtp.gmail.com",
+                secure: true,
+                service: 'gmail',
+                auth: {
+                    user: EMAIL_AUTH_USER,
+                    pass: EMAIL_AUTH_PASSWORD
+                }
+            });
+            const message = {
+                from: `From ${req.body.email}<donotreply@${req.body.email}>`,
+                to: EMAIL_AUTH_USER,
+                subject: EMAIL_SUBJECT,
+                text: req.body.description,
+            };
+            transporter.sendMail(message, function(err, _info) {
+                if (err) {
+                    res.status(200).send({
+                        status: false,
+                        error: err.message
+                    })
+                } else {
+                    res.status(200).send({
+                        status: true,
+                        message: 'Message was successfully send'
+                    })
+                }
+            });
+        } catch (error) {
+            res.status(200).send({
+                status: false,
+                error: error.message
+            })
+        }
+    }
+    /**
      * User Sign up
      *
-     * @param body inputSignUp user data (name, email, password)
+     * @param req[body] inputSignUp user data (name, email, password)
      * @param res
-     * @param headers
      * @return {Promise<{_id: *, token: *}|*>}
      */
     static async CreateUser (req, res) {

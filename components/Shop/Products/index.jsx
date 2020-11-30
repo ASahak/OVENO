@@ -19,7 +19,7 @@ export default class Products extends React.PureComponent {
         super(props);
         this.state = {
             productsData: null,
-            pageSize: 5,
+            pageSize: 8,
             activePage: 1,
             productAllCount: null,
             categorySlug: null,
