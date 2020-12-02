@@ -1,8 +1,20 @@
 const User = require('../models/user.model');
+const EmailSubscribe = require('../models/email_subscribe.model');
 const bcrypt = require('bcrypt');
 const roleTypes = require('../../utils').ROLE_TYPES;
 
 module.exports = class UserService {
+    static async add_email_subscribe (email) {
+        try {
+            const email_subscribe = EmailSubscribe({
+               email
+            });
+            return await email_subscribe.save()
+        } catch (err) {
+            throw Error(err);
+        }
+    }
+
     static async create_user (body) {
         const newUserPass = await bcrypt.hash(body.password, 10);
         const user = new User({
@@ -13,8 +25,7 @@ module.exports = class UserService {
             roleType: roleTypes.USER
         });
         try {
-            const newUser = await user.save();
-            return newUser
+            return await user.save();
         } catch (err) {
             throw Error(err);
         }
@@ -23,7 +34,7 @@ module.exports = class UserService {
     static async update_user (body) {
         const newUserPass = await bcrypt.hash(body.password, 10);
         try {
-            const newUser = await User.findOneAndUpdate(
+            return await User.findOneAndUpdate(
                 {_id: body._id},
                 {
                     $set: {
@@ -33,7 +44,6 @@ module.exports = class UserService {
                     }
                 },
                 {new: true, upsert: true }, () => {});
-            return newUser
         } catch (err) {
             throw Error(err);
         }

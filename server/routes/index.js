@@ -112,6 +112,8 @@ router.delete('/cart/deleteProduct', [userAuth], CartController.DeleteProductFro
 /*Send Mail*/
 router.post('/sendMail', UserController.SendMail);
 
+// Subscribe via email
+router.put('/subscribeEmail', UserController.SubscribeEmail);
 
 /*Get User Data*/
 router.get('/user/:id', UserController.GetUser);

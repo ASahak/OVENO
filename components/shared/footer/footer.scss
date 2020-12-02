@@ -6,18 +6,28 @@
   .footer_middle {
     .news-letter {
       display: flex;
-      > input {
+      margin-bottom: 20px;
+      input {
         padding: 10px;
         font-size: 0.8125rem;
         border: none;
         width: 100%;
+        height: 40px !important;
+        margin-bottom: 0 !important;
       }
       > button {
-        border: none;
-        background: $main-bg-color;
-        padding: 7px 20px;
+        border: none !important;
+        background: $main-bg-color !important;
         color: #fff;
-        font-size: 1rem;
+        font-size: 1rem !important;
+        margin: 0 !important;
+        border-radius: 0;
+        height: 40px;
+        text-transform: capitalize;
+        transition: .4s;
+        svg {
+          margin: 0 !important;
+        }
       }
     }
   }
@@ -61,6 +71,10 @@
     :global(.container) {
       display: flex;
       justify-content: space-between;
+      @include max-xs {
+        align-items: center;
+        flex-direction: column;
+      }
     }
   }
 }
