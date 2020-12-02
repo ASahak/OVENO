@@ -1,6 +1,7 @@
 const UserServices = require('../services/User.service');
 const BaseServices = require('../services/BaseServices');
 const User = require('../models/user.model');
+const EmailSubscribe = require('../models/email_subscribe.model');
 const jwt = require('jsonwebtoken');
 const {
     secretKey
@@ -15,6 +16,36 @@ const nodemailer = require("nodemailer");
 
 module.exports = class UserController {
     /**
+     * Subscribe via email
+     *
+     * @param req[body]
+     * @param res
+     * @return {Promise<{_id: *}|*>}
+     */
+    static async SubscribeEmail ({body}, res) {
+        // Check if this user already exists
+        let user = await new BaseServices(EmailSubscribe, body.email).IfExistByEmail(body.email);
+        if (user) {
+            return res.status(200).send({
+                status: false,
+                error: 'That user already exists!'
+            });
+        } else {
+            try {
+                await UserServices.add_email_subscribe(body.email);
+                res.status(200).send({
+                    status: true,
+                    message: 'You will receive emails for any updates!'
+                });
+            } catch (error) {
+                res.status(200).send({
+                    status: false,
+                    message: error.message,
+                });
+            }
+        }
+    }
+    /**
      * Send Mail
      *
      * @param req
@@ -22,7 +53,13 @@ module.exports = class UserController {
      * @return {Promise<{_id: *}|*>}
      */
     static async SendMail (req, res) {
+        const isForSubscribers = req.body.mailToSubscribers;
+        let mails = [];
         try {
+            if (isForSubscribers) { // if there are subscribed user which should send notification
+                let emails = await new BaseServices(EmailSubscribe).getAllFromCollection();
+                mails = emails ? [...emails.map(e => e.email)] : [];
+            }
             const transporter = nodemailer.createTransport({
                 port: 465,               // true for 465, false for other ports
                 host: "smtp.gmail.com",
@@ -34,10 +71,10 @@ module.exports = class UserController {
                 }
             });
             const message = {
-                from: `From ${req.body.email}<donotreply@${req.body.email}>`,
-                to: EMAIL_AUTH_USER,
+                from: `From ${isForSubscribers ? EMAIL_AUTH_USER : req.body.email}<donotreply@${isForSubscribers ? EMAIL_AUTH_USER : req.body.email}>`,
+                to: isForSubscribers ? mails : EMAIL_AUTH_USER,
                 subject: EMAIL_SUBJECT,
-                text: req.body.description,
+                text: isForSubscribers ? 'There are some new products, maybe you interested with it?' : req.body.description,
             };
             transporter.sendMail(message, function(err, _info) {
                 if (err) {

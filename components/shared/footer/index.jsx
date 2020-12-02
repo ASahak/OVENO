@@ -1,12 +1,52 @@
 import React from 'react'
 import classesFooter from './footer.scss';
 import {Container, Row, Col} from 'reactstrap'
-import classesMiddleWrap from "../header/elements/middleWrap.scss";
+import UI_ELEMENTS from "components/shared/UI";
+import axios from "axios";
+import {toast} from "react-toastify";
+import * as constants from 'utils';
 
 export default class IndexHeader extends React.Component {
     constructor (props) {
         super(props);
-        this.state = {}
+        this.state = {
+            loading: false,
+        };
+        this.onSubmit = this.onSubmit.bind(this);
+        this.emailRef = React.createRef();
+    }
+
+    async onSubmit (dataForm) {
+        dataForm.preventDefault();
+        try {
+            if(this.emailRef && this.emailRef.current) {
+                this.setState({
+                    loading: true,
+                });
+                if (this.emailRef.current.value === '') return;
+                if (!constants.EMAIL_VALIDATION(this.emailRef.current.value)) throw Error('Please fill right email address!');
+
+                const {data} = await axios.put('/api/subscribeEmail', {email: this.emailRef.current.value});
+                if (data.error) throw Error(data.error);
+                toast.dark(data.message, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    pauseOnHover: false
+                });
+            } else throw Error('Input Ref doesn\'t find!')
+
+        } catch (err) {
+            toast.error(err.message, {
+                position: "top-right",
+                autoClose: 3000,
+                pauseOnHover: false
+            });
+        } finally {
+            this.setState({
+                loading: false,
+            });
+            if (this.emailRef.current) this.emailRef.current.value = '';
+        }
     }
     render() {
         return (
@@ -19,10 +59,21 @@ export default class IndexHeader extends React.Component {
                         </Col>
                         <Col sm="12" md="4" className={classesFooter.footer_middle}>
                             <h4>NEWSLETTER</h4>
-                            <div className={classesFooter['news-letter']}>
-                                <input type="text" placeholder="Your email here"/>
-                                <button>Subscribe</button>
-                            </div>
+                            <form onSubmit={this.onSubmit} className={classesFooter['news-letter']}>
+                                <UI_ELEMENTS.Input
+                                    type="text"
+                                    refBind={this.emailRef}
+                                    fullWidth={true}
+                                    placeholder="Your email here"
+                                    size="sm" />
+                                <UI_ELEMENTS.Button
+                                    icon={this.state.loading ? {dir: 'right', element: 'loading'} : {}}
+                                    type="submit"
+                                    text="Subscribe"
+                                    width={120}
+                                    margin={['0px', '0', '0', 'auto']}
+                                    size="sm"/>
+                            </form>
                         </Col>
                         <Col sm="12" md="4" className={classesFooter.footer_right}>
                             <h4>CONNECT WITH US</h4>

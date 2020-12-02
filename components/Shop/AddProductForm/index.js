@@ -44,6 +44,8 @@ const FormAdd = (props) => {
                 });
                 if (data.error) throw Error(data.error);
                 dataCategory.photo = data.file.path.replace(/public/g, '');
+                // Send notification to teh all subscribed users
+                await axios.post('/api/sendMail', {mailToSubscribers: true});
             } else {
                 dataCategory.photo = 'default-placeholder.png';
             }
