@@ -109,6 +109,12 @@ router.delete('/cart/deleteProduct', [userAuth], CartController.DeleteProductFro
 // ____ Users
 
 
+/*Forget Password*/
+router.put('/forget-password', UserController.ForgetPassword);
+
+/*Reset Password*/
+router.put('/reset-password', UserController.ResetPassword);
+
 /*Send Mail*/
 router.post('/sendMail', UserController.SendMail);
 
