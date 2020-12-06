@@ -33,6 +33,10 @@ let UserSchema = new Schema({
         type: String,
         required: true,
     },
+    resetLink: {
+        data: String,
+        default: '',
+    }
 }, {versionKey: false, timestamps: true});
 
 module.exports = mongoose.model('User', UserSchema);

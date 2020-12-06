@@ -4,7 +4,9 @@ const User = require('../models/user.model');
 const EmailSubscribe = require('../models/email_subscribe.model');
 const jwt = require('jsonwebtoken');
 const {
-    secretKey
+    secretKey,
+    secretKeyResetPassword,
+    clientURL,
 } = require('../config');
 const {
     EMAIL_AUTH_PASSWORD,
@@ -12,9 +14,122 @@ const {
     EMAIL_SUBJECT,
 } = require('../../utils/constants');
 const nodemailer = require("nodemailer");
-
+const sendMail = {
+    port: 465,               // true for 465, false for other ports
+    host: "smtp.gmail.com",
+    secure: true,
+    service: 'gmail',
+    auth: {
+        user: EMAIL_AUTH_USER,
+        pass: EMAIL_AUTH_PASSWORD
+    }
+};
 
 module.exports = class UserController {
+    /**
+     * Reset Password
+     *
+     * @param req[body]
+     * @param res
+     * @return {Promise<{_id: *}|*>}
+     */
+    static async ResetPassword ({body}, res) {
+        const {resetLink, newPassword} = body;
+        if (resetLink) {
+            jwt.verify(resetLink, secretKeyResetPassword, (err, _decodedData) => {
+                if (err) {
+                    return res.status(200).send({
+                        status: false,
+                        error: 'Incorrect token or it is expired!'
+                    });
+                }
+                User.findOne({resetLink}, async (err, user) => {
+                    if (err || !user) {
+                        return res.status(200).send({
+                            status: false,
+                            error: 'User with this token doesn\'t exist!',
+                        });
+                    }
+                    try {
+                        await UserServices.update_user({
+                            _id: user._id,
+                            password: newPassword,
+                            name: user.name,
+                            email: user.email
+                        });
+                        return res.status(200).send({
+                            status: true,
+                            message: 'Your password has been changed!',
+                        });
+                    } catch (error) {
+                        res.status(200).send({
+                            status: false,
+                            error: error.message
+                        })
+                    }
+                })
+            })
+        } else {
+            return res.status(200).send({
+                status: false,
+                error: 'Authentication error!'
+            });
+        }
+    }
+    /**
+     * Forgot Password
+     *
+     * @param req[body]
+     * @param res
+     * @return {Promise<{_id: *}|*>}
+     */
+    static async ForgetPassword ({body}, res) {
+        const {email} = body;
+        let user = await new BaseServices(User, email).IfExistByEmail(email);
+        if (!user) {
+            return res.status(200).send({
+                status: false,
+                error: 'User with this email doesn\'t exist!'
+            });
+        } else {
+            const token = jwt.sign({_id: user._id}, secretKeyResetPassword, {expiresIn: '20m'});
+            const message = {
+                from: `noreply@${EMAIL_AUTH_USER}`,
+                to: email,
+                subject: 'OVENO: Reset Password',
+                html: `
+                    <h2>Please click on given link to reset your password</h2>
+                    <a href="${clientURL}/reset-password?token=${token}">Reset Password</a>  
+                `
+            };
+            return user.updateOne({resetLink: token}, (err, _success) => {
+                if (err) {
+                    return res.status(200).send({
+                        status: false,
+                        error: 'Reset Password error'
+                    });
+                } else {
+                    const transporter = nodemailer.createTransport({
+                        ...sendMail
+                    });
+                    transporter.sendMail(message, function(err, _info) {
+                        if (err) {
+                            res.status(200).send({
+                                status: false,
+                                error: err.message
+                            })
+                        } else {
+                            res.status(200).send({
+                                status: true,
+                                message: 'Email has been sent, kindly follow the instructions'
+                            })
+                        }
+                    });
+                }
+            })
+        }
+    }
+
     /**
      * Subscribe via email
      *
@@ -61,14 +176,7 @@ module.exports = class UserController {
                 mails = emails ? [...emails.map(e => e.email)] : [];
             }
             const transporter = nodemailer.createTransport({
-                port: 465,               // true for 465, false for other ports
-                host: "smtp.gmail.com",
-                secure: true,
-                service: 'gmail',
-                auth: {
-                    user: EMAIL_AUTH_USER,
-                    pass: EMAIL_AUTH_PASSWORD
-                }
+                ...sendMail
             });
             const message = {
                 from: `From ${isForSubscribers ? EMAIL_AUTH_USER : req.body.email}<donotreply@${isForSubscribers ? EMAIL_AUTH_USER : req.body.email}>`,
