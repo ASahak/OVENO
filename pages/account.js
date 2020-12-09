@@ -40,7 +40,6 @@ const Account = (props) => {
     useEffect(() => {
         (async () => {
             if (props.isUser) {
-                console.log(props.isUser);
                 setAvatar(props.isUser.avatar);
                 const {name, email} = props.isUser;
                 setValue('name', name);
