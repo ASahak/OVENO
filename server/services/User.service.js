@@ -20,6 +20,7 @@ module.exports = class UserService {
         const user = new User({
             name: body.name,
             email: body.email,
+            avatar: body.avatar,
             password: newUserPass,
             cart: [],
             roleType: roleTypes.USER
@@ -32,15 +33,19 @@ module.exports = class UserService {
     }
 
     static async update_user (body) {
-        const newUserPass = await bcrypt.hash(body.password, 10);
+        let newUserPass;
+        if (body.password) {
+            newUserPass = await bcrypt.hash(body.password, 10);
+        }
         try {
             return await User.findOneAndUpdate(
                 {_id: body._id},
                 {
                     $set: {
-                        password: newUserPass,
+                        ...(newUserPass && {password: newUserPass}),
                         name: body.name,
                         email: body.email,
+                        avatar: body.avatar,
                     }
                 },
                 {new: true, upsert: true }, () => {});

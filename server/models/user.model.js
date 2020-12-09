@@ -36,6 +36,11 @@ let UserSchema = new Schema({
     resetLink: {
         data: String,
         default: '',
+    },
+    avatar: {
+        type: String,
+        defaultValue: 'user.png',
+        required: false,
     }
 }, {versionKey: false, timestamps: true});
 

@@ -36,6 +36,7 @@ function RegisterForm () {
         setLoadingRegister(true);
         const timeStart = new Date().getTime();
         try {
+            dataForm.avatar = 'user.png'; // set default user avatar
             const { data } = await axios.post('/api/create/user', dataForm);
             if (data.error) throw new Error(data.error);
 

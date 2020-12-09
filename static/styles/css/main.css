@@ -348,6 +348,50 @@ textarea {
   color: red;
 }
 
+.contact-main-wrap .avatar-wrap {
+  text-align: center;
+  position: relative;
+  width: 160px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  padding: 2px;
+  overflow: hidden;
+}
+.contact-main-wrap .avatar-wrap label {
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 22;
+  cursor: pointer;
+  background: #191919b5;
+  width: calc(100% - 45px);
+}
+.contact-main-wrap .avatar-wrap label:hover {
+  background: #191919;
+}
+.contact-main-wrap .avatar-wrap label span {
+  font-weight: 900;
+  color: #f01b48;
+}
+.contact-main-wrap .avatar-wrap img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.contact-main-wrap .button-wrap-account {
+  display: flex;
+  align-items: center;
+}
+.contact-main-wrap .button-wrap-account a {
+  text-decoration: underline !important;
+  color: #007bff !important;
+  cursor: pointer;
+}
+
 main {
   flex: 1 0 auto;
 }

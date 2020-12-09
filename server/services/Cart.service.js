@@ -22,6 +22,7 @@ module.exports = class CartService {
 
     static async get_all_cart_data (ids) {
         try {
+            if (!ids) throw 'Cart is Empty!';
             return await Product.find(
                 {'_id' : {
                         $in: [...ids]

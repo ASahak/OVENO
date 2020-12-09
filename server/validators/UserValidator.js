@@ -24,14 +24,13 @@ const schema = Joi.object({
             , /*tlds: { allow: ['com', 'net'] }*/
         })
         .required(),
-
+    avatar: Joi.string()
+        .required(),
     password: Joi.string()
         .regex(new RegExp(AT_LEAST_ONE_DIGIT_AND_UPPER), 'Minimum eight characters, at least one uppercase letter, one lowercase letter and one number')
-        .min(8)
-        .required(),
+        .min(8),
     password_repeat: Joi.string()
         .equal(Joi.ref('password'))
-        .required()
 });
 
 module.exports = schema;
