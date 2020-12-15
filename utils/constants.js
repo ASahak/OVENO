@@ -15,7 +15,5 @@ module.exports = {
     SPACE_PATTER                    : (str) => !!str.replace(/\s/g, '').length,
     EMAIL_VALIDATION                : email => /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email),
     RANGE_SLIDER                    : [0, 10000],
-    EMAIL_AUTH_USER                 : 'arthur.sahakyan96@gmail.com',
-    EMAIL_AUTH_PASSWORD             : 'angular5developer',
     EMAIL_SUBJECT                   : 'Message from OVENO!',
 };

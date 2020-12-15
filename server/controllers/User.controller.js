@@ -7,10 +7,10 @@ const {
     secretKey,
     secretKeyResetPassword,
     clientURL,
+    email_auth_user,
+    email_auth_password
 } = require('../config');
 const {
-    EMAIL_AUTH_PASSWORD,
-    EMAIL_AUTH_USER,
     EMAIL_SUBJECT,
 } = require('../../utils/constants');
 const nodemailer = require("nodemailer");
@@ -20,8 +20,8 @@ const sendMail = {
     secure: true,
     service: 'gmail',
     auth: {
-        user: EMAIL_AUTH_USER,
-        pass: EMAIL_AUTH_PASSWORD
+        user: email_auth_user,
+        pass: email_auth_password
     }
 };
 
@@ -94,7 +94,7 @@ module.exports = class UserController {
         } else {
             const token = jwt.sign({_id: user._id}, secretKeyResetPassword, {expiresIn: '20m'});
             const message = {
-                from: `noreply@${EMAIL_AUTH_USER}`,
+                from: `noreply@${email_auth_user}`,
                 to: email,
                 subject: 'OVENO: Reset Password',
                 html: `
@@ -179,8 +179,8 @@ module.exports = class UserController {
                 ...sendMail
             });
             const message = {
-                from: `From ${isForSubscribers ? EMAIL_AUTH_USER : req.body.email}<donotreply@${isForSubscribers ? EMAIL_AUTH_USER : req.body.email}>`,
-                to: isForSubscribers ? mails : EMAIL_AUTH_USER,
+                from: `From ${isForSubscribers ? email_auth_user : req.body.email}<donotreply@${isForSubscribers ? email_auth_user : req.body.email}>`,
+                to: isForSubscribers ? mails : email_auth_user,
                 subject: EMAIL_SUBJECT,
                 text: isForSubscribers ? 'There are some new products, maybe you interested with it?' : req.body.description,
             };
