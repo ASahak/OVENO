@@ -1,0 +1,83 @@
+{
+  "devFiles": [],
+  "pages": {
+    "/": [
+      "static/runtime/webpack-9369c5c69dbf6d4912cb.js",
+      "static/chunks/commons.79d23a3666f5f9a600f6.js",
+      "static/css/styles.d1b56a21.chunk.css",
+      "static/chunks/styles.46c9edbdab229f24a067.js",
+      "static/runtime/main-80f907069f8bd5fc10fd.js"
+    ],
+    "/_app": [
+      "static/runtime/webpack-9369c5c69dbf6d4912cb.js",
+      "static/chunks/commons.79d23a3666f5f9a600f6.js",
+      "static/css/styles.d1b56a21.chunk.css",
+      "static/chunks/styles.46c9edbdab229f24a067.js",
+      "static/runtime/main-80f907069f8bd5fc10fd.js"
+    ],
+    "/_error": [
+      "static/runtime/webpack-9369c5c69dbf6d4912cb.js",
+      "static/chunks/commons.79d23a3666f5f9a600f6.js",
+      "static/runtime/main-80f907069f8bd5fc10fd.js"
+    ],
+    "/_polyfills": [
+      "static/runtime/polyfills-6f63874b7f93cc8cfe44.js"
+    ],
+    "/about": [
+      "static/runtime/webpack-9369c5c69dbf6d4912cb.js",
+      "static/chunks/commons.79d23a3666f5f9a600f6.js",
+      "static/runtime/main-80f907069f8bd5fc10fd.js"
+    ],
+    "/account": [
+      "static/runtime/webpack-9369c5c69dbf6d4912cb.js",
+      "static/chunks/commons.79d23a3666f5f9a600f6.js",
+      "static/runtime/main-80f907069f8bd5fc10fd.js"
+    ],
+    "/cart": [
+      "static/runtime/webpack-9369c5c69dbf6d4912cb.js",
+      "static/chunks/commons.79d23a3666f5f9a600f6.js",
+      "static/runtime/main-80f907069f8bd5fc10fd.js"
+    ],
+    "/contact": [
+      "static/runtime/webpack-9369c5c69dbf6d4912cb.js",
+      "static/chunks/commons.79d23a3666f5f9a600f6.js",
+      "static/runtime/main-80f907069f8bd5fc10fd.js"
+    ],
+    "/index": [
+      "static/runtime/webpack-9369c5c69dbf6d4912cb.js",
+      "static/chunks/commons.79d23a3666f5f9a600f6.js",
+      "static/css/styles.d1b56a21.chunk.css",
+      "static/chunks/styles.46c9edbdab229f24a067.js",
+      "static/runtime/main-80f907069f8bd5fc10fd.js"
+    ],
+    "/login": [
+      "static/runtime/webpack-9369c5c69dbf6d4912cb.js",
+      "static/chunks/commons.79d23a3666f5f9a600f6.js",
+      "static/runtime/main-80f907069f8bd5fc10fd.js"
+    ],
+    "/product/[id]": [
+      "static/runtime/webpack-9369c5c69dbf6d4912cb.js",
+      "static/chunks/commons.79d23a3666f5f9a600f6.js",
+      "static/css/styles.d1b56a21.chunk.css",
+      "static/chunks/styles.46c9edbdab229f24a067.js",
+      "static/runtime/main-80f907069f8bd5fc10fd.js"
+    ],
+    "/register": [
+      "static/runtime/webpack-9369c5c69dbf6d4912cb.js",
+      "static/chunks/commons.79d23a3666f5f9a600f6.js",
+      "static/runtime/main-80f907069f8bd5fc10fd.js"
+    ],
+    "/reset-password": [
+      "static/runtime/webpack-9369c5c69dbf6d4912cb.js",
+      "static/chunks/commons.79d23a3666f5f9a600f6.js",
+      "static/runtime/main-80f907069f8bd5fc10fd.js"
+    ],
+    "/shop": [
+      "static/runtime/webpack-9369c5c69dbf6d4912cb.js",
+      "static/chunks/commons.79d23a3666f5f9a600f6.js",
+      "static/css/styles.d1b56a21.chunk.css",
+      "static/chunks/styles.46c9edbdab229f24a067.js",
+      "static/runtime/main-80f907069f8bd5fc10fd.js"
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+{"ast":null,"code":"var __jsx = React.createElement;\nimport React from 'react';\n\nvar Dump = function Dump(_ref) {\n  var children = _ref.children;\n  return __jsx(\"main\", null, children);\n};\n\nexport default React.memo(Dump);","map":null,"metadata":{},"sourceType":"module"}

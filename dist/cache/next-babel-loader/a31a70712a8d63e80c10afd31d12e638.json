@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { all, put } from 'redux-saga/effects';\nimport { __CHANGE_IS_LOGGED } from '../actions';\nimport store from 'store';\nexport function* __SET_LOGGED(payload) {\n  yield put(store.dispatch(__CHANGE_IS_LOGGED(payload)));\n}\nexport function* _rootSaga() {\n  yield all([__SET_LOGGED]);\n}","map":null,"metadata":{},"sourceType":"module"}

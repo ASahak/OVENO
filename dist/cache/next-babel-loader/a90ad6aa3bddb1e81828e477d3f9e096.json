@@ -1,0 +1,1 @@
+{"ast":null,"code":"export const SET_IS_LOGGED = 'IS_LOGGED';\nexport const SET_CATEGORY_LIST = 'SET_CATEGORY_LIST';","map":null,"metadata":{},"sourceType":"module"}
