@@ -1,1 +1,0 @@
-{"ast":null,"code":"import Input from './Input';\nimport Button from './Button';\nimport Select from './Select';\nexport default {\n  Input: Input,\n  Button: Button,\n  Select: Select\n};","map":null,"metadata":{},"sourceType":"module"}
