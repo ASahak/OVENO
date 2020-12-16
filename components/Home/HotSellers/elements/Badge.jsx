@@ -5,7 +5,7 @@ import Icon from "components/Icons/icon";
 import Link from 'next/link';
 import ImageProd from "components/Shop/elements/imageProduct";
 import {connect} from "react-redux";
-import axios from "axios";
+import axios from "lib/axiosEnv";
 import {toast} from "react-toastify";
 const {
     getToken

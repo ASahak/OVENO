@@ -13,7 +13,7 @@ import {
 import UI_ELEMENTS from "components/shared/UI";
 import {useForm} from "react-hook-form";
 import PropTypes from 'prop-types'
-import axios from "axios";
+import axios from "lib/axiosEnv";
 import {toast} from "react-toastify";
 import {
     __SET_CATEGORY_LIST,

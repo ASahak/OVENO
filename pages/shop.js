@@ -6,7 +6,7 @@ import RangeSlider from 'components/Shop/RangeSlider';
 import Products from 'components/Shop/Products';
 import Icon from 'components/Icons/icon';
 import FormAdd from 'components/Shop/AddProductForm';
-import axios from "axios";
+import axios from "lib/axiosEnv";
 import Router from "next/router";
 import {connect} from "react-redux";
 import { Bus } from 'lib/EventEmitter';

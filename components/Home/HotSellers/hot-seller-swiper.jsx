@@ -2,7 +2,7 @@ import React from 'react';
 import Slider from "react-slick";
 import classes from './hot-seller.scss';
 import Badge from './elements/Badge';
-import axios from "axios";
+import axios from "lib/axiosEnv";
 import {connect} from "react-redux";
 
 const SampleNextArrow = (props) => {

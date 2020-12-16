@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './style.scss';
 import Badge from 'components/Home/HotSellers/elements/Badge';
 import {Row, Col} from 'reactstrap'
-import axios from "axios";
+import axios from "lib/axiosEnv";
 import {toast} from "react-toastify";
 import {
     RANGE_SLIDER

@@ -9,7 +9,7 @@ import {
 import Icon from "components/Icons/icon";
 import styles from './style.scss';
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import axios from "lib/axiosEnv";
 import {toast} from "react-toastify";
 const {
     getToken

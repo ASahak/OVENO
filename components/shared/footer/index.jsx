@@ -2,7 +2,7 @@ import React from 'react'
 import classesFooter from './footer.scss';
 import {Container, Row, Col} from 'reactstrap'
 import UI_ELEMENTS from "components/shared/UI";
-import axios from "axios";
+import axios from "lib/axiosEnv";
 import {toast} from "react-toastify";
 import * as constants from 'utils';
 

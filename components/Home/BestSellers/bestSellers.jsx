@@ -2,7 +2,7 @@ import React, {createRef, useState, useEffect} from 'react';
 import classes from './bestSellers.scss';
 import Link from 'next/link';
 import PropTypes from 'prop-types'
-import axios from "axios";
+import axios from "lib/axiosEnv";
 import ImageProd from "components/Shop/elements/imageProduct";
 
 let _intervalIndex = 0;

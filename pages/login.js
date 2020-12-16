@@ -9,7 +9,7 @@ import {
     EMAIL_VALIDATOR,
     PASSWORD_VALIDATOR
 } from 'utils';
-import axios from "axios";
+import axios from "lib/axiosEnv";
 import {toast} from "react-toastify";
 const {
     setToken
@@ -41,6 +41,7 @@ function LoginForm () {
             setToken(data.token);
             location.href = '/';
         } catch (err) {
+            console.log(err.message, 8);
             const timeEnd = new Date().getTime();
             if (timeEnd - timeStart > _timeout) {
                 generateAlert(reset, setLoadingLogin, 'error', err.message, _timeout)

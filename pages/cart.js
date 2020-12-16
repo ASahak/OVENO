@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import axios from "axios";
+import axios from "lib/axiosEnv";
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {Col, Container, Row} from "reactstrap";

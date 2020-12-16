@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef, useCallback} from 'react';
-import axios from "axios";
+import axios from "lib/axiosEnv";
 import {connect} from "react-redux";
 import {Col, Container, Row} from "reactstrap";
 import {toast} from "react-toastify";
