@@ -8,5 +8,6 @@ module.exports = {
     email_auth_password: process.env.EMAIL_AUTH_PASSWORD,
     secretKey: process.env.SECRET,
     clientURL: process.env.CLIENT_URL,
+    prodURL: process.env.PROD_URL,
     secretKeyResetPassword: process.env.SECRET_RESET_PASSWORD,
 };

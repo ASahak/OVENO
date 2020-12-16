@@ -4,7 +4,7 @@ import classesMiddleWrap from './middleWrap.scss';
 import Router from 'next/router';
 import {ModalToggle} from "utils/common";
 import {connect} from "react-redux";
-import axios from "axios";
+import axios from "lib/axiosEnv";
 import {Bus} from "lib/EventEmitter";
 const {
     getToken

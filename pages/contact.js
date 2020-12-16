@@ -7,7 +7,7 @@ import {
     EMAIL_VALIDATOR,
     FULL_NAME_VALIDATOR
 } from "utils";
-import axios from "axios";
+import axios from "lib/axiosEnv";
 import {toast} from "react-toastify";
 
 const Contact = (() => {

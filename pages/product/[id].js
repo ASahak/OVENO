@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router'
 import {Container, Row, Col} from 'reactstrap';
-import axios from "axios";
+import axios from "lib/axiosEnv";
 import Router from "next/router";
 import {connect} from "react-redux";
 import {toast} from "react-toastify";
