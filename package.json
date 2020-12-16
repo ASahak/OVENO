@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon server",
+    "dev": "nodemon server/index.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server",
-    "prestart": "npm run build",
+    "start": "nodemon server/index.js",
     "css:watch": "sass --no-source-map --watch static/styles/_main.scss:static/styles/css/main.css"
   },
   "dependencies": {
