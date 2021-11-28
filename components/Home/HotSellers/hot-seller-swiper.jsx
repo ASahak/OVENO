@@ -1,9 +1,9 @@
 import React from 'react';
-import Slider from "react-slick";
+import Slider from 'react-slick';
+import { connect } from 'react-redux';
 import classes from './hot-seller.scss';
 import Badge from './elements/Badge';
-import axios from "lib/axiosEnv";
-import {connect} from "react-redux";
+import axios from 'lib/axiosEnv';
 
 const SampleNextArrow = (props) => {
     const { onClick } = props;
@@ -19,10 +19,10 @@ const SamplePrevArrow = (props) => {
     );
 };
 
-class  HotSellers extends React.Component {
-    constructor (props) {
+class HotSellers extends React.Component {
+    constructor(props) {
         super(props);
-        this.state ={
+        this.state = {
             hotSeller: [],
         };
         this.params = {
@@ -32,8 +32,8 @@ class  HotSellers extends React.Component {
             pauseOnHover: true,
             slidesToShow: 5,
             slidesToScroll: 1,
-            nextArrow: <SampleNextArrow />,
-            prevArrow: <SamplePrevArrow />,
+            nextArrow: <SampleNextArrow/>,
+            prevArrow: <SamplePrevArrow/>,
             responsive: [
                 {
                     breakpoint: 1024,
@@ -52,12 +52,12 @@ class  HotSellers extends React.Component {
                     settings: {
                         slidesToShow: 3
                     }
-                },{
+                }, {
                     breakpoint: 576,
                     settings: {
                         slidesToShow: 2
                     }
-                },{
+                }, {
                     breakpoint: 480,
                     settings: {
                         slidesToShow: 1
@@ -70,7 +70,7 @@ class  HotSellers extends React.Component {
     }
 
     componentDidMount = async () => {
-        const {data} = await axios.get('/api/products/getRandom', {
+        const { data } = await axios.get('/api/products/getRandom', {
             params: {
                 count: 6
             }
@@ -83,7 +83,7 @@ class  HotSellers extends React.Component {
         }
     };
 
-    isAdmin () {
+    isAdmin() {
         return this.props.isUser && this.props.isUser.roleType === 'admin'
     };
 
@@ -91,7 +91,7 @@ class  HotSellers extends React.Component {
         return this.props.isUser && this.props.isUser.roleType === 'user'
     };
 
-    render () {
+    render() {
         return (
             <div className={classes['slider-container']}>
                 <div className={classes['slider-container_title']}>
@@ -103,7 +103,7 @@ class  HotSellers extends React.Component {
                         isUser={this.isUser()}
                         noAccessAdmin={true}
                         mainData={slide}
-                        key={slide._id} />)}
+                        key={slide._id}/>)}
                 </Slider>
             </div>
         )
@@ -113,8 +113,7 @@ class  HotSellers extends React.Component {
 const mapStateToProps = state => ({
     isUser: state.auth.user
 });
-const mapDispatchToProps = {
-};
+const mapDispatchToProps = {};
 export default connect(
     mapStateToProps,
     mapDispatchToProps

@@ -1,7 +1,8 @@
-import React, {createRef} from 'react'
+import React from 'react'
 import classes from './home-slider.scss'
+
 export default class HomeSlider extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
         this.state = {
             timer: 0,
@@ -21,6 +22,7 @@ export default class HomeSlider extends React.Component {
         this.progressSpinner = null;
         this.touchX = 0;
     }
+
     UNSAFE_componentWillMount() {
         if (this.props.dots) {
             this.setState({
@@ -28,9 +30,10 @@ export default class HomeSlider extends React.Component {
             })
         }
         this.setState({
-            styleWrapper: {'transform': 'translate3d(0px, 0px, 0px)'}
+            styleWrapper: { 'transform': 'translate3d(0px, 0px, 0px)' }
         })
     }
+
     handleVisibilityChange(hidden) {
         if (document[hidden]) {
             clearInterval(this.progressSpinner);
@@ -46,7 +49,7 @@ export default class HomeSlider extends React.Component {
     componentDidMount() {
         let hidden, visibilityChange;
         if (typeof document.hidden !== 'undefined') { // Opera 12.10 and Firefox 18 and later support
-            hidden = "hidden";
+            hidden = 'hidden';
             visibilityChange = 'visibilitychange';
         } else if (typeof document.msHidden !== 'undefined') {
             hidden = 'msHidden';
@@ -54,10 +57,10 @@ export default class HomeSlider extends React.Component {
         } else if (typeof document.webkitHidden !== 'undefined') {
             hidden = 'webkitHidden';
             visibilityChange = 'webkitvisibilitychange';
-       }
+        }
 
-        if (typeof document.addEventListener === "undefined" || hidden === undefined) {
-            console.log("This demo requires a browser, such as Google Chrome or Firefox, that supports the Page Visibility API.");
+        if (typeof document.addEventListener === 'undefined' || hidden === undefined) {
+            console.log('This demo requires a browser, such as Google Chrome or Firefox, that supports the Page Visibility API.');
         } else {
             // Handle page visibility change
             document.addEventListener(visibilityChange, this.handleVisibilityChange.bind(this, hidden), false);
@@ -74,39 +77,45 @@ export default class HomeSlider extends React.Component {
             })
         }
     }
-    componentWillUnmount () {
+
+    componentWillUnmount() {
         clearInterval(this.autoPlayInterval);
         clearInterval(this.progressSpinner);
     }
-    touchStart (event) {
+
+    touchStart(event) {
         this.touchX = event.touches[0].pageX;
     }
-    touchMove (event) {
+
+    touchMove(event) {
         clearInterval(this.progressSpinner);
         clearInterval(this.autoPlayInterval);
         this.getSliderPosition('touchMove', event.touches[0].pageX)
     }
-    touchEnd (event) {
+
+    touchEnd(event) {
         clearInterval(this.progressSpinner);
         clearInterval(this.autoPlayInterval);
         this.getSliderPosition('touchEnd', event.changedTouches[0].pageX)
     }
-    IntervalProgress () {
+
+    IntervalProgress() {
         let percentage = 0;
         clearInterval(this.progressSpinner);
         this.progressSpinner = setInterval(() => {
             if (this.svg.current && percentage < 100) {
-                percentage+=1;
-                this.svg.current.style.background = 'conic-gradient(#f01b48 '+ percentage + '%, 0, #f4f4f4 66%)';
+                percentage += 1;
+                this.svg.current.style.background = 'conic-gradient(#f01b48 ' + percentage + '%, 0, #f4f4f4 66%)';
             }
         }, this.state.timer / 100)
     }
-    AutoPlayWithTimer (timer) {
+
+    AutoPlayWithTimer(timer) {
         this.autoPlayInterval = setInterval(() => {
             this.IntervalProgress();
             let _activeIndex = this.state.activeIndex;
             if (_activeIndex === this.state.dotsCount - 1) _activeIndex = 0;
-            else  _activeIndex++;
+            else _activeIndex++;
             this.setState({
                 activeIndex: _activeIndex
             }, () => {
@@ -114,14 +123,16 @@ export default class HomeSlider extends React.Component {
             });
         }, timer);
     }
-    Slide (name, index) {
+
+    Slide(name, index) {
         return (
             <div key={index} className={classes['main-slider__slide']}>
                 <img src={require('../../../assets/images/global/' + name + '.jpg')} alt=""/>
             </div>
         )
     }
-    _slide (index) {
+
+    _slide(index) {
         if (index !== this.state.activeIndex) {
             clearInterval(this.progressSpinner);
             this.IntervalProgress();
@@ -135,13 +146,15 @@ export default class HomeSlider extends React.Component {
             })
         }
     }
-    getSliderPosition (type, touchX) {
+
+    getSliderPosition(type, touchX) {
         let widthSlider = this.slider.current && this.slider.current.getBoundingClientRect().width || 0;
         if (type === 'touchMove') {
             this.setState({
                 styleWrapper: {
                     'transition': '0s',
-                    'transform': 'translate3d(' + -(this.touchX - touchX + (widthSlider * this.state.activeIndex)) + 'px, 0px, 0px)'}
+                    'transform': 'translate3d(' + -(this.touchX - touchX + (widthSlider * this.state.activeIndex)) + 'px, 0px, 0px)'
+                }
             })
         } else if (type === 'touchEnd') {
             if (this.touchX > touchX) {
@@ -169,15 +182,18 @@ export default class HomeSlider extends React.Component {
             }
         } else {
             this.setState({
-                styleWrapper: {'transform': 'translate3d(' + -(widthSlider * this.state.activeIndex) + 'px, 0px, 0px)'}
+                styleWrapper: { 'transform': 'translate3d(' + -(widthSlider * this.state.activeIndex) + 'px, 0px, 0px)' }
             })
         }
     }
-    render () {
+
+    render() {
         const Dots = () => {
             const dots = Array(this.state.dotsCount).fill('').map((_, index) => {
                 return (
-                    <span onClick={() => this._slide(index)} className={`${index === this.state.activeIndex ? 'active-bullet' : ''} bullet`} key={index}></span>
+                    <span onClick={() => this._slide(index)}
+                          className={`${index === this.state.activeIndex ? 'active-bullet' : ''} bullet`}
+                          key={index}></span>
                 )
             });
             return (
@@ -195,13 +211,14 @@ export default class HomeSlider extends React.Component {
         };
         return (
             <div className={classes['main-slider']} ref={this.slider}>
-                <div className={classes['main-slider__container']} onTouchStart={this.touchStart} onTouchMove={this.touchMove} onTouchEnd={this.touchEnd}>
-                    {(this.props.autoplay) && <Spinner />}
+                <div className={classes['main-slider__container']} onTouchStart={this.touchStart}
+                     onTouchMove={this.touchMove} onTouchEnd={this.touchEnd}>
+                    {(this.props.autoplay) && <Spinner/>}
                     <div className={classes['main-slider__wrapper']} style={this.state.styleWrapper}>
                         {this.images.map(this.Slide)}
                     </div>
                 </div>
-                {(this.props.dots) && <Dots />}
+                {(this.props.dots) && <Dots/>}
             </div>
         )
     }

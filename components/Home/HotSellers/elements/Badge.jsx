@@ -1,12 +1,13 @@
-import styles from "./badge.scss";
-import React from "react";
-import PropTypes from "prop-types";
-import Icon from "components/Icons/icon";
+import PropTypes from 'prop-types';
+import React from 'react';
+import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
+import styles from './badge.scss';
+import Icon from 'components/Icons/icon';
 import Link from 'next/link';
-import ImageProd from "components/Shop/elements/imageProduct";
-import {connect} from "react-redux";
-import axios from "lib/axiosEnv";
-import {toast} from "react-toastify";
+import ImageProd from 'components/Shop/elements/imageProduct';
+import axios from 'lib/axiosEnv';
+
 const {
     getToken
 } = require('utils/auth');
@@ -25,15 +26,15 @@ const Badge = (props) => {
         try {
             if (!props.loggedUser) throw Error('Please login before add product!');
             if ((props.loggedUser && props.mainData) && props.loggedUser.cart.some(el => el._id === props.mainData._id)) {
-                throw Error("You have this product in your cart already!");
+                throw Error('You have this product in your cart already!');
             }
 
-            const {data} = await axios.post('/api/cart/addToCart', {
+            const { data } = await axios.post('/api/cart/addToCart', {
                 userId: props.loggedUser._id,
                 id: props.mainData._id,
                 count: 1,
             }, {
-                headers: { Authorization: getToken('token')},
+                headers: { Authorization: getToken('token') },
             });
             if (data.error) throw Error(data.error);
 
@@ -41,16 +42,16 @@ const Badge = (props) => {
                 _id: props.mainData._id,
                 count: 1,
             });
-            __SET_LOGGED({user: props.loggedUser}).next();
+            __SET_LOGGED({ user: props.loggedUser }).next();
 
             toast.dark(data.message, {
-                position: "top-right",
+                position: 'top-right',
                 autoClose: 3000,
                 pauseOnHover: false
             });
         } catch (err) {
             toast.error(err.response ? err.response.data : err.message, {
-                position: "top-right",
+                position: 'top-right',
                 autoClose: 3000,
                 pauseOnHover: false,
             });
@@ -61,17 +62,19 @@ const Badge = (props) => {
         <div className={styles['slider_item']}>
             <div className={styles['slider_item-top']}>
                 <ImageProd src={props.mainData.photo}/>
-                {props.mainData.sale !== 0 && <span className={styles['slider_item-sale_badge']}>Sale -{props.mainData.sale}%</span>}
+                {props.mainData.sale !== 0 &&
+                <span className={styles['slider_item-sale_badge']}>Sale -{props.mainData.sale}%</span>}
                 <div className={styles['slider_item-top_actions-links']}>
                     <span className="lnr lnr-cart" onClick={() => addToCartProd()}></span>
-                    <Link href={"/product/" + props.mainData._id}><a><span className="lnr lnr-eye"></span></a></Link>
+                    <Link href={'/product/' + props.mainData._id}><a><span className="lnr lnr-eye"></span></a></Link>
                 </div>
                 <h4>{props.mainData.name}</h4>
             </div>
             <div className={styles['slider_item-bottom']}>
                 <div className={styles['slider_item-bottom_price']}>
                     {props.mainData.sale !== 0 ? <>
-                        <span className={styles['slider_item-bottom_price_real']}>{Math.round(props.mainData.price - (props.mainData.price * props.mainData.sale / 100 ))}$</span>
+                        <span
+                            className={styles['slider_item-bottom_price_real']}>{Math.round(props.mainData.price - (props.mainData.price * props.mainData.sale / 100))}$</span>
                         <span className={styles['slider_item-bottom_price_del']}>{props.mainData.price}$</span>
                     </> : <span className={styles['slider_item-bottom_price_real']}>{props.mainData.price}$</span>}
                 </div>
@@ -95,7 +98,7 @@ const Badge = (props) => {
                     <Icon name="delete"/>
                 </span>
                 </div>
-            : ''}
+                : ''}
         </div>
     )
 };
@@ -111,8 +114,7 @@ Badge.propTypes = {
 const mapStateToProps = state => ({
     loggedUser: state.auth.user
 });
-const mapDispatchToProps = {
-};
+const mapDispatchToProps = {};
 export default connect(
     mapStateToProps,
     mapDispatchToProps

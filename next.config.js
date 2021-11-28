@@ -14,7 +14,7 @@ const resourcesLoader = {
     }
 };
 module.exports = withSass(withCss({
-    distDir: "dist",
+    distDir: 'dist',
     cssModules: true,
     webpack: (config, options) => {
         config.module.rules.push({
