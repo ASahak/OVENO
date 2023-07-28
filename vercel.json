@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "next.config.js",
+      "use": "@nextjs/vercel-builder",
+      "config": {
+        "serverFiles": ["server-middleware/**"]
+      }
+    }
+  ],
+}

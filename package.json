@@ -7,6 +7,7 @@
     "dev": "nodemon index.js",
     "build": "next build",
     "start": "nodemon index.js",
+    "vercel-build": "yarn global add node-gyp",
     "css:watch": "sass --no-source-map --watch static/styles/_main.scss:static/styles/css/main.css"
   },
   "dependencies": {
